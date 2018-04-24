@@ -12,6 +12,8 @@ public class PlayerInput : MonoBehaviour {
 
     public float Dup;
     public float Dright;
+    public float Dmag;
+    public Vector3 Dforward;
 
     public bool inputEnable = true;
 
@@ -38,6 +40,8 @@ public class PlayerInput : MonoBehaviour {
 
         Dup = Mathf.SmoothDamp(Dup, DupTarget, ref DupVelocity, 0.1f);
         Dright = Mathf.SmoothDamp(Dright, DrightTarget, ref DrightVelocity, 0.1f);
+        Dmag = Mathf.Sqrt(Dup * Dup + Dright * Dright);
+        Dforward = transform.forward * Dup + transform.right * Dright;
     }
 
 }
