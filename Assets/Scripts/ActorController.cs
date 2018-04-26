@@ -19,7 +19,13 @@ public class ActorController : MonoBehaviour
 
     private PlayerInput playerInput;
 
-    private Vector3 movingVec;
+    private Vector3 planerVec;
+
+    private Vector3 thrustVec;
+
+    public float jumpVelocity = 3.0f;
+
+    private bool lockPlaner = false;
 
     // Use this for initialization
     private void Awake()
@@ -38,7 +44,12 @@ public class ActorController : MonoBehaviour
         {
             model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
         }
-        movingVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
+
+        if (!lockPlaner)
+        {
+            planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
+        }
+
         if (playerInput.jump)
         {
             actor.SetTrigger("Jump");
@@ -47,16 +58,21 @@ public class ActorController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigid.position += movingVec * Time.fixedDeltaTime;
+        //rigid.position += planerVec * Time.fixedDeltaTime;
+        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
+        thrustVec = Vector3.zero;
     }
 
     private void OnJumpEnter()
     {
-        Debug.Log("On Jump Enter");
+        playerInput.inputEnable = false;
+        lockPlaner = true;
+        thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
     private void OnJumpExit()
     {
-        Debug.Log("On Jump Exit");
+        playerInput.inputEnable = true;
+        lockPlaner = false;
     }
 }
