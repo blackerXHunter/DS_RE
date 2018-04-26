@@ -314,9 +314,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1197768993}
   - component: {fileID: 1197768990}
-  - component: {fileID: 1197768992}
   - component: {fileID: 1197768989}
   - component: {fileID: 1197768991}
+  - component: {fileID: 1197768992}
   m_Layer: 0
   m_Name: PlayerHandle
   m_TagString: Untagged
@@ -339,10 +339,16 @@ MonoBehaviour:
   keyDown: s
   keyLeft: a
   keyRight: d
+  keyA: left shift
+  keyB: space
+  keyC: 
+  keyD: 
   Dup: 0
   Dright: 0
   Dmag: 0
   Dforward: {x: 0, y: 0, z: 0}
+  run: 0
+  jump: 0
   inputEnable: 1
 --- !u!136 &1197768990
 CapsuleCollider:
@@ -371,6 +377,7 @@ MonoBehaviour:
   model: {fileID: 1267754806}
   actor: {fileID: 0}
   walkSpeed: 1.36
+  runSpeed: 3
 --- !u!54 &1197768992
 Rigidbody:
   m_ObjectHideFlags: 0
