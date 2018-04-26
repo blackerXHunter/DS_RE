@@ -49,4 +49,14 @@ public class ActorController : MonoBehaviour
     {
         rigid.position += movingVec * Time.fixedDeltaTime;
     }
+
+    private void OnJumpEnter()
+    {
+        Debug.Log("On Jump Enter");
+    }
+
+    private void OnJumpExit()
+    {
+        Debug.Log("On Jump Exit");
+    }
 }

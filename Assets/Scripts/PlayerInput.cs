@@ -69,7 +69,6 @@ public class PlayerInput : MonoBehaviour {
         if (newJump != lastJump && newJump == true)
         {
             jump = true;
-            Debug.Log("jump!");
         }
         else
         {
