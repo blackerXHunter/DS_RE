@@ -23,7 +23,11 @@ public class ActorController : MonoBehaviour
 
     private Vector3 thrustVec;
 
+    private Vector3 rollVec;
+
     public float jumpVelocity = 3.0f;
+
+    public float rollVelocity = 5.0f;
 
     private bool lockPlaner = false;
 
@@ -40,6 +44,10 @@ public class ActorController : MonoBehaviour
     {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
         actor.SetFloat("Forward", playerInput.Dmag * Mathf.Lerp(actor.GetFloat("Forward"), targetRunMulti, 0.2f));
+        if (rigid.velocity.magnitude > 2)
+        {
+            actor.SetTrigger("Roll");
+        }
         if (playerInput.Dmag > 0.1f)
         {
             model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
@@ -59,7 +67,7 @@ public class ActorController : MonoBehaviour
     private void FixedUpdate()
     {
         //rigid.position += planerVec * Time.fixedDeltaTime;
-        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
+        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec + rollVec;
         thrustVec = Vector3.zero;
     }
 
@@ -100,6 +108,16 @@ public class ActorController : MonoBehaviour
         playerInput.inputEnable = false;
         lockPlaner = true;
         //thrustVec = new Vector3(0, jumpVelocity, 0);
+    }
+
+    private void OnRollEnter()
+    {
+       
+    }
+
+    private void OnRollExit()
+    {
+        rollVec = Vector3.zero;
     }
     #endregion
 }
