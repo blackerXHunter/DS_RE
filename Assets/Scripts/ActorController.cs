@@ -23,11 +23,11 @@ public class ActorController : MonoBehaviour
 
     private Vector3 thrustVec;
 
-    private Vector3 rollVec;
-
     public float jumpVelocity = 3.0f;
 
-    public float rollVelocity = 5.0f;
+    public float rollVelocity = 3.0f;
+
+    public float jabVelocity = 2.0f;
 
     private bool lockPlaner = false;
 
@@ -67,7 +67,7 @@ public class ActorController : MonoBehaviour
     private void FixedUpdate()
     {
         //rigid.position += planerVec * Time.fixedDeltaTime;
-        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec + rollVec;
+        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
         thrustVec = Vector3.zero;
     }
 
@@ -112,12 +112,20 @@ public class ActorController : MonoBehaviour
 
     private void OnRollEnter()
     {
-       
+        thrustVec = new Vector3(0, rollVelocity, 0);
+        playerInput.inputEnable = false;
+        lockPlaner = true;
     }
 
-    private void OnRollExit()
+    private void OnJabEnter()
     {
-        rollVec = Vector3.zero;
+        playerInput.inputEnable = false;
+        lockPlaner = true;
+    }
+
+    private void OnJabStay()
+    {
+        thrustVec = new Vector3(0, 0, actor.GetFloat("jabVelocity"));
     }
     #endregion
 }

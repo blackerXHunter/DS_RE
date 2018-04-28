@@ -16,11 +16,19 @@ public class PlayerInput : MonoBehaviour {
     public string keyC;
     public string keyD;
 
+    public string keyJUp;
+    public string keyJRight;
+    public string keyJLeft;
+    public string keyJDown;
+
     [Header("===== output signals =====")]
     public float Dup;
     public float Dright;
     public float Dmag;
     public Vector3 Dforward;
+
+    public float Jup;
+    public float Jright;
 
     // 1. pressing signal
     public bool run;
@@ -36,13 +44,12 @@ public class PlayerInput : MonoBehaviour {
     private float DupVelocity;
     private float DrightVelocity;
 
-    // Use this for initialization
-    private void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	private void Update () {
+        Jup = Input.GetKey(keyJUp)?1.0f:0 - (Input.GetKey(keyJDown)?1.0f:0);
+        Jright = Input.GetKey(keyJRight) ? 1.0f : 0 - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+
         DupTarget = Input.GetKey(keyUp)?1f:0f - (Input.GetKey(keyDown)?1f:0f);
         DrightTarget = Input.GetKey(keyRight)?1f:0f - (Input.GetKey(keyLeft)?1f:0f);
 
