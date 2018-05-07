@@ -13,37 +13,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Jump
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: InGround
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 1
-    m_Controller: {fileID: 9100000}
-  - m_Name: Roll
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: jabVelocity
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: attackVelocity
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Jump
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Roll
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: InGround
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -65,7 +71,7 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
+    m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -81,6 +87,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onExitMessage: []
+--- !u!114 &114025722365701176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e65c4173b50434da65e740aa3aab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessage:
+  - OnAttack1hAEnter
 --- !u!114 &114147828326126188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +116,19 @@ MonoBehaviour:
   - Roll
   clearAtExit:
   - Jump
+--- !u!114 &114181129186731380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0444161da12f140be61244f19afef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onExitMessage:
+  - OnGroundExit
 --- !u!114 &114201663390576482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,6 +211,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessage:
   - OnJumpEnter
+--- !u!114 &114591497675447676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a632ada7076e44c85f661459c7482f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onStayMessages:
+  - OnAttack1hAStay
 --- !u!114 &114594599730065454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +237,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onStayMessages:
   - OnJabStay
+--- !u!114 &114624202906530232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e65c4173b50434da65e740aa3aab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessage:
+  - OnAttackIdelEnter
 --- !u!114 &114651485039844584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,7 +597,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.8972603
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -667,7 +725,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101896522914922866}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114624202906530232}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -699,6 +758,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: 114147828326126188}
   - {fileID: 114834144636727908}
+  - {fileID: 114181129186731380}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -726,6 +786,8 @@ AnimatorState:
   - {fileID: 1101219541360297242}
   m_StateMachineBehaviours:
   - {fileID: 114336489288721208}
+  - {fileID: 114025722365701176}
+  - {fileID: 114591497675447676}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

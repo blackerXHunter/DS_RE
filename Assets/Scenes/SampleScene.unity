@@ -425,12 +425,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 1267754806}
-  actor: {fileID: 0}
   walkSpeed: 1.36
   runSpeed: 3
   jumpVelocity: 3
   rollVelocity: 2
   jabVelocity: 10
+  fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
+  fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
 --- !u!54 &1197768992
 Rigidbody:
   m_ObjectHideFlags: 0

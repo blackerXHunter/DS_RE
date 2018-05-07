@@ -7,10 +7,11 @@ public class ActorController : MonoBehaviour
 
     public GameObject model;
 
-    [SerializeField]
     private Animator actor;
 
     private Rigidbody rigid;
+
+    private Collider coll;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
@@ -31,12 +32,19 @@ public class ActorController : MonoBehaviour
 
     private bool lockPlaner = false;
 
+    private bool canAttack;
+
+    [Header("===== Frication Settings =====")]
+    public PhysicMaterial fricationOne;
+    public PhysicMaterial fricationZero;
+
     // Use this for initialization
     private void Awake()
     {
         actor = model.GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -61,9 +69,10 @@ public class ActorController : MonoBehaviour
         if (playerInput.jump)
         {
             actor.SetTrigger("Jump");
+            canAttack = false;
         }
 
-        if (playerInput.attack)
+        if (playerInput.attack && CheckState("ground") && canAttack)
         {
             actor.SetTrigger("attack");
         }
@@ -74,6 +83,11 @@ public class ActorController : MonoBehaviour
         //rigid.position += planerVec * Time.fixedDeltaTime;
         rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
         thrustVec = Vector3.zero;
+    }
+
+    private bool CheckState(string stateName, string layerName = "Base Layer")
+    {
+        return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
     }
 
     #region Message processing
@@ -106,6 +120,16 @@ public class ActorController : MonoBehaviour
     {
         playerInput.inputEnable = true;
         lockPlaner = false;
+        canAttack = true;
+        coll.material = fricationOne;
+    }
+
+    private void OnGroundExit()
+    {
+        playerInput.inputEnable = true;
+        lockPlaner = false;
+        canAttack = true;
+        coll.material = fricationZero;
     }
 
     private void OnFallEnter()
@@ -130,7 +154,7 @@ public class ActorController : MonoBehaviour
 
     private void OnJabStay()
     {
-        thrustVec = new Vector3(0, 0, actor.GetFloat("jabVelocity"));
+        thrustVec = actor.GetFloat("jabVelocity") * (-model.transform.forward);
     }
 
     public void OnAttack1hAEnter()
@@ -143,7 +167,11 @@ public class ActorController : MonoBehaviour
     {
         playerInput.inputEnable = true;
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), 0);
+    }
 
+    public void OnAttack1hAStay()
+    {
+        thrustVec = new Vector3(0, 0, actor.GetFloat("attackVelocity"));
     }
     #endregion
 }
