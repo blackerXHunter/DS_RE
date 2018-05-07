@@ -188,7 +188,6 @@ GameObject:
   - component: {fileID: 282840814}
   - component: {fileID: 282840813}
   - component: {fileID: 282840811}
-  - component: {fileID: 282840812}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -203,22 +202,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282840810}
   m_Enabled: 1
---- !u!114 &282840812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 282840810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae9ef9a68d287b4b9194b6985c427b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontal: 100
-  vertical: 50
-  input: {fileID: 1197768989}
-  playerHandle: {fileID: 1197768988}
-  cameraHandle: {fileID: 1328105709}
 --- !u!20 &282840813
 Camera:
   m_ObjectHideFlags: 0
@@ -261,12 +244,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282840810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.49}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.549, z: -2.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1328105710}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798834440
 GameObject:
@@ -401,7 +384,7 @@ MonoBehaviour:
   keyRight: d
   keyA: left shift
   keyB: space
-  keyC: 
+  keyC: j
   keyD: 
   keyJUp: up
   keyJRight: right
@@ -415,6 +398,7 @@ MonoBehaviour:
   Jright: 0
   run: 0
   jump: 0
+  attack: 0
   inputEnable: 1
 --- !u!136 &1197768990
 CapsuleCollider:
@@ -491,9 +475,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 100
   vertical: 50
-  input: {fileID: 0}
-  playerHandle: {fileID: 0}
-  cameraHandle: {fileID: 0}
+  input: {fileID: 1197768989}
+  playerHandle: {fileID: 1197768988}
+  cameraHandle: {fileID: 1328105709}
+  smoothSpeed: 0.1
 --- !u!1 &1267754806 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100138, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
@@ -507,7 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1328105710}
   m_Layer: 0
-  m_Name: cameraHandle
+  m_Name: cameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,11 +504,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1328105709}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.549, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.549, z: -1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 282840814}
+  m_Children: []
   m_Father: {fileID: 1197768993}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -62,6 +62,11 @@ public class ActorController : MonoBehaviour
         {
             actor.SetTrigger("Jump");
         }
+
+        if (playerInput.attack)
+        {
+            actor.SetTrigger("attack");
+        }
     }
 
     private void FixedUpdate()
@@ -126,6 +131,19 @@ public class ActorController : MonoBehaviour
     private void OnJabStay()
     {
         thrustVec = new Vector3(0, 0, actor.GetFloat("jabVelocity"));
+    }
+
+    public void OnAttack1hAEnter()
+    {
+        playerInput.inputEnable = false;
+        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), 1);
+    }
+
+    public void OnAttackIdelEnter()
+    {
+        playerInput.inputEnable = true;
+        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), 0);
+
     }
     #endregion
 }
