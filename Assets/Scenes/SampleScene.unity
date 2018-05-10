@@ -428,7 +428,7 @@ MonoBehaviour:
   walkSpeed: 1.36
   runSpeed: 3
   jumpVelocity: 3
-  rollVelocity: 2
+  rollVelocity: 10
   jabVelocity: 10
   lerpSpeed: 5
   fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
