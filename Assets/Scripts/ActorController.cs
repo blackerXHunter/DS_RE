@@ -34,6 +34,11 @@ public class ActorController : MonoBehaviour
 
     private bool canAttack;
 
+    private float lerpTarget;
+
+    [SerializeField]
+    private float lerpSpeed = 1.0f;
+
     [Header("===== Frication Settings =====")]
     public PhysicMaterial fricationOne;
     public PhysicMaterial fricationZero;
@@ -141,7 +146,7 @@ public class ActorController : MonoBehaviour
 
     private void OnRollEnter()
     {
-        thrustVec = new Vector3(0, rollVelocity, 0);
+        thrustVec = rollVelocity * model.transform.forward + new Vector3(0, rollVelocity, 0);
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
@@ -154,24 +159,34 @@ public class ActorController : MonoBehaviour
 
     private void OnJabStay()
     {
-        thrustVec = actor.GetFloat("jabVelocity") * (-model.transform.forward);
+        thrustVec = actor.GetFloat("jabVelocity") * (model.transform.forward);
     }
 
-    public void OnAttack1hAEnter()
+    private void OnAttack1hAEnter()
     {
         playerInput.inputEnable = false;
-        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), 1);
+        lerpTarget = 1.0f;
     }
 
-    public void OnAttackIdelEnter()
-    {
-        playerInput.inputEnable = true;
-        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), 0);
-    }
-
-    public void OnAttack1hAStay()
+    private void OnAttack1hAUpdate()
     {
         thrustVec = new Vector3(0, 0, actor.GetFloat("attackVelocity"));
+        var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
+        currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
+        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
+    }
+
+    private void OnAttackIdelEnter()
+    {
+        playerInput.inputEnable = true;
+        lerpTarget = 0.0f;
+    }
+
+    private void OnAttackIdelUpdate()
+    {
+        var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
+        currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
+        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
     }
     #endregion
 }

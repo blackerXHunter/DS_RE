@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -430,6 +430,7 @@ MonoBehaviour:
   jumpVelocity: 3
   rollVelocity: 2
   jabVelocity: 10
+  lerpSpeed: 5
   fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
   fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
 --- !u!54 &1197768992
