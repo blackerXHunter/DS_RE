@@ -36,6 +36,8 @@ public class ActorController : MonoBehaviour
 
     private float lerpTarget;
 
+    private Vector3 deltaPos;
+
     [SerializeField]
     private float lerpSpeed = 1.0f;
 
@@ -85,7 +87,8 @@ public class ActorController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rigid.position += planerVec * Time.fixedDeltaTime;
+        rigid.position += deltaPos;
+        deltaPos = Vector3.zero;
         rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
         thrustVec = Vector3.zero;
     }
@@ -146,7 +149,7 @@ public class ActorController : MonoBehaviour
 
     private void OnRollEnter()
     {
-        thrustVec = rollVelocity * model.transform.forward + new Vector3(0, rollVelocity, 0);
+        //thrustVec = rollVelocity * model.transform.forward + new Vector3(0, rollVelocity, 0);
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
@@ -170,7 +173,7 @@ public class ActorController : MonoBehaviour
 
     private void OnAttack1hAUpdate()
     {
-        thrustVec = new Vector3(0, 0, actor.GetFloat("attackVelocity"));
+        thrustVec =  actor.GetFloat("attackVelocity") * model.transform.forward;
         var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
         currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
@@ -187,6 +190,14 @@ public class ActorController : MonoBehaviour
         var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
         currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
+    }
+
+    private void OnUpdateAnimatorMove(object deltaPos)
+    {
+        if (CheckState("attack1hC", "Attack Layer") || CheckState("roll"))
+        {
+            this.deltaPos = (Vector3)deltaPos;
+        }
     }
     #endregion
 }

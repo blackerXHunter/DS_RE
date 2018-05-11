@@ -160,7 +160,6 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -186,9 +185,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
@@ -196,51 +195,36 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 3
+          - serializedVersion: 2
             time: 0.0012550354
             value: 0
             inSlope: -0.4913104
             outSlope: -0.4913104
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
+          - serializedVersion: 2
             time: 0.26640475
             value: -0.46146482
             inSlope: -4.670769
             outSlope: -4.670769
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
+          - serializedVersion: 2
             time: 0.4137944
             value: -1.6425037
             inSlope: -3.4686718
             outSlope: -3.4686718
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
+          - serializedVersion: 2
             time: 0.6793176
             value: -1.7289027
             inSlope: 1.9537139
             outSlope: 1.9537139
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
+          - serializedVersion: 2
             time: 1
             value: 0
             inSlope: 3.2770379
             outSlope: 3.2770379
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
