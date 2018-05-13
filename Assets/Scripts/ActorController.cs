@@ -18,7 +18,7 @@ public class ActorController : MonoBehaviour
     [SerializeField]
     private float runSpeed = 2.5f;
 
-    private PlayerInput playerInput;
+    private UserInput playerInput;
 
     private Vector3 planerVec;
 
@@ -49,7 +49,7 @@ public class ActorController : MonoBehaviour
     private void Awake()
     {
         actor = model.GetComponent<Animator>();
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = UserInput.GetEnabledUserInput(gameObject);
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
     }
@@ -149,7 +149,7 @@ public class ActorController : MonoBehaviour
 
     private void OnRollEnter()
     {
-        //thrustVec = rollVelocity * model.transform.forward + new Vector3(0, rollVelocity, 0);
+        thrustVec = rollVelocity * model.transform.forward + new Vector3(0, 2, 0);
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
@@ -173,7 +173,7 @@ public class ActorController : MonoBehaviour
 
     private void OnAttack1hAUpdate()
     {
-        thrustVec =  actor.GetFloat("attackVelocity") * model.transform.forward;
+        thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
         var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
         currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
@@ -192,11 +192,12 @@ public class ActorController : MonoBehaviour
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
     }
 
-    private void OnUpdateAnimatorMove(object deltaPos)
+
+    private void OnUpdateAnimatorMove(object _deltaPos)
     {
-        if (CheckState("attack1hC", "Attack Layer") || CheckState("roll"))
+        if (CheckState("attack1hC", "Attack Layer"))
         {
-            this.deltaPos = (Vector3)deltaPos;
+            this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
     }
     #endregion

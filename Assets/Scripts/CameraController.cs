@@ -8,18 +8,17 @@ public class CameraController : MonoBehaviour
     public float vertical = 50f;
 
     [SerializeField]
-    private PlayerInput input;
-
-    [SerializeField]
     private GameObject playerHandle;
     [SerializeField]
     private GameObject cameraHandle;
-
+    [SerializeField]
+    private GameObject cameraPos;
+     
     private GameObject model;
 
     private GameObject cam;
 
-    private PlayerInput playerInput;
+    private UserInput playerInput;
 
     private float tempEulerX;
 
@@ -32,7 +31,7 @@ public class CameraController : MonoBehaviour
     {
         model = playerHandle.GetComponent<ActorController>().model;
         cam = Camera.main.gameObject;
-        playerInput = playerHandle.GetComponent<PlayerInput>();
+        playerInput = UserInput.GetEnabledUserInput(playerHandle);
     }
 
     // Update is called once per frame
@@ -43,7 +42,7 @@ public class CameraController : MonoBehaviour
 
         if (playerHandle != null)
         {
-            playerHandle.transform.Rotate(playerHandle.transform.up, input.Jright * horizontal * Time.fixedDeltaTime);
+            playerHandle.transform.Rotate(playerHandle.transform.up, playerInput.Jright * horizontal * Time.fixedDeltaTime);
         }
         if (cameraHandle != null)
         {
@@ -53,7 +52,8 @@ public class CameraController : MonoBehaviour
         }
 
         model.transform.rotation = Quaternion.Euler(tempModelEuler);
-        cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraHandle.transform.position, ref smoothDampVec, .2f);
-        cam.transform.eulerAngles = cameraHandle.transform.eulerAngles;
+        cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
+        //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
+        cam.transform.LookAt(cameraHandle.transform);
     }
 }

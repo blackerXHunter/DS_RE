@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour {
+public class KeyMouseInput : UserInput {
 
     //variable
     [Header("===== key settings =====")]
@@ -20,32 +20,6 @@ public class PlayerInput : MonoBehaviour {
     public string keyJRight;
     public string keyJLeft;
     public string keyJDown;
-
-    [Header("===== output signals =====")]
-    public float Dup;
-    public float Dright;
-    public float Dmag;
-    public Vector3 Dforward;
-
-    public float Jup;
-    public float Jright;
-
-    // 1. pressing signal
-    public bool run;
-    // 2. trigger once signal
-    public bool jump;
-    private bool lastJump;
-
-    public bool attack;
-    private bool lastAttack;
-
-    [Header("===== others =====")]
-    public bool inputEnable = true;
-
-    private float DupTarget;
-    private float DrightTarget;
-    private float DupVelocity;
-    private float DrightVelocity;
 
 	
 	// Update is called once per frame
