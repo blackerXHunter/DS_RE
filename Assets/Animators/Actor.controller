@@ -292,8 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d20b3e9d71f75438b8912eadbaed93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearAtEnter:
-  - attack
+  clearAtEnter: []
   clearAtExit:
   - attack
 --- !u!114 &114834144636727908
@@ -621,9 +620,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.42481667
   m_TransitionOffset: 0
-  m_ExitTime: 0.50654
+  m_ExitTime: 0.37542754
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -693,9 +692,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.21430433
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7016333
+  m_TransitionDuration: 0.18471634
+  m_TransitionOffset: 0.022190945
+  m_ExitTime: 0.5898564
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -717,9 +716,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.15805745
+  m_TransitionDuration: 0.4145695
   m_TransitionOffset: 0
-  m_ExitTime: 0.8972603
+  m_ExitTime: 0.020336933
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
