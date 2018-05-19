@@ -60,6 +60,7 @@ public class JoystickInput : UserInput
         Dforward = transform.forward * Dup2 + transform.right * Dright2;
 
         run = Input.GetButton(btn0);
+        defense = Input.GetButton(btn4);
 
         bool newJump = Input.GetButton(btn1);
         if (newJump != lastJump && newJump == true)

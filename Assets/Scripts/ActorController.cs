@@ -72,6 +72,8 @@ public class ActorController : MonoBehaviour
         {
             planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
         }
+        
+        actor.SetBool("defense", playerInput.defense);
 
         if (playerInput.jump)
         {

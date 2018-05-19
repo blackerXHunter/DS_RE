@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 23300891}
   - component: {fileID: 23300890}
   - component: {fileID: 23300889}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 156350958}
   - component: {fileID: 156350957}
   - component: {fileID: 156350956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,8 +223,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 156350954}
   m_LocalRotation: {x: 4.78984e-10, y: -0.0000000073186333, z: 0.06139339, w: 0.99811363}
-  m_LocalPosition: {x: -0.027, y: 0.06, z: 0}
-  m_LocalScale: {x: 0.49675655, y: 0.049760174, z: 0.3402809}
+  m_LocalPosition: {x: -0.196, y: 0.033, z: 0}
+  m_LocalScale: {x: 0.6347912, y: 0.049760174, z: 0.3402809}
   m_Children: []
   m_Father: {fileID: 256317183}
   m_RootOrder: 0
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1197768988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 837d3cf6a2ce3544794a9a2d026440fc, type: 3}
   m_Name: 
@@ -646,6 +646,7 @@ MonoBehaviour:
   Jup: 0
   Jright: 0
   run: 0
+  defense: 0
   jump: 0
   attack: 0
   inputEnable: 1
@@ -731,7 +732,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1197768988}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb4f4e407b2188d45a9e329c2cd17627, type: 3}
   m_Name: 
@@ -743,6 +744,7 @@ MonoBehaviour:
   Jup: 0
   Jright: 0
   run: 0
+  defense: 0
   jump: 0
   attack: 0
   inputEnable: 1
@@ -779,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7e7770a9347004ebff16e59ef00bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angles: {x: -18.4, y: -66.51, z: 38.89}
 --- !u!114 &1267754808
 MonoBehaviour:
   m_ObjectHideFlags: 0

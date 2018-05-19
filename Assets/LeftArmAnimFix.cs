@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeftArmAnimFix : MonoBehaviour {
+public class LeftArmAnimFix : MonoBehaviour
+{
 
     private Animator anim;
+
+    public Vector3 angles;
 
     private void Start()
     {
@@ -13,8 +16,14 @@ public class LeftArmAnimFix : MonoBehaviour {
 
     private void OnAnimatorIK(int layerIndex)
     {
-        Transform leftLowerArmTransform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
+        if (!anim.GetBool("defense"))
+        {
+            Transform leftLowerArmTransform = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
 
-        leftLowerArmTransform.localEulerAngles = Vector3.zero;
+            leftLowerArmTransform.localEulerAngles += angles;
+
+            anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArmTransform.localEulerAngles));
+        }
+
     }
 }
