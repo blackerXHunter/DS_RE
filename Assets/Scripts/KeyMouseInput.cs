@@ -63,6 +63,8 @@ public class KeyMouseInput : UserInput {
         attack = buttonC.OnPressed;
 
         defense = buttonD.IsPressing;
+
+        //Debug.Log(buttonD.isExtending && buttonD.OnPressed);
     }
 
     private Vector2 SquareToCircle(Vector2 input)
