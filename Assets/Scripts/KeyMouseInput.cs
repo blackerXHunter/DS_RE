@@ -21,9 +21,18 @@ public class KeyMouseInput : UserInput {
     public string keyJLeft;
     public string keyJDown;
 
-	
-	// Update is called once per frame
-	private void Update () {
+    public MyButton buttonA = new MyButton();
+    public MyButton buttonB = new MyButton();
+    public MyButton buttonC = new MyButton();
+    public MyButton buttonD = new MyButton();
+    // Update is called once per frame
+    private void Update () {
+
+        buttonA.Tick(Input.GetKey(keyA));
+        buttonB.Tick(Input.GetKey(keyB));
+        buttonC.Tick(Input.GetKey(keyC));
+        buttonD.Tick(Input.GetKey(keyD));
+
         Jup = Input.GetKey(keyJUp)?1.0f:0 - (Input.GetKey(keyJDown)?1.0f:0);
         Jright = Input.GetKey(keyJRight) ? 1.0f : 0 - (Input.GetKey(keyJLeft) ? 1.0f : 0);
 
@@ -47,29 +56,13 @@ public class KeyMouseInput : UserInput {
         Dmag = Mathf.Sqrt(Dup2 * Dup2 + Dright2 * Dright2);
         Dforward = transform.forward * Dup2 + transform.right * Dright2;
 
-        run = Input.GetKey(keyA);
+        run = buttonA.IsPressing;
 
-        bool newJump = Input.GetKey(keyB);
-        if (newJump != lastJump && newJump == true)
-        {
-            jump = true;
-        }
-        else
-        {
-            jump = false;
-        }
-        lastJump = newJump;
+        jump = buttonB.OnPressed;
 
-        bool newAttack = Input.GetKey(keyC);
-        if (newAttack != lastAttack && newAttack == true)
-        {
-            attack = true;
-        }
-        else
-        {
-            attack = false;
-        }
-        lastAttack = newAttack;
+        attack = buttonC.OnPressed;
+
+        defense = buttonD.IsPressing;
     }
 
     private Vector2 SquareToCircle(Vector2 input)
