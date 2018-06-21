@@ -20,6 +20,7 @@ public abstract class UserInput : MonoBehaviour {
     public bool jump;
     public bool attack;
     public bool roll;
+    public bool lockUnlock;
 
     [Header("===== others =====")]
     public bool inputEnable = true;

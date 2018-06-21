@@ -15,6 +15,7 @@ public class KeyMouseInput : UserInput {
     public string keyB;
     public string keyC;
     public string keyD;
+    public string keyM2;
 
     public string keyJUp;
     public string keyJRight;
@@ -25,6 +26,7 @@ public class KeyMouseInput : UserInput {
     public MyButton buttonB = new MyButton();
     public MyButton buttonC = new MyButton();
     public MyButton buttonD = new MyButton();
+    public MyButton buttonM2 = new MyButton();
     // Update is called once per frame
     private void Update () {
 
@@ -63,7 +65,9 @@ public class KeyMouseInput : UserInput {
         attack = buttonC.OnPressed;
 
         defense = buttonD.IsPressing;
-
+        if (buttonM2.OnPressed) {
+            lockUnlock = !lockUnlock;
+        }
         //Debug.Log(buttonD.isExtending && buttonD.OnPressed);
     }
 
