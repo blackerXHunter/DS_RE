@@ -59,7 +59,7 @@ public class ActorController : MonoBehaviour
     {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
         actor.SetFloat("Forward", playerInput.Dmag * Mathf.Lerp(actor.GetFloat("Forward"), targetRunMulti, 0.2f));
-        if (rigid.velocity.magnitude > 2)
+        if (playerInput.roll)
         {
             actor.SetTrigger("Roll");
         }

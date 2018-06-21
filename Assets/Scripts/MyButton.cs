@@ -7,34 +7,42 @@ public class MyButton {
     public bool IsPressing = false;
     public bool OnPressed = false;
     public bool OnReleased = false;
-    public bool isExtending = false;
+    public bool IsExtending = false;
+    public bool IsDelaying = false;
 
     private bool curState = false;
     private bool lastState = false;
-    private MyTimer timer = new MyTimer();
+    private float delayingDuraton = .3f;
+    private MyTimer extendingTimer = new MyTimer();
+    private MyTimer delayingTimer = new MyTimer();
 
     public void Tick(bool input) {
-        timer.Tick(Time.deltaTime);
+        extendingTimer.Tick(Time.deltaTime);
+        delayingTimer.Tick(Time.deltaTime);
         curState = input;
 
         IsPressing = input;
         OnReleased = false;
         OnPressed = false;
+        IsExtending = false;
+        IsDelaying = false;
+
         if (curState != lastState) {
             if (curState == true) {
                 OnPressed = true;
+                delayingTimer.StartTimer(delayingDuraton);
             }
             else {
                 OnReleased = true;
-
-                timer.StartTimer(.15f);
+                extendingTimer.StartTimer(.3f);
             }
         }
-        if (timer.Running()) {
-            isExtending = true;
+
+        if (extendingTimer.Running()) {
+            IsExtending = true;
         }
-        else {
-            isExtending = false;
+        if (delayingTimer.Running()) {
+            IsDelaying = true;
         }
         lastState = curState;
     }

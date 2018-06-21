@@ -56,9 +56,9 @@ public class KeyMouseInput : UserInput {
         Dmag = Mathf.Sqrt(Dup2 * Dup2 + Dright2 * Dright2);
         Dforward = transform.forward * Dup2 + transform.right * Dright2;
 
-        run = buttonA.IsPressing;
-
-        jump = buttonB.OnPressed;
+        run = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
+        roll = buttonB.OnReleased && buttonB.IsDelaying;
+        jump = buttonB.OnPressed && buttonA.IsPressing;
 
         attack = buttonC.OnPressed;
 
