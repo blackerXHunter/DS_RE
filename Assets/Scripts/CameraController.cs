@@ -37,18 +37,26 @@ public class CameraController : MonoBehaviour {
     // Update is called once per frame
     private void FixedUpdate() {
 
-        Vector3 tempModelEuler = model.transform.rotation.eulerAngles;
+        if (lockTarget == null) {
 
-        if (playerHandle != null) {
-            playerHandle.transform.Rotate(playerHandle.transform.up, playerInput.Jright * horizontal * Time.fixedDeltaTime);
-        }
-        if (cameraHandle != null) {
-            tempEulerX -= playerInput.Jup * vertical * Time.fixedDeltaTime;
-            tempEulerX = Mathf.Clamp(tempEulerX, -15, 25);
-            cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);
-        }
 
-        model.transform.rotation = Quaternion.Euler(tempModelEuler);
+            Vector3 tempModelEuler = model.transform.rotation.eulerAngles;
+
+            if (playerHandle != null) {
+                playerHandle.transform.Rotate(playerHandle.transform.up, playerInput.Jright * horizontal * Time.fixedDeltaTime);
+            }
+            if (cameraHandle != null) {
+                tempEulerX -= playerInput.Jup * vertical * Time.fixedDeltaTime;
+                tempEulerX = Mathf.Clamp(tempEulerX, -15, 25);
+                cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);
+            }
+            model.transform.rotation = Quaternion.Euler(tempModelEuler);
+        }
+        else {
+            Vector3 tempForward = lockTarget.transform.position - model.transform.position;
+            tempForward.y = 0;
+            playerHandle.transform.forward = tempForward;
+        }
         cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
         //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
         cam.transform.LookAt(cameraHandle.transform);
@@ -62,17 +70,21 @@ public class CameraController : MonoBehaviour {
     }
 
     public void LockUnLock() {
-        if (lockTarget == null) {
-            var originPos1 = model.transform.position;
-            var originPos2 = originPos1 + new Vector3(0, 1, 0);
-            var center = originPos2 + model.transform.forward * 5;
-            var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask("Enemy"));
-            foreach (var col in cols) {
+
+        var originPos1 = model.transform.position;
+        var originPos2 = originPos1 + new Vector3(0, 1, 0);
+        var center = originPos2 + model.transform.forward * 5;
+        var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask("Enemy"));
+
+        GameObject currentLockTarget = lockTarget;
+
+        foreach (var col in cols) {
+            if (col.gameObject != lockTarget) {
                 lockTarget = col.gameObject;
             }
         }
-        else {
-
+        if (currentLockTarget == lockTarget) {
+            lockTarget = null;
         }
     }
 }
