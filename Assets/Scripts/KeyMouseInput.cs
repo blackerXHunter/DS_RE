@@ -34,6 +34,7 @@ public class KeyMouseInput : UserInput {
         buttonB.Tick(Input.GetKey(keyB));
         buttonC.Tick(Input.GetKey(keyC));
         buttonD.Tick(Input.GetKey(keyD));
+        buttonM2.Tick(Input.GetKey(keyM2));
 
         Jup = Input.GetKey(keyJUp)?1.0f:0 - (Input.GetKey(keyJDown)?1.0f:0);
         Jright = Input.GetKey(keyJRight) ? 1.0f : 0 - (Input.GetKey(keyJLeft) ? 1.0f : 0);
@@ -63,11 +64,8 @@ public class KeyMouseInput : UserInput {
         jump = buttonB.OnPressed && buttonA.IsPressing;
 
         attack = buttonC.OnPressed;
-
         defense = buttonD.IsPressing;
-        if (buttonM2.OnPressed) {
-            lockUnlock = !lockUnlock;
-        }
+        lockUnlock = buttonM2.OnPressed;
         //Debug.Log(buttonD.isExtending && buttonD.OnPressed);
     }
 
