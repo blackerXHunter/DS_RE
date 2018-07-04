@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorController : MonoBehaviour
-{
+public class ActorController : MonoBehaviour {
 
     public GameObject model;
 
@@ -12,6 +11,8 @@ public class ActorController : MonoBehaviour
     private Rigidbody rigid;
 
     private Collider coll;
+
+    public CameraController camCtrl;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
@@ -46,65 +47,69 @@ public class ActorController : MonoBehaviour
     public PhysicMaterial fricationZero;
 
     // Use this for initialization
-    private void Awake()
-    {
+    private void Awake() {
         actor = model.GetComponent<Animator>();
         playerInput = UserInput.GetEnabledUserInput(gameObject);
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
+        camCtrl = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
         actor.SetFloat("Forward", playerInput.Dmag * Mathf.Lerp(actor.GetFloat("Forward"), targetRunMulti, 0.2f));
-        if (playerInput.roll)
-        {
+        if (playerInput.roll) {
             actor.SetTrigger("Roll");
         }
-        if (playerInput.Dmag > 0.1f)
-        {
-            model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
-        }
 
-        if (!lockPlaner)
-        {
-            planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
-        }
-        
+
         actor.SetBool("defense", playerInput.defense);
 
-        if (playerInput.jump)
-        {
+        if (playerInput.jump) {
             actor.SetTrigger("Jump");
             canAttack = false;
         }
 
-        if (playerInput.attack && CheckState("ground") && canAttack)
-        {
+        if (playerInput.attack && CheckState("ground") && canAttack) {
             actor.SetTrigger("attack");
+        }
+
+
+        if (camCtrl.lockState == false) {
+
+            if (playerInput.Dmag > 0.1f) {
+                model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
+            }
+
+            if (!lockPlaner) {
+                planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
+            }
+        }
+        else {
+            model.transform.forward = transform.forward;
+
+            if (!lockPlaner) {
+                planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
+            }
         }
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         rigid.position += deltaPos;
         deltaPos = Vector3.zero;
         rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
         thrustVec = Vector3.zero;
     }
 
-    private bool CheckState(string stateName, string layerName = "Base Layer")
-    {
+    private bool CheckState(string stateName, string layerName = "Base Layer") {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
     }
 
     #region Message processing
 
 
-    private void OnJumpEnter()
-    {
+    private void OnJumpEnter() {
         playerInput.inputEnable = false;
         lockPlaner = true;
         thrustVec = new Vector3(0, jumpVelocity, 0);
@@ -116,89 +121,75 @@ public class ActorController : MonoBehaviour
     //    lockPlaner = false;
     //}
 
-    private void InGround()
-    {
+    private void InGround() {
         actor.SetBool("InGround", true);
     }
 
-    private void NotInGround()
-    {
+    private void NotInGround() {
         actor.SetBool("InGround", false);
     }
 
-    private void OnGroundEnter()
-    {
+    private void OnGroundEnter() {
         playerInput.inputEnable = true;
         lockPlaner = false;
         canAttack = true;
         coll.material = fricationOne;
     }
 
-    private void OnGroundExit()
-    {
+    private void OnGroundExit() {
         playerInput.inputEnable = true;
         lockPlaner = false;
         canAttack = true;
         coll.material = fricationZero;
     }
 
-    private void OnFallEnter()
-    {
+    private void OnFallEnter() {
         playerInput.inputEnable = false;
         lockPlaner = true;
         //thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
-    private void OnRollEnter()
-    {
+    private void OnRollEnter() {
         thrustVec = rollVelocity * model.transform.forward + new Vector3(0, 2, 0);
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
 
-    private void OnJabEnter()
-    {
+    private void OnJabEnter() {
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
 
-    private void OnJabStay()
-    {
+    private void OnJabStay() {
         thrustVec = actor.GetFloat("jabVelocity") * (model.transform.forward);
     }
 
-    private void OnAttack1hAEnter()
-    {
+    private void OnAttack1hAEnter() {
         playerInput.inputEnable = false;
         lerpTarget = 1.0f;
     }
 
-    private void OnAttack1hAUpdate()
-    {
+    private void OnAttack1hAUpdate() {
         thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
         var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
         currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
     }
 
-    private void OnAttackIdelEnter()
-    {
+    private void OnAttackIdelEnter() {
         playerInput.inputEnable = true;
         lerpTarget = 0.0f;
     }
 
-    private void OnAttackIdelUpdate()
-    {
+    private void OnAttackIdelUpdate() {
         var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
         currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
         actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
     }
 
 
-    private void OnUpdateAnimatorMove(object _deltaPos)
-    {
-        if (CheckState("attack1hC", "Attack Layer"))
-        {
+    private void OnUpdateAnimatorMove(object _deltaPos) {
+        if (CheckState("attack1hC", "Attack Layer")) {
             this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
     }

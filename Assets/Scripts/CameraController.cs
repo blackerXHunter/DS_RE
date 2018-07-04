@@ -27,6 +27,8 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     public GameObject lockTarget;
 
+    public bool lockState = false;
+
     // Use this for initialization
     private void Start() {
         model = playerHandle.GetComponent<ActorController>().model;
@@ -81,10 +83,12 @@ public class CameraController : MonoBehaviour {
         foreach (var col in cols) {
             if (col.gameObject != lockTarget) {
                 lockTarget = col.gameObject;
+                lockState = true;
             }
         }
         if (currentLockTarget == lockTarget) {
             lockTarget = null;
+            lockState = false;
         }
     }
 }
