@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
     public class LockTarget {
-        public float halfHeight;
+        public float halfHeight
+        {
+            get
+            {
+                return obj.GetComponent<Collider>().bounds.size.y / 2;
+            }
+        }
         public GameObject obj;
     }
 
@@ -35,7 +42,7 @@ public class CameraController : MonoBehaviour {
 
     public bool lockState = false;
 
-    public GameObject lockDot;
+    public Image lockDot;
 
     // Use this for initialization
     private void Start() {
@@ -63,9 +70,11 @@ public class CameraController : MonoBehaviour {
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
         else {
-            Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
-            tempForward.y = 0;
-            playerHandle.transform.forward = tempForward;
+            //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
+            //playerHandle.transform.forward = tempForward;
+            //tempForward.y = 0;
+
+
         }
         cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
         //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
@@ -77,6 +86,16 @@ public class CameraController : MonoBehaviour {
             Debug.Log("LockUnLock");
             LockUnLock();
         }
+        if (lockTarget != null) {
+
+            lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight, 0));
+            playerHandle.transform.LookAt(lockTarget.obj.transform);
+            if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position)>10.0f) {
+                lockTarget = null;
+                lockState = false;
+                lockDot.enabled = false;
+            }
+        }
     }
 
     public void LockUnLock() {
@@ -86,18 +105,18 @@ public class CameraController : MonoBehaviour {
         var center = originPos2 + model.transform.forward * 5;
         var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask("Enemy"));
 
-        LockTarget currentLockTarget = lockTarget;
+
         if (lockTarget != null) {
             lockTarget = null;
             lockState = false;
-            lockDot.SetActive(false);
+            lockDot.enabled = false;
         }
         else {
             foreach (var col in cols) {
                 lockTarget = new LockTarget();
                 lockTarget.obj = col.gameObject;
                 lockState = true;
-                lockDot.SetActive(true);
+                lockDot.enabled = true;
                 break;
             }
         }
