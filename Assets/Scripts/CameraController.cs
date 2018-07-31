@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
+
+    public class LockTarget {
+        public float halfHeight;
+        public GameObject obj;
+    }
+
     public float horizontal = 100f;
     public float vertical = 50f;
 
@@ -25,9 +31,11 @@ public class CameraController : MonoBehaviour {
 
     public float smoothSpeed = .1f;
     [SerializeField]
-    public GameObject lockTarget;
+    public LockTarget lockTarget = null;
 
     public bool lockState = false;
+
+    public GameObject lockDot;
 
     // Use this for initialization
     private void Start() {
@@ -55,7 +63,7 @@ public class CameraController : MonoBehaviour {
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
         else {
-            Vector3 tempForward = lockTarget.transform.position - model.transform.position;
+            Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
             tempForward.y = 0;
             playerHandle.transform.forward = tempForward;
         }
@@ -78,17 +86,20 @@ public class CameraController : MonoBehaviour {
         var center = originPos2 + model.transform.forward * 5;
         var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask("Enemy"));
 
-        GameObject currentLockTarget = lockTarget;
-
-        foreach (var col in cols) {
-            if (col.gameObject != lockTarget) {
-                lockTarget = col.gameObject;
-                lockState = true;
-            }
-        }
-        if (currentLockTarget == lockTarget) {
+        LockTarget currentLockTarget = lockTarget;
+        if (lockTarget != null) {
             lockTarget = null;
             lockState = false;
+            lockDot.SetActive(false);
+        }
+        else {
+            foreach (var col in cols) {
+                lockTarget = new LockTarget();
+                lockTarget.obj = col.gameObject;
+                lockState = true;
+                lockDot.SetActive(true);
+                break;
+            }
         }
     }
 }
