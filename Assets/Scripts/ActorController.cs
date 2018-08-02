@@ -81,7 +81,6 @@ public class ActorController : MonoBehaviour {
             actor.SetTrigger("attack");
         }
 
-
         if (camCtrl.lockState == false) {
 
             if (playerInput.Dmag > 0.1f) {
@@ -99,6 +98,7 @@ public class ActorController : MonoBehaviour {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
         }
+
     }
 
     private void FixedUpdate() {
