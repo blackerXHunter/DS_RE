@@ -58,11 +58,17 @@ public class ActorController : MonoBehaviour {
     // Update is called once per frame
     private void LateUpdate() {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
-        actor.SetFloat("Forward", playerInput.Dmag * Mathf.Lerp(actor.GetFloat("Forward"), targetRunMulti, 0.2f));
+        if (camCtrl.lockState == false) {
+            actor.SetFloat("Forward",  Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
+        }
+        else {
+            actor.SetFloat("Forward",  Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dup * targetRunMulti, 0.2f));
+            actor.SetFloat("right",  Mathf.Lerp(actor.GetFloat("right"), playerInput.Dright * targetRunMulti, 0.2f));
+        }
+
         if (playerInput.roll) {
             actor.SetTrigger("Roll");
         }
-
 
         actor.SetBool("defense", playerInput.defense);
 

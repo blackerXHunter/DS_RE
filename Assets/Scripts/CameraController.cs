@@ -69,13 +69,11 @@ public class CameraController : MonoBehaviour {
             }
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
-        else {
+        //else {
             //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
             //playerHandle.transform.forward = tempForward;
             //tempForward.y = 0;
-
-
-        }
+        //}
         cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
         //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
         cam.transform.LookAt(cameraHandle.transform);
@@ -91,9 +89,7 @@ public class CameraController : MonoBehaviour {
             lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight, 0));
             playerHandle.transform.LookAt(lockTarget.obj.transform);
             if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position)>10.0f) {
-                lockTarget = null;
-                lockState = false;
-                lockDot.enabled = false;
+                UnLock();
             }
         }
     }
@@ -107,18 +103,25 @@ public class CameraController : MonoBehaviour {
 
 
         if (lockTarget != null) {
-            lockTarget = null;
-            lockState = false;
-            lockDot.enabled = false;
+            UnLock();
         }
         else {
             foreach (var col in cols) {
-                lockTarget = new LockTarget();
-                lockTarget.obj = col.gameObject;
-                lockState = true;
-                lockDot.enabled = true;
+                Lock(col);
                 break;
             }
         }
+    }
+
+    private void UnLock() {
+        lockTarget = null;
+        lockState = false;
+        lockDot.enabled = false;
+    }
+    private void Lock(Collider target) {
+        lockTarget = new LockTarget();
+        lockTarget.obj = target.gameObject;
+        lockState = true;
+        lockDot.enabled = true;
     }
 }
