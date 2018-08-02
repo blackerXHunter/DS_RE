@@ -35,7 +35,6 @@ public class ActorController : MonoBehaviour {
 
     private bool canAttack;
 
-    private float lerpTarget;
 
     private Vector3 deltaPos;
 
@@ -77,7 +76,7 @@ public class ActorController : MonoBehaviour {
             canAttack = false;
         }
 
-        if (playerInput.attack && CheckState("ground") && canAttack) {
+        if (playerInput.attack && (CheckState("ground") || CheckStateTag("attack") )&& canAttack) {
             actor.SetTrigger("attack");
         }
 
@@ -110,6 +109,10 @@ public class ActorController : MonoBehaviour {
 
     private bool CheckState(string stateName, string layerName = "Base Layer") {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
+    }
+
+    private bool CheckStateTag(string stateTag, string layerName = "Base Layer") {
+        return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsTag(stateTag);
     }
 
     #region Message processing
@@ -172,30 +175,19 @@ public class ActorController : MonoBehaviour {
 
     private void OnAttack1hAEnter() {
         playerInput.inputEnable = false;
-        lerpTarget = 1.0f;
     }
 
     private void OnAttack1hAUpdate() {
         thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
-        var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
-        currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
-        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
     }
 
-    private void OnAttackIdelEnter() {
-        playerInput.inputEnable = true;
-        lerpTarget = 0.0f;
-    }
-
-    private void OnAttackIdelUpdate() {
-        var currentLayerWeight = actor.GetLayerWeight(actor.GetLayerIndex("Attack Layer"));
-        currentLayerWeight = Mathf.Lerp(currentLayerWeight, lerpTarget, Time.deltaTime * lerpSpeed);
-        actor.SetLayerWeight(actor.GetLayerIndex("Attack Layer"), currentLayerWeight);
-    }
+    //private void OnAttackIdelEnter() {
+    //    playerInput.inputEnable = true;
+    //}
 
 
     private void OnUpdateAnimatorMove(object _deltaPos) {
-        if (CheckState("attack1hC", "Attack Layer")) {
+        if (CheckState("attack1hC")) {
             this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
     }
