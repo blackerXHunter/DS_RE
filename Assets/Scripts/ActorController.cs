@@ -35,11 +35,9 @@ public class ActorController : MonoBehaviour {
 
     private bool canAttack;
 
+    private bool leftIsShild = true;
 
     private Vector3 deltaPos;
-
-    [SerializeField]
-    private float lerpSpeed = 1.0f;
 
     [Header("===== Frication Settings =====")]
     public PhysicMaterial fricationOne;
@@ -89,6 +87,9 @@ public class ActorController : MonoBehaviour {
             if (!lockPlaner) {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
+            //else {
+            //    planerVec = Vector3.zero;
+            //}
         }
         else {
             model.transform.forward = transform.forward;
@@ -96,10 +97,13 @@ public class ActorController : MonoBehaviour {
             if (!lockPlaner) {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
+            //else {
+            //    planerVec = Vector3.zero;
+            //}
         }
 
     }
-
+    
     private void FixedUpdate() {
         rigid.position += deltaPos;
         deltaPos = Vector3.zero;
@@ -173,8 +177,16 @@ public class ActorController : MonoBehaviour {
         thrustVec = actor.GetFloat("jabVelocity") * (model.transform.forward);
     }
 
+    private void OnAttackEnter() {
+        //playerInput.inputEnable = false;
+        lockPlaner = true;
+        //thrustVec = Vector3.zero;
+
+        Debug.Log("Update Attakc");
+    }
+
     private void OnAttack1hAEnter() {
-        playerInput.inputEnable = false;
+        
     }
 
     private void OnAttack1hAUpdate() {

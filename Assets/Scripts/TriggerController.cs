@@ -14,6 +14,5 @@ public class TriggerController : MonoBehaviour {
     private void ResetTrigger(string triggerName)
     {
         animator.ResetTrigger(triggerName);
-        Debug.Log(triggerName);
     }
 }
