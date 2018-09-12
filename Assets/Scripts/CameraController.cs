@@ -26,6 +26,9 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private GameObject cameraPos;
 
+    [SerializeField]
+    private bool isAI;
+
     private GameObject model;
 
     private GameObject cam;
@@ -70,13 +73,15 @@ public class CameraController : MonoBehaviour {
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
         //else {
-            //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
-            //playerHandle.transform.forward = tempForward;
-            //tempForward.y = 0;
+        //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
+        //playerHandle.transform.forward = tempForward;
+        //tempForward.y = 0;
         //}
-        cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
-        //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
-        cam.transform.LookAt(cameraHandle.transform);
+        if (!isAI) {
+            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
+            //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
+            cam.transform.LookAt(cameraHandle.transform);
+        }
     }
 
     private void LateUpdate() {
@@ -85,10 +90,11 @@ public class CameraController : MonoBehaviour {
             LockUnLock();
         }
         if (lockTarget != null) {
-
-            lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight, 0));
+            if (!isAI) {
+                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight, 0));
+            }
             playerHandle.transform.LookAt(lockTarget.obj.transform);
-            if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position)>10.0f) {
+            if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > 10.0f) {
                 UnLock();
             }
         }
@@ -116,12 +122,16 @@ public class CameraController : MonoBehaviour {
     private void UnLock() {
         lockTarget = null;
         lockState = false;
-        lockDot.enabled = false;
+        if (!isAI) {
+            lockDot.enabled = false;
+        }
     }
     private void Lock(Collider target) {
         lockTarget = new LockTarget();
         lockTarget.obj = target.gameObject;
         lockState = true;
-        lockDot.enabled = true;
+        if (!isAI) {
+            lockDot.enabled = true;
+        }
     }
 }
