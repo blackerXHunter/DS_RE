@@ -12,7 +12,8 @@ public class ActorController : MonoBehaviour {
 
     private Collider coll;
 
-    public CameraController camCtrl;
+    [SerializeField]
+    private CameraController camCtrl;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
@@ -49,11 +50,10 @@ public class ActorController : MonoBehaviour {
         playerInput = UserInput.GetEnabledUserInput(gameObject);
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
-        camCtrl = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
-    private void LateUpdate() {
+    private void Update() {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
         if (camCtrl.lockState == false) {
             actor.SetFloat("Forward",  Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
@@ -87,9 +87,7 @@ public class ActorController : MonoBehaviour {
             if (!lockPlaner) {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
-            //else {
-            //    planerVec = Vector3.zero;
-            //}
+
         }
         else {
             model.transform.forward = transform.forward;
@@ -97,9 +95,7 @@ public class ActorController : MonoBehaviour {
             if (!lockPlaner) {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
-            //else {
-            //    planerVec = Vector3.zero;
-            //}
+
         }
 
     }
@@ -128,12 +124,6 @@ public class ActorController : MonoBehaviour {
         thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
-    //private void OnJumpExit()
-    //{
-    //    playerInput.inputEnable = true;
-    //    lockPlaner = false;
-    //}
-
     private void InGround() {
         actor.SetBool("InGround", true);
     }
@@ -151,7 +141,7 @@ public class ActorController : MonoBehaviour {
 
     private void OnGroundExit() {
         playerInput.inputEnable = true;
-        lockPlaner = false;
+        lockPlaner = true;
         canAttack = true;
         coll.material = fricationZero;
     }
@@ -159,7 +149,6 @@ public class ActorController : MonoBehaviour {
     private void OnFallEnter() {
         playerInput.inputEnable = false;
         lockPlaner = true;
-        //thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
     private void OnRollEnter() {
@@ -178,25 +167,19 @@ public class ActorController : MonoBehaviour {
     }
 
     private void OnAttackEnter() {
-        //playerInput.inputEnable = false;
-        lockPlaner = true;
-        //thrustVec = Vector3.zero;
 
-        Debug.Log("Update Attakc");
+        lockPlaner = true;
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
     }
 
     private void OnAttack1hAEnter() {
-        
+
     }
 
     private void OnAttack1hAUpdate() {
         thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
     }
-
-    //private void OnAttackIdelEnter() {
-    //    playerInput.inputEnable = true;
-    //}
-
 
     private void OnUpdateAnimatorMove(object _deltaPos) {
         if (CheckState("attack1hC")) {
