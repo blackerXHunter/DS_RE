@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 1197768989}
   - component: {fileID: 1197768991}
   - component: {fileID: 1197768995}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2149,7 +2149,7 @@ GameObject:
   - component: {fileID: 2074558633}
   - component: {fileID: 2074558631}
   - component: {fileID: 2074558630}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AIHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

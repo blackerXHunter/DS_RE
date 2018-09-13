@@ -105,7 +105,7 @@ public class CameraController : MonoBehaviour {
         var originPos1 = model.transform.position;
         var originPos2 = originPos1 + new Vector3(0, 1, 0);
         var center = originPos2 + model.transform.forward * 5;
-        var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask("Enemy"));
+        var cols = Physics.OverlapBox(center, new Vector3(0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask(isAI ? "Player" : "Enemy"));
 
 
         if (lockTarget != null) {
