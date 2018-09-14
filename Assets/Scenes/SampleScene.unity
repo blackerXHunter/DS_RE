@@ -768,7 +768,9 @@ GameObject:
   m_Component:
   - component: {fileID: 798834441}
   - component: {fileID: 798834442}
-  m_Layer: 0
+  - component: {fileID: 798834444}
+  - component: {fileID: 798834443}
+  m_Layer: 13
   m_Name: sensors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,6 +803,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capcol: {fileID: 1197768990}
   offset: 0.3
+--- !u!136 &798834443
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 798834440}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &798834444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 798834440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9722098309f712b49a4de78a8b9ccca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1267754810}
 --- !u!1 &813922498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3268b7e42c8b244ab644235928fa68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1267754810 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 2f9d958fbcd96e44ca35a77a15e3187a,
+    type: 3}
+  m_PrefabInternal: {fileID: 916915959}
 --- !u!1 &1328105709
 GameObject:
   m_ObjectHideFlags: 0
