@@ -196,5 +196,6 @@ public class ActorController : MonoBehaviour {
         lockPlaner = true;
         planerVec = Vector3.zero;
     }
+
     #endregion
 }
