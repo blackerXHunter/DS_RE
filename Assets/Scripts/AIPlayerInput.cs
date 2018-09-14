@@ -5,8 +5,11 @@ using UnityEngine;
 public class AIPlayerInput : UserInput {
 
 	// Use this for initialization
-	void Start () {
-		
+	IEnumerator Start () {
+        while (true) {
+            attack = true;
+            yield return 0;
+        }
 	}
 	
 	// Update is called once per frame
