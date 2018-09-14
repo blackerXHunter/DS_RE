@@ -44,6 +44,10 @@ public class ActorController : MonoBehaviour {
     public PhysicMaterial fricationOne;
     public PhysicMaterial fricationZero;
 
+    public void IssueTrigger(string triggerSign) {
+        actor.SetTrigger(triggerSign);
+    }
+
     // Use this for initialization
     private void Awake() {
         actor = model.GetComponent<Animator>();
@@ -185,6 +189,12 @@ public class ActorController : MonoBehaviour {
         if (CheckState("attack1hC")) {
             this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
+    }
+
+    private void OnImpactEnter() {
+        playerInput.inputEnable = false;
+        lockPlaner = true;
+        planerVec = Vector3.zero;
     }
     #endregion
 }
