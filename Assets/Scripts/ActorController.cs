@@ -177,6 +177,10 @@ public class ActorController : MonoBehaviour {
         planerVec = Vector3.zero;
     }
 
+    private void OnAttackExit() {
+        actor.gameObject.SendMessage("WeaponDisable");
+    }
+
     private void OnAttack1hAEnter() {
 
     }

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class BattleManager : MonoBehaviour {
+public class BattleManager : IActorManager {
 
-
-    public ActorManager am;
     private CapsuleCollider defenseCollider;
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Weapon")) {
-            am.DoDamage();
+            am.TryDoDamage();
         }
     }
 
