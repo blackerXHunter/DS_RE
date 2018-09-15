@@ -17,9 +17,9 @@ public class BattleManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         defenseCollider = GetComponent<CapsuleCollider>();
-        defenseCollider.center = new Vector3(0,1,0);
-        defenseCollider.height = 2.0f;
-        defenseCollider.radius = 0.25f;
+        defenseCollider.center = new Vector3(0,1.1f,0);
+        defenseCollider.height = 1.0f;
+        defenseCollider.radius = 0.4f;
 	}
 	
 	// Update is called once per frame

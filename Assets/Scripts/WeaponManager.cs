@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour {
+    public Collider weaponCollider;
+    public ActorManager am;
+    public GameObject whL, whR;
 
+    private void Start() {
+        whR = transform.DeepFind("weaponHandleR").gameObject;
+        whL = transform.DeepFind("weaponHandleL").gameObject;
+
+        weaponCollider = whR.GetComponentInChildren<Collider>();
+    }
 
     private void WeaponEnable() {
-        Debug.Log("W e");
+        weaponCollider.enabled = true;
     }
     private void WeaponDisable() {
-        Debug.Log("W d");
+        weaponCollider.enabled = false;
     }
 }
