@@ -37,8 +37,10 @@ public class ActorManager : MonoBehaviour {
         if (sm.HPisZero) {
             return;
         }
-
-        if (sm.isDefense) {
+        if (sm.immortal) {
+            return;
+        }
+        else if (sm.isDefense) {
             Blocked();
         }
         else {

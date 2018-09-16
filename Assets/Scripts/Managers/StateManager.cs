@@ -28,6 +28,7 @@ public class StateManager : IActorManager {
 
         allowDefense = isGround || isBolcked;
         isDefense = allowDefense && am.ac.CheckState("defense1h", "Defense Layer");
+        immortal = isRoll || isJab;
     }
 
     [Header("1st order state flags")]
@@ -44,6 +45,7 @@ public class StateManager : IActorManager {
 
     [Header("2nd order stae flags")]
     public bool allowDefense;
+    public bool immortal;
 
     public bool HPisZero
     {
