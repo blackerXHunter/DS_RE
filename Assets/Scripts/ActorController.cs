@@ -59,22 +59,24 @@ public class ActorController : MonoBehaviour {
     private void Update() {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
         if (camCtrl.lockState == false) {
-            actor.SetFloat("Forward",  Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
+            actor.SetFloat("Forward", Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
         }
         else {
-            actor.SetFloat("Forward",  Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dup * targetRunMulti, 0.2f));
-            actor.SetFloat("right",  Mathf.Lerp(actor.GetFloat("right"), playerInput.Dright * targetRunMulti, 0.2f));
+            actor.SetFloat("Forward", Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dup * targetRunMulti, 0.2f));
+            actor.SetFloat("right", Mathf.Lerp(actor.GetFloat("right"), playerInput.Dright * targetRunMulti, 0.2f));
         }
 
         if (playerInput.roll) {
             actor.SetTrigger("Roll");
         }
-
-        actor.SetBool("defense", playerInput.defense);
+        if (CheckState("ground") || CheckState("blocked")) {
+            actor.SetBool("defense", playerInput.defense);
+            actor.SetLayerWeight(actor.GetLayerIndex("Defense Layer"), playerInput.defense ? 1 : 0);
+        }
 
         if (playerInput.jump) {
             actor.SetTrigger("Jump");
-            
+
         }
 
 
@@ -84,7 +86,7 @@ public class ActorController : MonoBehaviour {
                 actor.SetTrigger("attack");
             }
         }
-        
+
 
         if (camCtrl.lockState == false) {
 
@@ -107,7 +109,7 @@ public class ActorController : MonoBehaviour {
         }
 
     }
-    
+
     private void FixedUpdate() {
         rigid.position += deltaPos;
         deltaPos = Vector3.zero;
@@ -185,10 +187,6 @@ public class ActorController : MonoBehaviour {
         actor.gameObject.SendMessage("WeaponDisable");
     }
 
-    private void OnAttack1hAEnter() {
-
-    }
-
     private void OnAttack1hAUpdate() {
         thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
     }
@@ -202,6 +200,16 @@ public class ActorController : MonoBehaviour {
     private void OnImpactEnter() {
         playerInput.inputEnable = false;
         lockPlaner = true;
+        planerVec = Vector3.zero;
+    }
+
+    private void OnDieEnter() {
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
+    }
+
+    private void OnBlockedEnter() {
+        playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }
 

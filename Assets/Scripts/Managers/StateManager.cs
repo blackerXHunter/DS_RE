@@ -21,13 +21,16 @@ public class StateManager : IActorManager {
         isRoll = am.ac.CheckState("roll");
         isJab = am.ac.CheckState("jab");
         isAttack = am.ac.CheckStateTag("attackR") || am.ac.CheckStateTag("attackL");
-        isDefense = am.ac.CheckState("defense1h", "Defense Layer");
         isBolcked = am.ac.CheckState("blocked");
         isJump = am.ac.CheckState("jump");
         isImpact = am.ac.CheckState("impact");
         isFall = am.ac.CheckState("fall");
+
+        allowDefense = isGround || isBolcked;
+        isDefense = allowDefense && am.ac.CheckState("defense1h", "Defense Layer");
     }
 
+    [Header("1st order state flags")]
     public bool isDie;
     public bool isGround;
     public bool isRoll;
@@ -38,6 +41,9 @@ public class StateManager : IActorManager {
     public bool isJump;
     public bool isImpact;
     public bool isFall;
+
+    [Header("2nd order stae flags")]
+    public bool allowDefense;
 
     public bool HPisZero
     {

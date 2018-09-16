@@ -149,6 +149,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessage:
   - OnImpactEnter
+--- !u!114 &114145804274909042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e65c4173b50434da65e740aa3aab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnterMessage:
+  - OnDieEnter
 --- !u!114 &114147828326126188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,8 +443,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e65c4173b50434da65e740aa3aab3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onEnterMessage: []
+--- !u!114 &114994957038738960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e65c4173b50434da65e740aa3aab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   onEnterMessage:
-  - OnAttack1hAEnter
+  - OnBlockedEnter
 --- !u!206 &206741761236481004
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1259,7 +1284,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114145804274909042}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1541,7 +1567,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101160913637669008}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114994957038738960}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

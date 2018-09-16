@@ -37,11 +37,25 @@ public class ActorManager : MonoBehaviour {
         if (sm.HPisZero) {
             return;
         }
-        ac.IssueTrigger("damage");
-        sm.AddHP(- 5);
-        if (sm.HPisZero) {
-            Die();
+
+        if (sm.isDefense) {
+            Blocked();
         }
+        else {
+            Damage();
+            sm.AddHP(-5);
+            if (sm.HPisZero) {
+                Die();
+            }
+        }
+    }
+
+    public void Blocked() {
+        ac.IssueTrigger("blocked");
+    }
+
+    public void Damage() {
+        ac.IssueTrigger("damage");
     }
 
     public void Die() {
