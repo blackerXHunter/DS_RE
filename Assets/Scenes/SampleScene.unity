@@ -187,7 +187,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 23300887}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -1145,6 +1145,7 @@ MonoBehaviour:
   camCtrl: {fileID: 1328105711}
   walkSpeed: 1.36
   runSpeed: 3
+  playerInput: {fileID: 0}
   jumpVelocity: 3
   rollVelocity: 2
   jabVelocity: 10
@@ -1412,7 +1413,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1463105607}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.6
   m_Height: 2.3
   m_Direction: 1
@@ -2027,6 +2028,7 @@ MonoBehaviour:
   camCtrl: {fileID: 1559658989}
   walkSpeed: 1.36
   runSpeed: 3
+  playerInput: {fileID: 0}
   jumpVelocity: 3
   rollVelocity: 2
   jabVelocity: 10

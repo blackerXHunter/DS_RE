@@ -46,6 +46,7 @@ public class KeyMouseInput : UserInput {
         {
             DupTarget = 0;
             DrightTarget = 0;
+            return;
         }
 
 

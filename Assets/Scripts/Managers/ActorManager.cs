@@ -34,10 +34,22 @@ public class ActorManager : MonoBehaviour {
 
 
     public void TryDoDamage() {
+        if (sm.IsDie) {
+            return;
+        }
         ac.IssueTrigger("damage");
         sm.AddHP(- 5);
         if (sm.IsDie) {
-            ac.IssueTrigger("die");
+            Die();
         }
+    }
+
+    public void Die() {
+        ac.IssueTrigger("die");
+        ac.playerInput.inputEnable = false;
+        if (ac.camCtrl.lockState == true) {
+            ac.camCtrl.LockUnLock();
+        }
+        ac.camCtrl.enabled = false;
     }
 }

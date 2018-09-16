@@ -12,15 +12,14 @@ public class ActorController : MonoBehaviour {
 
     private Collider coll;
 
-    [SerializeField]
-    private CameraController camCtrl;
+    public CameraController camCtrl;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
     [SerializeField]
     private float runSpeed = 2.5f;
 
-    private UserInput playerInput;
+    public UserInput playerInput;
 
     private Vector3 planerVec;
 
