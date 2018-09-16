@@ -74,12 +74,17 @@ public class ActorController : MonoBehaviour {
 
         if (playerInput.jump) {
             actor.SetTrigger("Jump");
-            canAttack = false;
+            
         }
 
-        if (playerInput.attack && (CheckState("ground") || CheckStateTag("attack") )&& canAttack) {
-            actor.SetTrigger("attack");
+
+        if (playerInput.attack) {
+
+            if (CheckState("ground") || CheckStateTag("attackR")) {
+                actor.SetTrigger("attack");
+            }
         }
+        
 
         if (camCtrl.lockState == false) {
 
@@ -110,11 +115,11 @@ public class ActorController : MonoBehaviour {
         thrustVec = Vector3.zero;
     }
 
-    private bool CheckState(string stateName, string layerName = "Base Layer") {
+    public bool CheckState(string stateName, string layerName = "Base Layer") {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
     }
 
-    private bool CheckStateTag(string stateTag, string layerName = "Base Layer") {
+    public bool CheckStateTag(string stateTag, string layerName = "Base Layer") {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsTag(stateTag);
     }
 

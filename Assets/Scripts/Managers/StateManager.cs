@@ -15,7 +15,31 @@ public class StateManager : IActorManager {
         HP = Mathf.Clamp(HP, 0, HPMAX);
     }
 
-    public bool IsDie
+    private void Update() {
+        isDie = am.ac.CheckState("die");
+        isGround = am.ac.CheckState("ground");
+        isRoll = am.ac.CheckState("roll");
+        isJab = am.ac.CheckState("jab");
+        isAttack = am.ac.CheckStateTag("attackR") || am.ac.CheckStateTag("attackL");
+        isDefense = am.ac.CheckState("defense1h", "Defense Layer");
+        isBolcked = am.ac.CheckState("blocked");
+        isJump = am.ac.CheckState("jump");
+        isImpact = am.ac.CheckState("impact");
+        isFall = am.ac.CheckState("fall");
+    }
+
+    public bool isDie;
+    public bool isGround;
+    public bool isRoll;
+    public bool isJab;
+    public bool isAttack;
+    public bool isDefense;
+    public bool isBolcked;
+    public bool isJump;
+    public bool isImpact;
+    public bool isFall;
+
+    public bool HPisZero
     {
         get
         {

@@ -42,16 +42,19 @@ public class KeyMouseInput : UserInput {
         DupTarget = Input.GetKey(keyUp)?1f:0f - (Input.GetKey(keyDown)?1f:0f);
         DrightTarget = Input.GetKey(keyRight)?1f:0f - (Input.GetKey(keyLeft)?1f:0f);
 
-        if (!inputEnable)
-        {
+        if (!inputEnable) {
             DupTarget = 0;
             DrightTarget = 0;
-            return;
         }
 
 
         Dup = Mathf.SmoothDamp(Dup, DupTarget, ref DupVelocity, 0.1f);
         Dright = Mathf.SmoothDamp(Dright, DrightTarget, ref DrightVelocity, 0.1f);
+
+        if (!inputEnable) {
+            Dup = 0;
+            Dright = 0;
+        }
         Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
 
         float Dright2 = tempDAxis.x;

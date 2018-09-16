@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActorManager : MonoBehaviour {
-    private ActorController ac;
+    public ActorController ac;
 
     [Header("=== Auto Gen If Null ===")]
-    private BattleManager bm;
-    private WeaponManager wm;
-    private StateManager sm;
+    public BattleManager bm;
+    public WeaponManager wm;
+    public StateManager sm;
     // Use this for initialization
     void Start() {
         ac = GetComponent<ActorController>();
@@ -34,12 +34,12 @@ public class ActorManager : MonoBehaviour {
 
 
     public void TryDoDamage() {
-        if (sm.IsDie) {
+        if (sm.HPisZero) {
             return;
         }
         ac.IssueTrigger("damage");
         sm.AddHP(- 5);
-        if (sm.IsDie) {
+        if (sm.HPisZero) {
             Die();
         }
     }
