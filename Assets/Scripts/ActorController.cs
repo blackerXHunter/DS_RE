@@ -80,13 +80,18 @@ public class ActorController : MonoBehaviour {
         }
 
 
-        if (playerInput.attack) {
+        if (playerInput.rb) {
 
             if (CheckState("ground") || CheckStateTag("attackR")) {
                 actor.SetTrigger("attack");
             }
         }
-
+        // left heavy(left trigger)
+        if (playerInput.lt) {
+            if (CheckState("ground")) {
+                actor.SetTrigger("counterBack");
+            }
+        }
 
         if (camCtrl.lockState == false) {
 
@@ -209,6 +214,16 @@ public class ActorController : MonoBehaviour {
     }
 
     private void OnBlockedEnter() {
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
+    }
+
+    private void OnCounterBackEnter() {
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
+    }
+
+    private void OnStunnedEnter() {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }

@@ -18,7 +18,10 @@ public abstract class UserInput : MonoBehaviour {
     public bool defense;
     // 2. trigger once signal
     public bool jump;
-    public bool attack;
+    public bool rb;
+    public bool lb;
+    public bool lt;
+    public bool rt;
     public bool roll;
     public bool lockUnlock;
 

@@ -1100,7 +1100,10 @@ MonoBehaviour:
   run: 0
   defense: 0
   jump: 0
-  attack: 0
+  rb: 0
+  lb: 0
+  lt: 0
+  rt: 0
   roll: 0
   lockUnlock: 0
   inputEnable: 1
@@ -1113,6 +1116,7 @@ MonoBehaviour:
   keyC: j
   keyD: k
   keyM2: mouse 2
+  keyQ: q
   keyJUp: up
   keyJRight: right
   keyJLeft: left
@@ -1193,6 +1197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7959a9d1d0e8f9541be4c7d80a16dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ac: {fileID: 0}
+  bm: {fileID: 0}
+  wm: {fileID: 0}
+  sm: {fileID: 0}
 --- !u!114 &1197768995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,7 +1221,10 @@ MonoBehaviour:
   run: 0
   defense: 0
   jump: 0
-  attack: 0
+  rb: 0
+  lb: 0
+  lt: 0
+  rt: 0
   roll: 0
   lockUnlock: 0
   inputEnable: 1
@@ -2009,7 +2020,10 @@ MonoBehaviour:
   run: 0
   defense: 0
   jump: 0
-  attack: 0
+  rb: 0
+  lb: 0
+  lt: 0
+  rt: 0
   roll: 0
   lockUnlock: 0
   inputEnable: 1
@@ -2045,6 +2059,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7959a9d1d0e8f9541be4c7d80a16dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ac: {fileID: 0}
+  bm: {fileID: 0}
+  wm: {fileID: 0}
+  sm: {fileID: 0}
 --- !u!54 &2074558633
 Rigidbody:
   m_ObjectHideFlags: 0

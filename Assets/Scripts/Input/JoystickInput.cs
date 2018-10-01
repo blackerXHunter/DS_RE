@@ -84,7 +84,7 @@ public class JoystickInput : UserInput
         run = button0.IsPressing;
         defense = button4.IsPressing;
         jump = button1.OnPressed;
-        attack = button5.OnPressed;
+        rb = button5.OnPressed;
 
     }
 

@@ -7,7 +7,7 @@ public class AIPlayerInput : UserInput {
 	// Use this for initialization
 	IEnumerator Start () {
         while (true) {
-            attack = true;
+            rb = true;
             yield return 0;
         }
 	}
