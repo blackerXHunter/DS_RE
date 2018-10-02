@@ -37,4 +37,11 @@ public class WeaponManager : IActorManager {
         weaponColliderR.enabled = false;
         weaponColliderL.enabled = false;
     }
+
+    private void CounterBackEnable() {
+        am.SetCounterBack(true);
+    }
+    private void CounterBackDisable() {
+        am.SetCounterBack(false);
+    }
 }

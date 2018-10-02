@@ -26,6 +26,9 @@ public class StateManager : IActorManager {
         isImpact = am.ac.CheckState("impact");
         isFall = am.ac.CheckState("fall");
 
+        counterBackSuccess = isCounterBackEnable;
+        counterBackFailer = isCounterBack && !isCounterBackEnable;
+
         allowDefense = isGround || isBolcked;
         isDefense = allowDefense && am.ac.CheckState("defense1h", "Defense Layer");
         immortal = isRoll || isJab;
@@ -42,10 +45,14 @@ public class StateManager : IActorManager {
     public bool isJump;
     public bool isImpact;
     public bool isFall;
+    public bool isCounterBack;
+    public bool isCounterBackEnable;
 
     [Header("2nd order stae flags")]
     public bool allowDefense;
     public bool immortal;
+    public bool counterBackSuccess;
+    public bool counterBackFailer;
 
     public bool HPisZero
     {

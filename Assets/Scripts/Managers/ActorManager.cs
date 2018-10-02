@@ -32,24 +32,44 @@ public class ActorManager : MonoBehaviour {
         return iacM;
     }
 
+    public void SetCounterBack(bool val) {
+        sm.isCounterBackEnable = val;
+    }
 
-    public void TryDoDamage() {
-        if (sm.HPisZero) {
-            return;
+
+    public void TryDoDamage(WeaponController wcTarget) {
+        if (sm.counterBackSuccess) {
+            wcTarget.wm.am.Stunned();
         }
-        if (sm.immortal) {
-            return;
+        else if (sm.counterBackFailer) {
+            DoHit(false);
+        }
+        else if (sm.HPisZero) {
+            //do no thing
+        }
+        else if (sm.immortal) {
+            //do no thing
         }
         else if (sm.isDefense) {
             Blocked();
         }
         else {
-            Damage();
-            sm.AddHP(-5);
-            if (sm.HPisZero) {
-                Die();
-            }
+            DoHit();
         }
+    }
+
+    public void DoHit(bool doHitAnimation = true) {
+        if (doHitAnimation) {
+            Damage();
+        }
+        sm.AddHP(-5);
+        if (sm.HPisZero) {
+            Die();
+        }
+    }
+
+    public void Stunned() {
+        ac.IssueTrigger("stunned");
     }
 
     public void Blocked() {

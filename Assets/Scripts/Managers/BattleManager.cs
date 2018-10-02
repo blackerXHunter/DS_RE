@@ -8,7 +8,8 @@ public class BattleManager : IActorManager {
     private CapsuleCollider defenseCollider;
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Weapon")) {
-            am.TryDoDamage();
+            WeaponController wc = other.GetComponentInParent<WeaponController>();
+            am.TryDoDamage(wc);
         }
     }
 
