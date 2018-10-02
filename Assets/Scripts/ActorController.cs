@@ -88,7 +88,7 @@ public class ActorController : MonoBehaviour {
         }
         // left heavy(left trigger)
         if (playerInput.lt) {
-            if (CheckState("ground")) {
+            if (CheckState("ground") || CheckStateTag("attackR")) {
                 actor.SetTrigger("counterBack");
             }
         }
