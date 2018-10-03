@@ -37,12 +37,12 @@ public class ActorManager : MonoBehaviour {
     }
 
 
-    public void TryDoDamage(WeaponController wcTarget) {
-        if (sm.counterBackSuccess) {
+    public void TryDoDamage(WeaponController wcTarget, bool attackVeild, bool counterVeild) {
+        if (sm.counterBackSuccess && counterVeild) {
             wcTarget.wm.am.Stunned();
         }
-        else if (sm.counterBackFailer) {
-            DoHit(false);
+        else if (sm.counterBackFailer && attackVeild) {
+            HitOrDie(false);
         }
         else if (sm.HPisZero) {
             //do no thing
@@ -54,17 +54,19 @@ public class ActorManager : MonoBehaviour {
             Blocked();
         }
         else {
-            DoHit();
+            if (attackVeild) {
+                HitOrDie();
+            }
         }
     }
 
-    public void DoHit(bool doHitAnimation = true) {
-        if (doHitAnimation) {
-            Damage();
-        }
+    public void HitOrDie(bool doHitAnimation = true) {
         sm.AddHP(-5);
         if (sm.HPisZero) {
             Die();
+        }
+        else if (doHitAnimation) {
+            Damage();
         }
     }
 

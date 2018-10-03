@@ -739,9 +739,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.06904763
   m_TransitionOffset: 0
-  m_ExitTime: 0.6428572
+  m_ExitTime: 0.8253306
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 1
@@ -850,9 +850,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.2412585
+  m_TransitionDuration: 0.041258574
   m_TransitionOffset: 0
-  m_ExitTime: 0.67163277
+  m_ExitTime: 0.93250203
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1087,9 +1087,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.0722689
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.9192677
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1270,9 +1270,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.20069921
+  m_TransitionDuration: 0.044116557
   m_TransitionOffset: 0
-  m_ExitTime: 0.8978436
+  m_ExitTime: 0.89784354
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1433,7 +1433,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: counterBack
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101932609787055078}
@@ -1741,7 +1741,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: impact
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101077642466180618}
@@ -1769,7 +1769,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: blocked
-  m_Speed: 1
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101160913637669008}

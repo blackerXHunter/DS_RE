@@ -14,6 +14,12 @@ public class CameraController : MonoBehaviour {
             }
         }
         public GameObject obj;
+        public ActorManager am;
+
+        public LockTarget(GameObject obj) {
+            this.obj = obj;
+            am = obj.GetComponent<ActorManager>();
+        }
     }
 
     public float horizontal = 100f;
@@ -97,6 +103,9 @@ public class CameraController : MonoBehaviour {
             if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > 10.0f) {
                 UnLock();
             }
+            if (lockTarget.am != null && lockTarget.am.sm.HPisZero) {
+                UnLock();
+            }
         }
     }
 
@@ -127,8 +136,7 @@ public class CameraController : MonoBehaviour {
         }
     }
     private void Lock(Collider target) {
-        lockTarget = new LockTarget();
-        lockTarget.obj = target.gameObject;
+        lockTarget = new LockTarget(target.gameObject);
         lockState = true;
         if (!isAI) {
             lockDot.enabled = true;
