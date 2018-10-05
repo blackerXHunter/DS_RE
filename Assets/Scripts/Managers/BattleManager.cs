@@ -18,7 +18,8 @@ public class BattleManager : IActorManager {
 
             bool attackVeild = true;
             bool counterVeild = Mathf.Abs(counterAngle1 - 180) < 35;
-            Debug.Log(counterAngle1);
+            Debug.Log(counterAngle1 + " " + attackVeild + " " + counterVeild);
+
             am.TryDoDamage(wc, attackVeild, counterVeild);
         }
     }
