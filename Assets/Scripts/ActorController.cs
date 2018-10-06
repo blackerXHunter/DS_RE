@@ -47,6 +47,10 @@ public class ActorController : MonoBehaviour {
         actor.SetTrigger(triggerSign);
     }
 
+    public void IssueBool(string boolSign, bool val) {
+        actor.SetBool(boolSign, val);
+    }
+    
     // Use this for initialization
     private void Awake() {
         actor = model.GetComponent<Animator>();

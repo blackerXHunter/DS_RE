@@ -82,6 +82,10 @@ public class ActorManager : MonoBehaviour {
         ac.IssueTrigger("damage");
     }
 
+    public void Lock(bool val) {
+        ac.IssueBool("lock", val);
+    }
+
     public void Die() {
         ac.IssueTrigger("die");
         ac.playerInput.inputEnable = false;
