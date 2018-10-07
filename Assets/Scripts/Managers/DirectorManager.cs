@@ -31,7 +31,7 @@ public class DirectorManager : IActorManager {
                 pd.SetGenericBinding(track.sourceObject, victim);
             }
             else if (track.streamName == "Attacker Animation") {
-                Debug.Log(attcker.ac.GetAnimator());
+
                 pd.SetGenericBinding(track.sourceObject, attcker.ac.GetAnimator());
             }
             else if (track.streamName == "Victim Animation") {

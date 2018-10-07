@@ -10,6 +10,7 @@ public class ActorManager : MonoBehaviour {
     public WeaponManager wm;
     public StateManager sm;
     public DirectorManager dm;
+    public InteractionManager im;
     // Use this for initialization
     private void Awake() {
         ac = GetComponent<ActorController>();
@@ -18,6 +19,7 @@ public class ActorManager : MonoBehaviour {
     void Start() {
         GameObject sensor = transform.Find("sensors").gameObject;
         bm = Bind<BattleManager>(sensor);
+        im = Bind<InteractionManager>(sensor);
 
         GameObject model = ac.model;
         wm = Bind<WeaponManager>(model);
