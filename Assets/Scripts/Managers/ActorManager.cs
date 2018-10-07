@@ -14,6 +14,16 @@ public class ActorManager : MonoBehaviour {
     // Use this for initialization
     private void Awake() {
         ac = GetComponent<ActorController>();
+        ac.OnAction.AddListener(DoAction);
+    }
+
+    private void DoAction() {
+        foreach (var ecastManager in im.ecastmanaList) {
+            if (ecastManager.eventName == "frontStab") {
+                print("frontStab");
+                dm.PlayFrontStab(this, ecastManager.am);
+            }
+        } 
     }
 
     void Start() {

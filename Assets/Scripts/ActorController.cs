@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ActorController : MonoBehaviour {
+    #region Feilds
 
     public GameObject model;
 
@@ -14,6 +16,8 @@ public class ActorController : MonoBehaviour {
     private Collider coll;
 
     public CameraController camCtrl;
+
+    public UnityEvent OnAction;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
@@ -44,6 +48,8 @@ public class ActorController : MonoBehaviour {
     public PhysicMaterial fricationOne;
     public PhysicMaterial fricationZero;
 
+    #endregion
+
     public void IssueTrigger(string triggerSign) {
         actor.SetTrigger(triggerSign);
     }
@@ -55,7 +61,7 @@ public class ActorController : MonoBehaviour {
     public Animator GetAnimator() {
         return actor;
     }
-    
+
     // Use this for initialization
     private void Awake() {
         actor = model.GetComponent<Animator>();
@@ -101,7 +107,9 @@ public class ActorController : MonoBehaviour {
                 actor.SetTrigger("counterBack");
             }
         }
-
+        if (playerInput.action) {
+            OnAction.Invoke();
+        }
         if (camCtrl.lockState == false) {
 
             if (playerInput.Dmag > 0.1f) {

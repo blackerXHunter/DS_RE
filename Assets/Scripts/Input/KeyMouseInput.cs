@@ -18,6 +18,8 @@ public class KeyMouseInput : UserInput {
     public string keyM2;
 
     public string keyQ;
+    public string keyE;
+
 
     public string keyJUp;
     public string keyJRight;
@@ -30,6 +32,7 @@ public class KeyMouseInput : UserInput {
     public MyButton buttonD = new MyButton();
     public MyButton buttonM2 = new MyButton();
     public MyButton buttonQ = new MyButton();
+    public MyButton buttonE = new MyButton();
     // Update is called once per frame
     private void Update () {
 
@@ -39,6 +42,7 @@ public class KeyMouseInput : UserInput {
         buttonD.Tick(Input.GetKey(keyD));
         buttonM2.Tick(Input.GetKey(keyM2));
         buttonQ.Tick(Input.GetKey(keyQ));
+        buttonE.Tick(Input.GetKey(keyE));
 
         Jup = Input.GetKey(keyJUp)?1.0f:0 - (Input.GetKey(keyJDown)?1.0f:0);
         Jright = Input.GetKey(keyJRight) ? 1.0f : 0 - (Input.GetKey(keyJLeft) ? 1.0f : 0);
@@ -73,6 +77,7 @@ public class KeyMouseInput : UserInput {
 
         lt = buttonQ.OnPressed;
         rb = buttonC.OnPressed;
+        action = buttonE.OnPressed;
         defense = buttonD.IsPressing;
         lockUnlock = buttonM2.OnPressed;
         //Debug.Log(buttonD.isExtending && buttonD.OnPressed);

@@ -3660,6 +3660,7 @@ MonoBehaviour:
   Jright: 0
   run: 0
   defense: 0
+  action: 0
   jump: 0
   rb: 0
   lb: 0
@@ -3678,6 +3679,7 @@ MonoBehaviour:
   keyD: k
   keyM2: mouse 2
   keyQ: q
+  keyE: e
   keyJUp: up
   keyJRight: right
   keyJLeft: left
@@ -3708,6 +3710,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1267754806}
   camCtrl: {fileID: 1328105711}
+  OnAction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   walkSpeed: 1.36
   runSpeed: 3
   playerInput: {fileID: 0}
@@ -3783,6 +3790,7 @@ MonoBehaviour:
   Jright: 0
   run: 0
   defense: 0
+  action: 0
   jump: 0
   rb: 0
   lb: 0
@@ -3823,8 +3831,6 @@ MonoBehaviour:
   am: {fileID: 0}
   pd: {fileID: 0}
   frontStab: {fileID: 11400000, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-  attcker: {fileID: 1197768994}
-  victim: {fileID: 2074558632}
 --- !u!320 &1197768997
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -5151,7 +5157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d34f6b387642c841a546cf7b2a5e09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  am: {fileID: 0}
+  am: {fileID: 2074558632}
   eventName: frontStab
   active: 1
 --- !u!1 &1863260226
@@ -5817,6 +5823,7 @@ MonoBehaviour:
   Jright: 0
   run: 0
   defense: 0
+  action: 0
   jump: 0
   rb: 0
   lb: 0
@@ -5838,6 +5845,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1968420529}
   camCtrl: {fileID: 1559658989}
+  OnAction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   walkSpeed: 1.36
   runSpeed: 3
   playerInput: {fileID: 0}
@@ -5922,8 +5934,6 @@ MonoBehaviour:
   am: {fileID: 0}
   pd: {fileID: 0}
   frontStab: {fileID: 11400000, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-  attcker: {fileID: 2074558632}
-  victim: {fileID: 1197768994}
 --- !u!320 &2074558637
 PlayableDirector:
   m_ObjectHideFlags: 0
