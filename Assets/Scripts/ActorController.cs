@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,6 +50,10 @@ public class ActorController : MonoBehaviour {
 
     public void IssueBool(string boolSign, bool val) {
         actor.SetBool(boolSign, val);
+    }
+
+    public Animator GetAnimator() {
+        return actor;
     }
     
     // Use this for initialization
