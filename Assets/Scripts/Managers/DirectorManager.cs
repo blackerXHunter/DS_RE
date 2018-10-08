@@ -26,23 +26,40 @@ public class DirectorManager : IActorManager {
     }
 
     public void PlayFrontStab(ActorManager attacker, ActorManager victim) {
+
+        if (pd.playableAsset != null) {
+            return;
+        }
         pd.playableAsset = Instantiate(frontStab);
+        TimelineAsset timeline = (TimelineAsset) pd.playableAsset;
 
-        foreach (var track in pd.playableAsset.outputs) {
-            if (track.streamName == "Attacker Script") {
-                pd.SetGenericBinding(track.sourceObject, attacker);
+        foreach (var track in timeline.GetOutputTracks()) {
+            if (track.name == "Attacker Script") {
+                pd.SetGenericBinding(track, attacker);
+                foreach (var clip in track.GetClips()) {
+                    MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip) clip.asset;
+                    MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                }
             }
-            else if (track.streamName == "Victim Script") {
-                pd.SetGenericBinding(track.sourceObject, victim);
+            else if (track.name == "Victim Script") {
+                pd.SetGenericBinding(track, victim);
+                pd.SetGenericBinding(track, attacker);
+                foreach (var clip in track.GetClips()) {
+                    MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                    MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                }
             }
-            else if (track.streamName == "Attacker Animation") {
-
-                pd.SetGenericBinding(track.sourceObject, attacker.ac.GetAnimator());
+            else if (track.name == "Attacker Animation") {
+                pd.SetGenericBinding(track, attacker.ac.GetAnimator());
             }
-            else if (track.streamName == "Victim Animation") {
-                pd.SetGenericBinding(track.sourceObject, victim.ac.GetAnimator());
+            else if (track.name == "Victim Animation") {
+                pd.SetGenericBinding(track, victim.ac.GetAnimator());
             }
         }
+        pd.Evaluate();
+
         pd.Play();
     }
 

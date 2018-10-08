@@ -17,7 +17,7 @@ public class ActorController : MonoBehaviour {
 
     public CameraController camCtrl;
 
-    public UnityEvent OnAction;
+    public Action OnAction;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
@@ -245,5 +245,9 @@ public class ActorController : MonoBehaviour {
         planerVec = Vector3.zero;
     }
 
+    private void OnLockEnter() {
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
+    }
     #endregion
 }

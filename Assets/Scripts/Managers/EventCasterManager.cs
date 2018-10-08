@@ -9,7 +9,9 @@ public class EventCasterManager : IActorManager {
 
 	// Use this for initialization
 	void Start () {
-		
+        if (am == null) {
+             am = gameObject.GetComponentInParent<ActorManager>();
+        }
 	}
 	
 	// Update is called once per frame

@@ -67,7 +67,10 @@ public class KeyMouseInput : UserInput {
 
         float Dright2 = tempDAxis.x;
         float Dup2 = tempDAxis.y;
-
+        if (!inputEnable) {
+            Dup2 = 0;
+            Dright2 = 0;
+        }
         Dmag = Mathf.Sqrt(Dup2 * Dup2 + Dright2 * Dright2);
         Dforward = transform.forward * Dup2 + transform.right * Dright2;
 

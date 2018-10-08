@@ -8,6 +8,8 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
 {
     public MySuperPlayableBehaviour template = new MySuperPlayableBehaviour ();
 
+    public ExposedReference<ActorManager> am;
+
     public ClipCaps clipCaps
     {
         get { return ClipCaps.Blending; }
@@ -17,6 +19,8 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
     {
         var playable = ScriptPlayable<MySuperPlayableBehaviour>.Create (graph, template);
         MySuperPlayableBehaviour clone = playable.GetBehaviour ();
+        am.exposedName = new PropertyName(GetInstanceID().ToString());
+        clone.am = am.Resolve(graph.GetResolver());
         return playable;
     }
 }
