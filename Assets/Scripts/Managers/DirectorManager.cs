@@ -12,6 +12,7 @@ public class DirectorManager : IActorManager {
 
     [Header("=== Timeline Assets ===")]
     public TimelineAsset frontStab;
+    public TimelineAsset openBox;
 
 
     //[Header("=== Assets Settings ===")]
@@ -25,9 +26,9 @@ public class DirectorManager : IActorManager {
         
     }
 
-    public void PlayFrontStab(ActorManager attacker, ActorManager victim) {
+    private void PlayFrontStab(ActorManager attacker, ActorManager victim) {
 
-        if (pd.playableAsset != null) {
+        if (pd.state == PlayState.Playing) {
             return;
         }
         pd.playableAsset = Instantiate(frontStab);
@@ -39,6 +40,7 @@ public class DirectorManager : IActorManager {
                 foreach (var clip in track.GetClips()) {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip) clip.asset;
                     MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                 }
             }
@@ -48,6 +50,7 @@ public class DirectorManager : IActorManager {
                 foreach (var clip in track.GetClips()) {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                 }
             }
@@ -59,8 +62,53 @@ public class DirectorManager : IActorManager {
             }
         }
         pd.Evaluate();
-
         pd.Play();
+    }
+
+    internal void Play(string eventName, ActorManager attacker, ActorManager victim) {
+        if (pd.state == PlayState.Playing) {
+            return;
+        }
+
+        if (eventName == "frontStab") {
+            PlayFrontStab(attacker, victim);
+        }
+
+        else if (eventName == "treasureBox") {
+
+            pd.playableAsset = Instantiate(openBox);
+            TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
+            foreach (var track in timeline.GetOutputTracks()) {
+                if (track.name == "Player Script") {
+                    pd.SetGenericBinding(track, attacker);
+                    foreach (var clip in track.GetClips()) {
+                        MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                    }
+                }
+                else if (track.name == "Box Script") {
+                    pd.SetGenericBinding(track, victim);
+                    pd.SetGenericBinding(track, attacker);
+                    foreach (var clip in track.GetClips()) {
+                        MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                    }
+                }
+                else if (track.name == "Player Animation") {
+                    pd.SetGenericBinding(track, attacker.ac.GetAnimator());
+                }
+                else if (track.name == "Box Animation") {
+                    pd.SetGenericBinding(track, victim.ac.GetAnimator());
+                    victim.ac.GetAnimator().SetTrigger("open");
+                }
+            }
+            pd.Evaluate();
+            pd.Play();
+        }
     }
 
     // Update is called once per frame

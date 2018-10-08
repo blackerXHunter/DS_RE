@@ -10,15 +10,13 @@ public class MySuperPlayableBehaviour : PlayableBehaviour {
     public override void OnPlayableCreate(Playable playable) {
 
     }
-    PlayableDirector pd;
+
     public override void OnGraphStart(Playable playable) {
-        pd = (PlayableDirector)playable.GetGraph().GetResolver();
+
     }
 
     public override void OnGraphStop(Playable playable) {
-        if (pd != null) {
-            pd.playableAsset = null;
-        }
+
     }
 
     public override void OnBehaviourPlay(Playable playable, FrameData info) {

@@ -19,16 +19,31 @@ public class ActorManager : MonoBehaviour {
 
     private void DoAction() {
         foreach (var ecastManager in im.ecastmanaList) {
+            if (!ecastManager.active) {
+                continue;
+            }
             if (ecastManager.eventName == "frontStab") {
-                dm.PlayFrontStab(this, ecastManager.am);
+                dm.Play("frontStab", this, ecastManager.am);
+            }
+            else if (ecastManager.eventName == "treasureBox") {
+
+                bool canOpenBox = BattleManager.CheckAnglePlayer(this.ac.model, ecastManager.am.gameObject, 30);
+                if (canOpenBox) {
+                    dm.Play("treasureBox", this, ecastManager.am);
+                    ecastManager.active = false;
+                    Debug.Log("treasreBox");
+                }
             }
         }
     }
 
     void Start() {
-        GameObject sensor = transform.Find("sensors").gameObject;
-        bm = Bind<BattleManager>(sensor);
-        im = Bind<InteractionManager>(sensor);
+        var sensorTransform = transform.Find("sensors");
+        if (sensorTransform != null) {
+            GameObject sensor = sensorTransform.gameObject;
+            bm = Bind<BattleManager>(sensor);
+            im = Bind<InteractionManager>(sensor);
+        }
 
         GameObject model = ac.model;
         wm = Bind<WeaponManager>(model);

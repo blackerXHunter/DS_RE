@@ -11,29 +11,36 @@ public class BattleManager : IActorManager {
         if (other.CompareTag("Weapon")) {
             WeaponController wc = other.GetComponentInParent<WeaponController>();
 
-            GameObject attcker = wc.wm.am.gameObject;
-            GameObject reciver = am.gameObject;
+            GameObject attcker = wc.wm.am.ac.model;
+            GameObject reciver = am.ac.model;
 
-            float counterAngle1 = Vector3.Angle(reciver.transform.forward, attcker.transform.forward);
-
-            bool attackVeild = true;
-            bool counterVeild = Mathf.Abs(counterAngle1 - 180) < 35;
-
-
-            am.TryDoDamage(wc, attackVeild, counterVeild);
+            am.TryDoDamage(wc, CheckAngleTarget(reciver, attcker, 60), CheckAnglePlayer(reciver, attcker, 35));
         }
     }
 
     // Use this for initialization
     void Start() {
         defenseCollider = GetComponent<CapsuleCollider>();
-        defenseCollider.center = new Vector3(0, 1.1f, 0);
-        defenseCollider.height = 1.0f;
+        defenseCollider.center = new Vector3(0, 0.9f, 0);
+        defenseCollider.height = 1.6f;
         defenseCollider.radius = 0.4f;
     }
 
-    // Update is called once per frame
-    void Update() {
+    public static bool CheckAnglePlayer(GameObject player, GameObject target, float playerAngleLimit) {
+        Vector3 counterDir = target.transform.position - player.transform.position;
 
+        float counterAngle1 = Vector3.Angle(player.transform.forward, counterDir);
+        float counterAngle2 = Vector3.Angle(target.transform.forward, player.transform.forward);
+
+        bool counterVeild = counterAngle1 < playerAngleLimit && Mathf.Abs(counterAngle2 - 180) < playerAngleLimit;
+        return counterVeild;
+    }
+
+    public static bool CheckAngleTarget(GameObject player, GameObject target, float targetAngleLimit) {
+        Vector3 attackingDir = player.transform.position - target.transform.position;
+
+        float attackingAngle1 = Vector3.Angle(target.transform.forward, attackingDir);
+
+        return attackingAngle1 < targetAngleLimit;
     }
 }
