@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 30468688}
   - component: {fileID: 30468687}
   - component: {fileID: 30468689}
+  - component: {fileID: 30468690}
   m_Layer: 10
   m_Name: mesh9
   m_TagString: Weapon
@@ -419,6 +420,18 @@ CapsuleCollider:
   m_Height: 2.07
   m_Direction: 2
   m_Center: {x: -0.9872177, y: 1.7940397, z: -0.57576}
+--- !u!114 &30468690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 30468685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184f7f5cb2de0bf4a8685dd6fa8f4268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ATK: 1
 --- !u!1 &78979055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,6 +1846,7 @@ MonoBehaviour:
   jabVelocity: 2
   fricationOne: {fileID: 0}
   fricationZero: {fileID: 0}
+  frontStabEcManager: {fileID: 0}
 --- !u!114 &436062771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,6 +3600,7 @@ MonoBehaviour:
   jabVelocity: 2
   fricationOne: {fileID: 0}
   fricationZero: {fileID: 0}
+  frontStabEcManager: {fileID: 0}
 --- !u!114 &931510768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4316,6 +4331,7 @@ MonoBehaviour:
   jabVelocity: 10
   fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
   fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
+  frontStabEcManager: {fileID: 0}
 --- !u!54 &1197768992
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4464,7 +4480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   am: {fileID: 0}
-  HP: 50
+  HP: 100
   HPMAX: 250
   ATK: 5
   isDie: 0
@@ -5840,7 +5856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   am: {fileID: 2074558632}
   eventName: frontStab
-  active: 1
+  active: 0
   offset: {x: 0, y: 0, z: 1}
 --- !u!1 &1863260226
 GameObject:
@@ -6603,6 +6619,7 @@ MonoBehaviour:
   jabVelocity: 10
   fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
   fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
+  frontStabEcManager: {fileID: 1856459311}
 --- !u!114 &2074558632
 MonoBehaviour:
   m_ObjectHideFlags: 0

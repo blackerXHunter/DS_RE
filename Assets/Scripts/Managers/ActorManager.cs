@@ -90,10 +90,11 @@ public class ActorManager : MonoBehaviour {
 
     public void TryDoDamage(WeaponController wcTarget, bool attackVeild, bool counterVeild) {
         if (sm.counterBackSuccess && counterVeild) {
+            HitOrDie(wcTarget, 2, false);
             wcTarget.wm.am.Stunned();
         }
         else if (sm.counterBackFailer && attackVeild) {
-            HitOrDie(wcTarget, false);
+            HitOrDie(wcTarget, 1, false);
         }
         else if (sm.HPisZero) {
             //do no thing
@@ -111,8 +112,10 @@ public class ActorManager : MonoBehaviour {
         }
     }
 
-    public void HitOrDie(WeaponController targetWc, bool doHitAnimation = true) {
-        sm.AddHP(-targetWc.GetAtk());
+    public void HitOrDie(WeaponController targetWc, float damageSample = 1f, bool doHitAnimation = true) {
+        float damageVal = targetWc.GetAtk() * damageSample;
+        Debug.Log(damageSample);
+        sm.AddHP(-damageSample);
         if (sm.HPisZero) {
             Die();
         }
@@ -145,4 +148,5 @@ public class ActorManager : MonoBehaviour {
         }
         ac.camCtrl.enabled = false;
     }
+
 }
