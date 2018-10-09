@@ -2374,6 +2374,18 @@ CapsuleCollider:
   m_Height: 1.13
   m_Direction: 1
   m_Center: {x: -0.024052769, y: -0.65, z: -0.00010055762}
+--- !u!114 &589282925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 589282920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184f7f5cb2de0bf4a8685dd6fa8f4268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ATK: 1
 --- !u!1 &625326933
 GameObject:
   m_ObjectHideFlags: 0
@@ -4219,6 +4231,7 @@ GameObject:
   - component: {fileID: 1197768994}
   - component: {fileID: 1197768997}
   - component: {fileID: 1197768996}
+  - component: {fileID: 1197768998}
   m_Layer: 12
   m_Name: PlayerHandle
   m_TagString: Untagged
@@ -4439,6 +4452,37 @@ PlayableDirector:
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &1197768998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1197768988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc21ec7d2c67232449ad302911cacb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 0}
+  HP: 50
+  HPMAX: 250
+  ATK: 5
+  isDie: 0
+  isGround: 0
+  isRoll: 0
+  isJab: 0
+  isAttack: 0
+  isDefense: 0
+  isBolcked: 0
+  isJump: 0
+  isImpact: 0
+  isFall: 0
+  isCounterBack: 0
+  isCounterBackEnable: 0
+  allowDefense: 0
+  immortal: 0
+  counterBackSuccess: 0
+  counterBackFailer: 0
 --- !u!1 &1201332698
 GameObject:
   m_ObjectHideFlags: 0
@@ -6502,6 +6546,7 @@ GameObject:
   - component: {fileID: 2074558632}
   - component: {fileID: 2074558637}
   - component: {fileID: 2074558636}
+  - component: {fileID: 2074558638}
   m_Layer: 11
   m_Name: AIHandle
   m_TagString: Untagged
@@ -6652,6 +6697,37 @@ PlayableDirector:
   m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
+--- !u!114 &2074558638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2074558629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc21ec7d2c67232449ad302911cacb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 0}
+  HP: 15
+  HPMAX: 15
+  ATK: 10
+  isDie: 0
+  isGround: 0
+  isRoll: 0
+  isJab: 0
+  isAttack: 0
+  isDefense: 0
+  isBolcked: 0
+  isJump: 0
+  isImpact: 0
+  isFall: 0
+  isCounterBack: 0
+  isCounterBackEnable: 0
+  allowDefense: 0
+  immortal: 0
+  counterBackSuccess: 0
+  counterBackFailer: 0
 --- !u!1 &2106417292
 GameObject:
   m_ObjectHideFlags: 0

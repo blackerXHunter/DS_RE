@@ -8,8 +8,9 @@ public class StateManager : IActorManager {
         HP = Mathf.Clamp(HP, 0, HPMAX);
     }
 
-    private float HP = 150.0f;
-    private float HPMAX = 250.0f;
+    public float HP = 150.0f;
+    public float HPMAX = 250.0f;
+    public float ATK = 10f;
     public void AddHP(float value) {
         HP += value;
         HP = Mathf.Clamp(HP, 0, HPMAX);

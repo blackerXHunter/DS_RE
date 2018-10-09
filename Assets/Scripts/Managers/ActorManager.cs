@@ -93,7 +93,7 @@ public class ActorManager : MonoBehaviour {
             wcTarget.wm.am.Stunned();
         }
         else if (sm.counterBackFailer && attackVeild) {
-            HitOrDie(false);
+            HitOrDie(wcTarget, false);
         }
         else if (sm.HPisZero) {
             //do no thing
@@ -106,13 +106,13 @@ public class ActorManager : MonoBehaviour {
         }
         else {
             if (attackVeild) {
-                HitOrDie();
+                HitOrDie(wcTarget);
             }
         }
     }
 
-    public void HitOrDie(bool doHitAnimation = true) {
-        sm.AddHP(-5);
+    public void HitOrDie(WeaponController targetWc, bool doHitAnimation = true) {
+        sm.AddHP(-targetWc.GetAtk());
         if (sm.HPisZero) {
             Die();
         }
