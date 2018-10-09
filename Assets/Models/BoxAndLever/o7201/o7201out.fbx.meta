@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 35e44e7faf657a94e9902095a0144a2f
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: mesh0
     100002: mesh1
@@ -18,7 +18,17 @@ ModelImporter:
     4300000: mesh0
     4300002: mesh1
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: o7201_0
+    second: {fileID: 2100000, guid: 7f4a8a4e015c9ee4e9713220cffd460f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: o7201_1
+    second: {fileID: 2100000, guid: b8d40bb909d628d49a080a0652e277e8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,6 +47,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -68,6 +79,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 1

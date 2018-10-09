@@ -17,9 +17,9 @@ public class MySuperPlayableMixerBehaviour : PlayableBehaviour
 
         for (int i = 0; i < inputCount; i++)
         {
-            float inputWeight = playable.GetInputWeight(i);
-            ScriptPlayable<MySuperPlayableBehaviour> inputPlayable = (ScriptPlayable<MySuperPlayableBehaviour>)playable.GetInput(i);
-            MySuperPlayableBehaviour input = inputPlayable.GetBehaviour ();
+            //float inputWeight = playable.GetInputWeight(i);
+            //ScriptPlayable<MySuperPlayableBehaviour> inputPlayable = (ScriptPlayable<MySuperPlayableBehaviour>)playable.GetInput(i);
+            //MySuperPlayableBehaviour input = inputPlayable.GetBehaviour ();
             
             // Use the above variables to process each frame of this playable.
             

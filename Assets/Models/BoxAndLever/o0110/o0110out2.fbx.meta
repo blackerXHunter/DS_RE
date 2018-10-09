@@ -190,7 +190,7 @@ ModelImporter:
     previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 65
     normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4

@@ -19,10 +19,12 @@ public class ActorManager : MonoBehaviour {
 
     private void DoAction() {
         foreach (var ecastManager in im.ecastmanaList) {
-            if (!ecastManager.active) {
+            if (!ecastManager.active && !dm.IsPlaying()) {
                 continue;
             }
             if (ecastManager.eventName == "frontStab") {
+                transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
+                ac.model.transform.LookAt(ecastManager.am.transform, Vector3.up);
                 dm.Play("frontStab", this, ecastManager.am);
             }
             else if (ecastManager.eventName == "treasureBox") {
@@ -56,6 +58,9 @@ public class ActorManager : MonoBehaviour {
             bm = Bind<BattleManager>(sensor);
             im = Bind<InteractionManager>(sensor);
         }
+        else {
+            Debug.LogWarning("sensor is null");
+        }
 
         GameObject model = ac.model;
         wm = Bind<WeaponManager>(model);
@@ -67,6 +72,9 @@ public class ActorManager : MonoBehaviour {
     }
 
     private T Bind<T>(GameObject obj) where T : IActorManager {
+        if (obj == null) {
+            return null;
+        }
         T iacM = obj.GetComponent<T>();
         if (iacM == null) {
             iacM = obj.AddComponent<T>();

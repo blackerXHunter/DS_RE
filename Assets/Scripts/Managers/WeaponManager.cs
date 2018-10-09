@@ -9,14 +9,24 @@ public class WeaponManager : IActorManager {
     public WeaponController wcL, wcR;
 
     private void Start() {
-        whR = transform.DeepFind("weaponHandleR").gameObject;
-        whL = transform.DeepFind("weaponHandleL").gameObject;
+        try {
+            whR = transform.DeepFind("weaponHandleR").gameObject;
+            wcR = BindWeaponController(whR);
+            weaponColliderR = whR.GetComponentInChildren<Collider>();
+        }
+        catch (System.Exception) {
+            Debug.LogWarning("right weapon is null");
+        }
 
-        wcR = BindWeaponController(whR);
-        wcL = BindWeaponController(whL);
+        try {
+            whL = transform.DeepFind("weaponHandleL").gameObject;
+            wcL = BindWeaponController(whL);
+            weaponColliderL = whL.GetComponentInChildren<Collider>();
+        }
+        catch (System.Exception) {
+            Debug.LogWarning("left weapon is null");
+        }
 
-        weaponColliderR = whR.GetComponentInChildren<Collider>();
-        weaponColliderL = whL.GetComponentInChildren<Collider>();
     }
 
     private WeaponController BindWeaponController(GameObject bindObj) {

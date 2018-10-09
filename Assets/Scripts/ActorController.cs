@@ -38,9 +38,9 @@ public class ActorController : MonoBehaviour {
 
     private bool lockPlaner = false;
 
-    private bool canAttack;
+    //private bool canAttack;
 
-    private bool leftIsShild = true;
+    //private bool leftIsShild = true;
 
     private Vector3 deltaPos;
 
@@ -169,14 +169,14 @@ public class ActorController : MonoBehaviour {
     private void OnGroundEnter() {
         playerInput.inputEnable = true;
         lockPlaner = false;
-        canAttack = true;
+        //canAttack = true;
         coll.material = fricationOne;
     }
 
     private void OnGroundExit() {
         playerInput.inputEnable = true;
         lockPlaner = true;
-        canAttack = true;
+        //canAttack = true;
         coll.material = fricationZero;
     }
 

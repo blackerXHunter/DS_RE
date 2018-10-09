@@ -38,7 +38,7 @@ public class DirectorManager : IActorManager {
                 pd.SetGenericBinding(track, attacker);
                 foreach (var clip in track.GetClips()) {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip) clip.asset;
-                    MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                     mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                 }
@@ -48,7 +48,7 @@ public class DirectorManager : IActorManager {
                 pd.SetGenericBinding(track, attacker);
                 foreach (var clip in track.GetClips()) {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
-                    MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                     mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                 }
@@ -64,10 +64,16 @@ public class DirectorManager : IActorManager {
         pd.Play();
     }
 
-    internal void Play(string eventName, ActorManager attacker, ActorManager victim) {
+    public bool IsPlaying() {
         if (pd.state == PlayState.Playing) {
-            return;
+            return true;
         }
+        else {
+            return false;
+        }
+    }
+
+    public void Play(string eventName, ActorManager attacker, ActorManager victim) {
 
         if (eventName == "frontStab") {
             PlayFrontStab(attacker, victim);
@@ -82,7 +88,7 @@ public class DirectorManager : IActorManager {
                     pd.SetGenericBinding(track, attacker);
                     foreach (var clip in track.GetClips()) {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
-                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                     }
@@ -92,7 +98,7 @@ public class DirectorManager : IActorManager {
                     pd.SetGenericBinding(track, attacker);
                     foreach (var clip in track.GetClips()) {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
-                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                     }
@@ -117,7 +123,7 @@ public class DirectorManager : IActorManager {
                     pd.SetGenericBinding(track, attacker);
                     foreach (var clip in track.GetClips()) {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
-                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                     }
@@ -127,7 +133,7 @@ public class DirectorManager : IActorManager {
                     pd.SetGenericBinding(track, attacker);
                     foreach (var clip in track.GetClips()) {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
-                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                     }
