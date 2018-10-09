@@ -13,6 +13,7 @@ public class DirectorManager : IActorManager {
     [Header("=== Timeline Assets ===")]
     public TimelineAsset frontStab;
     public TimelineAsset openBox;
+    public TimelineAsset leverUp;
 
 
     //[Header("=== Assets Settings ===")]
@@ -22,8 +23,6 @@ public class DirectorManager : IActorManager {
     void Start() {
         pd = GetComponent<PlayableDirector>();
         pd.playOnAwake = false;
-
-        
     }
 
     private void PlayFrontStab(ActorManager attacker, ActorManager victim) {
@@ -102,6 +101,41 @@ public class DirectorManager : IActorManager {
                     pd.SetGenericBinding(track, attacker.ac.GetAnimator());
                 }
                 else if (track.name == "Box Animation") {
+                    pd.SetGenericBinding(track, victim.ac.GetAnimator());
+                    victim.ac.GetAnimator().SetTrigger("open");
+                }
+            }
+            pd.Evaluate();
+            pd.Play();
+        }
+
+        else if (eventName == "leverUp") {
+            pd.playableAsset = Instantiate(leverUp);
+            TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
+            foreach (var track in timeline.GetOutputTracks()) {
+                if (track.name == "Player Script") {
+                    pd.SetGenericBinding(track, attacker);
+                    foreach (var clip in track.GetClips()) {
+                        MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                    }
+                }
+                else if (track.name == "Lever Script") {
+                    pd.SetGenericBinding(track, victim);
+                    pd.SetGenericBinding(track, attacker);
+                    foreach (var clip in track.GetClips()) {
+                        MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                        MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                    }
+                }
+                else if (track.name == "Player Animation") {
+                    pd.SetGenericBinding(track, attacker.ac.GetAnimator());
+                }
+                else if (track.name == "Lever Animation") {
                     pd.SetGenericBinding(track, victim.ac.GetAnimator());
                     victim.ac.GetAnimator().SetTrigger("open");
                 }

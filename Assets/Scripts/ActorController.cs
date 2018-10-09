@@ -107,15 +107,14 @@ public class ActorController : MonoBehaviour {
                 actor.SetTrigger("counterBack");
             }
         }
-        if (playerInput.action) {
-            OnAction.Invoke();
-        }
         if (camCtrl.lockState == false) {
+            if (playerInput.inputEnable) {
 
-            if (playerInput.Dmag > 0.1f) {
-                model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
+                if (playerInput.Dmag > 0.1f) {
+                    model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
+                }
+
             }
-
             if (!lockPlaner) {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
@@ -130,6 +129,9 @@ public class ActorController : MonoBehaviour {
 
         }
 
+        if (playerInput.action) {
+            OnAction.Invoke();
+        }
     }
 
     private void FixedUpdate() {

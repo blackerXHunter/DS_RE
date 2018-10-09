@@ -27,11 +27,23 @@ public class ActorManager : MonoBehaviour {
             }
             else if (ecastManager.eventName == "treasureBox") {
 
-                bool canOpenBox = BattleManager.CheckAnglePlayer(this.ac.model, ecastManager.am.gameObject, 30);
+                bool canOpenBox = BattleManager.CheckAnglePlayer(this.ac.model, ecastManager.am.gameObject, 45);
                 if (canOpenBox) {
+
+                    transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
+                    ac.model.transform.LookAt(ecastManager.am.transform, Vector3.up);
                     dm.Play("treasureBox", this, ecastManager.am);
                     ecastManager.active = false;
-                    Debug.Log("treasreBox");
+                }
+            }
+            else if (ecastManager.eventName == "leverUp") {
+                bool canLeverUp = BattleManager.CheckAnglePlayer(this.ac.model, ecastManager.am.gameObject, 45);
+                if (canLeverUp) {
+                    Debug.Log("leverUp");
+                    transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
+                    ac.model.transform.LookAt(ecastManager.am.transform, Vector3.up);
+                    dm.Play("leverUp", this, ecastManager.am);
+                    ecastManager.active = false;
                 }
             }
         }
