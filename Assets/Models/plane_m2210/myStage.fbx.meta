@@ -4,11 +4,29 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: 0...Plane
+    100004: 0...Pole
+    100006: 0...Wall
     400000: //RootNode
+    400002: 0...Plane
+    400004: 0...Pole
+    400006: 0...Wall
     2100000: Floor
+    2100002: Wall
+    2100004: Pole
+    2100006: Storn
     2300000: //RootNode
+    2300002: 0...Plane
+    2300004: 0...Pole
+    2300006: 0...Wall
     3300000: //RootNode
+    3300002: 0...Plane
+    3300004: 0...Pole
+    3300006: 0...Wall
     4300000: Plane
+    4300002: 0...Wall
+    4300004: 0...Pole
+    4300006: 0...Plane
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -16,10 +34,35 @@ ModelImporter:
       name: Floor
     second: {fileID: 2100000, guid: d112c14885eb20045badc624115efaaf, type: 2}
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pole
+    second: {fileID: 2100000, guid: 61f0da473f0c53d4785399d2ce3828a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Storn
+    second: {fileID: 2100000, guid: 325e7f58f86468b4d91c613a8d2c84e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 1f363e6a7955f704aa658320cc441607, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: m10_floor_block
-    second: {fileID: 2800000, guid: f177d10a0293bf84c9654598aeb8c849, type: 3}
+    second: {fileID: 2800000, guid: 929dc1aaa728d574f92063c12ed56b00, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: m10_wall_building_03
+    second: {fileID: 2800000, guid: 0e38e8b15f27ba14d87f4939268c3d50, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: m10_wall_building_09
+    second: {fileID: 2800000, guid: 4c26426a77de1e64c897bcb08973d5fb, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
