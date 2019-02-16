@@ -103,7 +103,7 @@ public class CameraController : MonoBehaviour {
             if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > 10.0f) {
                 UnLock();
             }
-            if (lockTarget.am != null && lockTarget.am.sm != null && lockTarget.am.sm.HPisZero) {
+            if (lockTarget != null&& lockTarget.am != null && lockTarget.am.sm != null && lockTarget.am.sm.HPisZero) {
                 UnLock();
             }
         }
