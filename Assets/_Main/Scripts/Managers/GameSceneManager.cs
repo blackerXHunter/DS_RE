@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
+    public List<String> sceneNames;
     internal void LoadScene(int sceneCode, Action OnLoaded)
     {
-        switch (sceneCode)
-        {
-            case 0:
-                StartCoroutine(AsyncLoading(OnLoaded));
-                break;
-        }
+        StartCoroutine(AsyncLoading(sceneCode, OnLoaded));
     }
     AsyncOperation op;
-    public float loadingValue;
-    IEnumerator AsyncLoading(Action OnLoaded)
+    IEnumerator AsyncLoading(int sceneCode , Action OnLoaded)
     {
-        op = SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
+        op = SceneManager.LoadSceneAsync(sceneNames[sceneCode], LoadSceneMode.Additive);
 
         //阻止当加载完成自动切换  
         //op.allowSceneActivation = false;  
@@ -26,6 +22,7 @@ public class GameSceneManager : MonoBehaviour
         yield return op;
         OnLoaded?.Invoke();
     }
+    public float loadingValue;
     void Update()
     {
         if (op != null)

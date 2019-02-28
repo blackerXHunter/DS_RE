@@ -5,7 +5,8 @@ using UnityEngine;
 using FLAG = System.Boolean;
 public class GameManager : MonoBehaviour
 {
-    public enum GameState{
+    public enum GameState
+    {
         ui,
         playing,
         die
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public UIManager um;
     public GameSceneManager gsm;
+    public CharaManager cm;
     public FLAG LoadingScene = false;
     // Start is called before the first frame update
     void Start()
@@ -28,16 +30,27 @@ public class GameManager : MonoBehaviour
     {
         um.OpenStartUI();
     }
-    public void StartGame(){
+    public void StartGame()
+    {
+        StartCoroutine(StartGame_Coro());
+    }
+
+    private IEnumerator StartGame_Coro()
+    {
         um.CloseStartUI();
         um.OpenLoadingUI();
-        gsm.LoadScene(0, ()=>um.CloseLoadingUI());
+        gsm.LoadScene(0, () => um.CloseLoadingUI());
         LoadingScene = true;
+        yield return new WaitUntil(()=>LoadingScene == false);
+        cm.LoadPlayer();
+        cm.LoadEnemy();
     }
+
     // Update is called once per frame
     void Update()
     {
-        if(LoadingScene){
+        if (LoadingScene)
+        {
             Debug.Log(gsm.loadingValue);
             um.SetLoadingValue(gsm.loadingValue);
         }
