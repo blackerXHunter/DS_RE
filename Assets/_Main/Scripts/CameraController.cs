@@ -58,6 +58,9 @@ public class CameraController : MonoBehaviour {
         model = playerHandle.GetComponent<ActorController>().model;
         cam = Camera.main.gameObject;
         playerInput = UserInput.GetEnabledUserInput(playerHandle);
+        if( lockDot == null){
+            lockDot = GameObject.Find("LockDot").GetComponent<Image>();
+        }
     }
 
     // Update is called once per frame
