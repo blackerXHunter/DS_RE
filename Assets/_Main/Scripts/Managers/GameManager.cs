@@ -13,12 +13,10 @@ public class GameManager : MonoBehaviour
     }
     public GameState gameState = GameState.ui;
 
-    public GameObject prefab_player;
-    public GameObject prefab_dark_knight;
-
     public UIManager um;
     public GameSceneManager gsm;
     public CharaManager cm;
+    public HUDManager hudm;
     public FLAG LoadingScene = false;
     // Start is called before the first frame update
     void Start()
@@ -42,8 +40,11 @@ public class GameManager : MonoBehaviour
         gsm.LoadScene(0, () => um.CloseLoadingUI());
         LoadingScene = true;
         yield return new WaitUntil(()=>LoadingScene == false);
-        cm.LoadPlayer();
-        cm.LoadEnemy();
+        var player = cm.LoadPlayer();
+        var enemy = cm.LoadEnemy();
+        hudm.am = player.GetComponent<ActorManager>();
+        hudm.gameObject.SetActive(true);
+        gameState = GameState.playing;
     }
 
     // Update is called once per frame
