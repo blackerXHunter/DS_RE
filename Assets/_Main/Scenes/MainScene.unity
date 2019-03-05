@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1005,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &741882395
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,8 +1033,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298662014e1f70d49ae5e9a9a52d2aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  am: {fileID: 0}
+  playerAm: {fileID: 0}
   pp: {fileID: 358584898}
+  ep: {fileID: 2108616565422886304}
 --- !u!1 &879212850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,7 +1996,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2108616565422886304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2005,14 +2006,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108616565422886303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8ac94c1435c9347b80d36a48b37b2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b5b41bf586011c4b9e4bec2f96b7e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   headImage: {fileID: 2108616565199438622}
   personName: {fileID: 2108616565102987074}
   personHealth: {fileID: 2108616565997259762}
-  personMagic: {fileID: 0}
-  personLevel: {fileID: 0}
 --- !u!114 &2108616565997259762
 MonoBehaviour:
   m_ObjectHideFlags: 0

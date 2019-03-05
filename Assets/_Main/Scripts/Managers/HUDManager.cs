@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class HUDManager : MonoBehaviour
 {
-    public ActorManager am;
+    public ActorManager playerAm;
     public PlayerPanel pp;
-    private void Start(){
+    public EnemyPanel ep;
 
-    }
-
-    private void Update( ){
-        if (am != null)
+    private void Update(){
+        if (pp.isActiveAndEnabled && playerAm != null)
         {
-            pp.personHealth.fillAmount = am.sm.HP/am.sm.HPMAX;
+            pp.personHealth.fillAmount = playerAm.sm.HP/playerAm.sm.HPMAX;
         }
+
+        if (playerAm != null) {
+            if (playerAm.ac.camCtrl.lockState == true) {
+                var esm = playerAm.ac.camCtrl.lockTarget.am.sm;
+                ep.gameObject.SetActive(true);
+                ep.personHealth.fillAmount = esm.HP / esm.HPMAX;
+            }
+            else {
+                ep.gameObject.SetActive(false);
+            }
+        }
+
     }
 }
