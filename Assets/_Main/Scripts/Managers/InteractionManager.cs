@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractionManager : IActorManager {
     public CapsuleCollider interaCol;
@@ -9,17 +10,15 @@ public class InteractionManager : IActorManager {
 	void Start () {
         interaCol = GetComponent<CapsuleCollider>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public UnityAction OnECMEnter, OnECMExit;
+
 
     private void OnTriggerEnter(Collider other) {
         EventCasterManager[] ecms = other.GetComponents<EventCasterManager>();
         foreach (var ecm in ecms) {
             if (!ecastmanaList.Contains(ecm)) {
                 ecastmanaList.Add(ecm);
+                OnECMEnter?.Invoke();
             }
         }
     }
@@ -29,6 +28,7 @@ public class InteractionManager : IActorManager {
         foreach (var ecm in ecms) {
             if (ecastmanaList.Contains(ecm)) {
                 ecastmanaList.Remove(ecm);
+                OnECMExit?.Invoke();
             }
         }
     }

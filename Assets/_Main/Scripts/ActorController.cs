@@ -73,6 +73,7 @@ public class ActorController : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
+        
         if (camCtrl.lockState == false) {
             actor.SetFloat("Forward", Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
         }

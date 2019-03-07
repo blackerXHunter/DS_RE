@@ -42,8 +42,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(()=>LoadingScene == false);
         var player = cm.LoadPlayer();
         var enemy = cm.LoadEnemy();
-        hudm.playerAm = player.GetComponent<ActorManager>();
+        var playerAm =player.GetComponent<ActorManager>();
+        hudm.playerAm = playerAm;
+        var box = cm.LoadBox();
+        
+        var lever = cm.LoadLever();
+        // hudm.playerAm.im.OnECMEnter += () => hudm.tp.gameObject.SetActive(true);
+        // hudm.playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
         hudm.gameObject.SetActive(true);
+        
         gameState = GameState.playing;
     }
 
