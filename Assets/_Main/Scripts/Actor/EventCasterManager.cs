@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EventCasterManager : IActorManager {
-
+    public enum EventCasterType
+    {
+        item,
+        box,
+        lever,
+        attack
+    }
+    public EventCasterType ect = EventCasterType.item;
     public string eventName;
     public bool active;
     public Vector3 offset = new Vector3(0, 0, 1);

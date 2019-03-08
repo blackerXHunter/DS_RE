@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
 
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(()=>playerAm.im != null);
-        Debug.LogError(playerAm + " + "+playerAm.im);
         playerAm.im.OnECMEnter += () => hudm.tp.gameObject.SetActive(true);
         playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
         
