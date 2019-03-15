@@ -55,7 +55,25 @@ public class GameManager : MonoBehaviour
 
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(()=>playerAm.im != null);
-        playerAm.im.OnECMEnter += () => hudm.tp.gameObject.SetActive(true);
+        playerAm.im.OnECMEnter += () => { 
+            var ecm = playerAm.im.ecastmanaList[0] as EventCasterManager;
+            switch (ecm.ect)
+            {
+                case EventCasterManager.EventCasterType.attack:
+                hudm.tp.tipText.text = "处决！";
+                break;
+                case EventCasterManager.EventCasterType.item:
+                hudm.tp.tipText.text = "按 E 键拾取";
+                break;
+                case EventCasterManager.EventCasterType.lever:
+                hudm.tp.tipText.text = "按 E 键互动";
+                break;
+                case EventCasterManager.EventCasterType.box:
+                hudm.tp.tipText.text = "按 E 键开启";
+                break;
+            }
+            hudm.tp.gameObject.SetActive(true);
+        };
         playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
         
         gameState = GameState.playing;
