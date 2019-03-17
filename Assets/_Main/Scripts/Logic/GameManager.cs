@@ -56,7 +56,13 @@ public class GameManager : MonoBehaviour
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(()=>playerAm.im != null);
         playerAm.im.OnECMEnter += () => { 
+            
             var ecm = playerAm.im.ecastmanaList[0] as EventCasterManager;
+            if (!ecm.active)
+            {
+                hudm.tp.gameObject.SetActive(false);
+                return;
+            } 
             switch (ecm.ect)
             {
                 case EventCasterManager.EventCasterType.attack:
@@ -73,6 +79,17 @@ public class GameManager : MonoBehaviour
                 break;
             }
             hudm.tp.gameObject.SetActive(true);
+        };
+        playerAm.im.OnECMStay += ()=>{
+            var ecm = playerAm.im.ecastmanaList[0] as EventCasterManager;
+            if (!ecm.active)
+            {
+                hudm.tp.gameObject.SetActive(false);
+            } 
+            else
+            {
+                hudm.tp.gameObject.SetActive(true);
+            }
         };
         playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
         

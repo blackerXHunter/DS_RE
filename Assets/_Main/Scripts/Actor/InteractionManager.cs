@@ -10,7 +10,7 @@ public class InteractionManager : IActorManager {
 	void Start () {
         interaCol = GetComponent<CapsuleCollider>();
 	}
-	public UnityAction OnECMEnter, OnECMExit;
+	public UnityAction OnECMEnter, OnECMExit, OnECMStay;
 
 
     private void OnTriggerEnter(Collider other) {
@@ -20,6 +20,14 @@ public class InteractionManager : IActorManager {
                 ecastmanaList.Add(ecm);
                 OnECMEnter?.Invoke();
             }
+        }
+    }
+
+    private void OnTriggerStay(Collider other) {
+        EventCasterManager[] ecms = other.GetComponents<EventCasterManager>();
+        if (ecms != null && ecms.Length > 0)
+        {
+            OnECMStay?.Invoke();
         }
     }
 

@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   am: {fileID: 0}
+  ect: 2
   eventName: leverUp
   active: 1
   offset: {x: 0, y: 0, z: 1.2}
@@ -251,26 +252,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4695349158633163621}
     m_Modifications:
-    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5202646
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 62.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.8540051
-      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -306,6 +287,26 @@ PrefabInstance:
     - target: {fileID: 400004, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5202646
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 62.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8540051
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
       propertyPath: m_Controller

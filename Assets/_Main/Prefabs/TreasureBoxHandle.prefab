@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   am: {fileID: 7500235767030437524}
-  ect: 0
+  ect: 1
   eventName: treasureBox
   active: 1
   offset: {x: 0, y: 0, z: 1}
