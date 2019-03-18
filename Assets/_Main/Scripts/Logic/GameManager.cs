@@ -82,6 +82,21 @@ public class GameManager : MonoBehaviour
         };
         playerAm.im.OnECMStay += ()=>{
             var ecm = playerAm.im.ecastmanaList[0] as EventCasterManager;
+            switch (ecm.ect)
+            {
+                case EventCasterManager.EventCasterType.attack:
+                hudm.tp.tipText.text = "处决！";
+                break;
+                case EventCasterManager.EventCasterType.item:
+                hudm.tp.tipText.text = "按 E 键拾取";
+                break;
+                case EventCasterManager.EventCasterType.lever:
+                hudm.tp.tipText.text = "按 E 键互动";
+                break;
+                case EventCasterManager.EventCasterType.box:
+                hudm.tp.tipText.text = "按 E 键开启";
+                break;
+            }
             if (!ecm.active)
             {
                 hudm.tp.gameObject.SetActive(false);

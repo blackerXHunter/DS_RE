@@ -243,6 +243,7 @@ public class ActorController : MonoBehaviour {
         planerVec = Vector3.zero;
     }
 
+
     public EventCasterManager frontStabEcManager;
     private void OnStunnedEnter() {
         playerInput.inputEnable = false;

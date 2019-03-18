@@ -54,5 +54,9 @@ public class WeaponManager : IActorManager {
     private void CounterBackDisable() {
         am.SetCounterBack(false);
     }
+    
+    private void OnCounterBackExit(){
+        am.SetCounterBack(false);
+    }
 
 }
