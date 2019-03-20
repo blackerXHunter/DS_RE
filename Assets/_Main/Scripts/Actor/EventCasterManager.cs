@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class EventCasterManager : IActorManager {
+public class EventCasterManager : IActorManager
+{
     public enum EventCasterType
     {
         item,
@@ -12,18 +14,31 @@ public class EventCasterManager : IActorManager {
     }
     public EventCasterType ect = EventCasterType.item;
     public string eventName;
-    public bool active;
+    private bool _active;
+    public bool active
+    {
+        get { return _active; }
+        set
+        {
+            _active = value;
+            OnActiveChanged?.Invoke(value);
+        }
+    }
+    public UnityAction<bool> OnActiveChanged;
     public Vector3 offset = new Vector3(0, 0, 1);
 
     // Use this for initialization
-    void Start() {
-        if (am == null) {
+    void Start()
+    {
+        if (am == null)
+        {
             am = gameObject.GetComponentInParent<ActorManager>();
         }
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
     }
 }
