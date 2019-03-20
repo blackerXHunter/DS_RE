@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ActorController : MonoBehaviour {
+public class ActorController : MonoBehaviour
+{
     #region Feilds
 
     public GameObject model;
@@ -50,20 +51,24 @@ public class ActorController : MonoBehaviour {
 
     #endregion
 
-    public void IssueTrigger(string triggerSign) {
+    public void IssueTrigger(string triggerSign)
+    {
         actor.SetTrigger(triggerSign);
     }
 
-    public void IssueBool(string boolSign, bool val) {
+    public void IssueBool(string boolSign, bool val)
+    {
         actor.SetBool(boolSign, val);
     }
 
-    public Animator GetAnimator() {
+    public Animator GetAnimator()
+    {
         return actor;
     }
 
     // Use this for initialization
-    private void Awake() {
+    private void Awake()
+    {
         actor = model.GetComponent<Animator>();
         playerInput = UserInput.GetEnabledUserInput(gameObject);
         rigid = GetComponent<Rigidbody>();
@@ -71,192 +76,240 @@ public class ActorController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    private void Update() {
+    private void Update()
+    {
+        if (playerInput == null)
+        {
+            return;
+        }
         float targetRunMulti = (playerInput.run ? 2.0f : 1.0f);
-        
-        if (camCtrl.lockState == false) {
+
+        if (camCtrl.lockState == false)
+        {
             actor.SetFloat("Forward", Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dmag * targetRunMulti, 0.2f));
         }
-        else {
+        else
+        {
             actor.SetFloat("Forward", Mathf.Lerp(actor.GetFloat("Forward"), playerInput.Dup * targetRunMulti, 0.2f));
             actor.SetFloat("right", Mathf.Lerp(actor.GetFloat("right"), playerInput.Dright * targetRunMulti, 0.2f));
         }
 
-        if (playerInput.roll) {
+        if (playerInput.roll)
+        {
             actor.SetTrigger("Roll");
         }
-        if (CheckState("ground") || CheckState("blocked")) {
+        if (CheckState("ground") || CheckState("blocked"))
+        {
             actor.SetBool("defense", playerInput.defense);
             actor.SetLayerWeight(actor.GetLayerIndex("Defense Layer"), playerInput.defense ? 1 : 0);
         }
 
-        if (playerInput.jump) {
+        if (playerInput.jump)
+        {
             actor.SetTrigger("Jump");
 
         }
 
 
-        if (playerInput.rb) {
+        if (playerInput.rb)
+        {
 
-            if (CheckState("ground") || CheckStateTag("attackR")) {
+            if (CheckState("ground") || CheckStateTag("attackR"))
+            {
                 actor.SetTrigger("attack");
             }
         }
         // left heavy(left trigger)
-        if (playerInput.lt) {
-            if (CheckState("ground") || CheckStateTag("attackR")) {
+        if (playerInput.lt)
+        {
+            if (CheckState("ground") || CheckStateTag("attackR"))
+            {
                 actor.SetTrigger("counterBack");
             }
         }
-        if (camCtrl.lockState == false) {
-            if (playerInput.inputEnable) {
+        if (camCtrl.lockState == false)
+        {
+            if (playerInput.inputEnable)
+            {
 
-                if (playerInput.Dmag > 0.1f) {
+                if (playerInput.Dmag > 0.1f)
+                {
                     model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
                 }
 
             }
-            if (!lockPlaner) {
+            if (!lockPlaner)
+            {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
 
         }
-        else {
+        else
+        {
             model.transform.forward = transform.forward;
 
-            if (!lockPlaner) {
+            if (!lockPlaner)
+            {
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
 
         }
 
-        if (playerInput.action) {
+        if (playerInput.action)
+        {
             OnAction.Invoke();
         }
     }
 
-    private void FixedUpdate() {
-        rigid.position += deltaPos;
-        deltaPos = Vector3.zero;
-        rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
-        thrustVec = Vector3.zero;
+    private void FixedUpdate()
+    {
+        if (rigid != null)
+        {
+            rigid.position += deltaPos;
+            deltaPos = Vector3.zero;
+            rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
+            thrustVec = Vector3.zero;
+        }
     }
 
-    public bool CheckState(string stateName, string layerName = "Base Layer") {
+    public bool CheckState(string stateName, string layerName = "Base Layer")
+    {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
     }
 
-    public bool CheckStateTag(string stateTag, string layerName = "Base Layer") {
+    public bool CheckStateTag(string stateTag, string layerName = "Base Layer")
+    {
         return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsTag(stateTag);
     }
 
     #region Message processing
 
 
-    private void OnJumpEnter() {
+    private void OnJumpEnter()
+    {
         playerInput.inputEnable = false;
         lockPlaner = true;
         thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
-    private void InGround() {
+    private void InGround()
+    {
         actor.SetBool("InGround", true);
     }
 
-    private void NotInGround() {
+    private void NotInGround()
+    {
         actor.SetBool("InGround", false);
     }
 
-    private void OnGroundEnter() {
+    private void OnGroundEnter()
+    {
         playerInput.inputEnable = true;
         lockPlaner = false;
         //canAttack = true;
         coll.material = fricationOne;
     }
 
-    private void OnGroundExit() {
+    private void OnGroundExit()
+    {
         playerInput.inputEnable = true;
         lockPlaner = true;
         //canAttack = true;
         coll.material = fricationZero;
     }
 
-    private void OnFallEnter() {
+    private void OnFallEnter()
+    {
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
 
-    private void OnRollEnter() {
+    private void OnRollEnter()
+    {
         thrustVec = rollVelocity * model.transform.forward + new Vector3(0, 2, 0);
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
 
-    private void OnJabEnter() {
+    private void OnJabEnter()
+    {
         playerInput.inputEnable = false;
         lockPlaner = true;
     }
 
-    private void OnJabStay() {
+    private void OnJabStay()
+    {
         thrustVec = actor.GetFloat("jabVelocity") * (model.transform.forward);
     }
 
-    private void OnAttackEnter() {
+    private void OnAttackEnter()
+    {
 
         lockPlaner = true;
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }
 
-    private void OnAttackExit() {
+    private void OnAttackExit()
+    {
         actor.gameObject.SendMessage("WeaponDisable");
     }
 
-    private void OnAttack1hAUpdate() {
+    private void OnAttack1hAUpdate()
+    {
         thrustVec = actor.GetFloat("attackVelocity") * model.transform.forward;
     }
 
-    private void OnUpdateAnimatorMove(object _deltaPos) {
-        if (CheckState("attack1hC")) {
+    private void OnUpdateAnimatorMove(object _deltaPos)
+    {
+        if (CheckState("attack1hC"))
+        {
             this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
     }
 
-    private void OnImpactEnter() {
+    private void OnImpactEnter()
+    {
         playerInput.inputEnable = false;
         lockPlaner = true;
         planerVec = Vector3.zero;
     }
 
-    private void OnDieEnter() {
+    private void OnDieEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }
 
-    private void OnBlockedEnter() {
+    private void OnBlockedEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }
 
-    private void OnCounterBackEnter() {
+    private void OnCounterBackEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }
 
 
     public EventCasterManager frontStabEcManager;
-    private void OnStunnedEnter() {
+    private void OnStunnedEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
         frontStabEcManager.active = true;
     }
 
-    private void OnStunnedExit() {
+    private void OnStunnedExit()
+    {
         frontStabEcManager.active = false;
     }
 
 
-    private void OnLockEnter() {
+    private void OnLockEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
     }

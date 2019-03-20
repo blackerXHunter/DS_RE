@@ -146,8 +146,12 @@ public class DirectorManager : IActorManager {
                     victim.ac.GetAnimator().SetTrigger("open");
                 }
             }
+
             pd.Evaluate();
             pd.Play();
+        }
+        else if (eventName == "item"){
+            return;
         }
     }
 
