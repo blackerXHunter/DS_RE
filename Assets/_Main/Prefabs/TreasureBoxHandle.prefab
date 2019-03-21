@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 259971906405350721}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eaef727febf24e04da08272540a419ca, type: 2}
+  m_Controller: {fileID: 9100000, guid: e94b3b2924ba5564f92d06ada31e7898, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -280,7 +280,12 @@ MonoBehaviour:
   am: {fileID: 4340077321611003552}
   ect: 0
   eventName: item
-  active: 0
+  _active: 0
+  OnUnActive:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!65 &6273616558126254911
 BoxCollider:
@@ -389,7 +394,34 @@ MonoBehaviour:
   am: {fileID: 7500235767030437524}
   ect: 1
   eventName: treasureBox
-  active: 1
+  _active: 1
+  OnUnActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064394011692359542}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1389795293761093662}
+        m_MethodName: set_active
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!65 &7500235766346098587
 BoxCollider:

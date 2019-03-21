@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,7 @@ public class EventCasterManager : IActorManager
     }
     public EventCasterType ect = EventCasterType.item;
     public string eventName;
+    [SerializeField]
     private bool _active;
     public bool active
     {
@@ -21,10 +23,14 @@ public class EventCasterManager : IActorManager
         set
         {
             _active = value;
-            OnActiveChanged?.Invoke(value);
+            if (!_active)
+            {
+                OnUnActive?.Invoke();
+            }
         }
     }
-    public UnityAction<bool> OnActiveChanged;
+    [SerializeField]
+    public UnityEvent OnUnActive;
     public Vector3 offset = new Vector3(0, 0, 1);
 
     // Use this for initialization
