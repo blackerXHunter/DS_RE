@@ -48,6 +48,12 @@ public class ActorManager : MonoBehaviour {
                     ecastManager.active = false;
                 }
             }
+            else if (ecastManager.eventName == "item")
+            {
+                Debug.Log("Item");
+                Destroy( ecastManager.am.gameObject);
+                FindObjectOfType<HUDManager>().takingPanel.gameObject.SetActive(true);
+            }
         }
     }
 

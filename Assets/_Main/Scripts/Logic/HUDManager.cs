@@ -8,6 +8,7 @@ public class HUDManager : MonoBehaviour
     public PlayerPanel pp;
     public EnemyPanel ep;
     public TipPanel tp;
+    public TakingPanel takingPanel;
 
     private void Update(){
         if (pp.isActiveAndEnabled && playerAm != null)
@@ -24,6 +25,10 @@ public class HUDManager : MonoBehaviour
             else {
                 ep.gameObject.SetActive(false);
             }
+        }
+        if (takingPanel.isActiveAndEnabled)
+        {
+            
         }
     }
 }
