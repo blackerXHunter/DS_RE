@@ -9,6 +9,11 @@ public class HUDManager : MonoBehaviour
     public EnemyPanel ep;
     public TipPanel tp;
     public TakingPanel takingPanel;
+    public UserInput userInput;
+
+    private void Start() {
+        userInput = GetComponent<UserInput>();
+    }
 
     private void Update(){
         if (pp.isActiveAndEnabled && playerAm != null)
@@ -26,9 +31,9 @@ public class HUDManager : MonoBehaviour
                 ep.gameObject.SetActive(false);
             }
         }
-        if (takingPanel.isActiveAndEnabled)
+        if (takingPanel.isActiveAndEnabled && userInput.action)
         {
-            
+            takingPanel.gameObject.SetActive(false);
         }
     }
 }

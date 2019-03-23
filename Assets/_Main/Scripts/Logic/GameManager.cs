@@ -128,14 +128,15 @@ public class GameManager : MonoBehaviour
                     hudm.tp.gameObject.SetActive(true);
                 }
             }
+            Debug.Log(soto_ecm);
             if (soto_ecm == null)
             {
                 hudm.tp.gameObject.SetActive(false);
             }
-            else
-            {
-                hudm.tp.gameObject.SetActive(true);
-            }
+            // else
+            // {
+            //     hudm.tp.gameObject.SetActive(true);
+            // }
         };
         playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
 

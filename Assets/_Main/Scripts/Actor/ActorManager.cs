@@ -51,8 +51,10 @@ public class ActorManager : MonoBehaviour {
             else if (ecastManager.eventName == "item")
             {
                 Debug.Log("Item");
-                Destroy( ecastManager.am.gameObject);
+                //Destroy( ecastManager.am.gameObject);
+                ecastManager.am.ac.model.GetComponent<Renderer>().enabled = false;
                 FindObjectOfType<HUDManager>().takingPanel.gameObject.SetActive(true);
+                ecastManager.active = false;
             }
         }
     }
