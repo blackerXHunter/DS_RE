@@ -1037,7 +1037,12 @@ MonoBehaviour:
   am: {fileID: 114933027084977514}
   ect: 3
   eventName: frontStab
-  active: 0
+  _active: 0
+  OnUnActive:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!1 &1232867217148950
 GameObject:
@@ -3180,20 +3185,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1628087724085866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2adbfc98bc2f9de48bd6771687ba67db, type: 3}
+  m_Script: {fileID: 11500000, guid: 7959a9d1d0e8f9541be4c7d80a16dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 1470072671458516}
-  camCtrl: {fileID: 114922614176728438}
-  walkSpeed: 1.36
-  runSpeed: 3
-  playerInput: {fileID: 0}
-  jumpVelocity: 3
-  rollVelocity: 2
-  jabVelocity: 10
-  fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
-  fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
-  frontStabEcManager: {fileID: 114266276778966256}
+  ac: {fileID: 0}
+  bm: {fileID: 0}
+  wm: {fileID: 0}
+  sm: {fileID: 0}
+  dm: {fileID: 0}
+  im: {fileID: 0}
 --- !u!114 &114097383256826492
 MonoBehaviour:
   m_ObjectHideFlags: 0

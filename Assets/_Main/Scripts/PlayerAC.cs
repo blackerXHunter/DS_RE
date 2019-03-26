@@ -14,7 +14,6 @@ public class PlayerAC : IActorController
 
     public CameraController camCtrl;
 
-    public Action OnAction;
 
     [SerializeField]
     private float walkSpeed = 1.4f;
