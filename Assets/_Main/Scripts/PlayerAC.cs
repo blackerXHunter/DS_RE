@@ -4,13 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ActorController : MonoBehaviour
+public class PlayerAC : IActorController
 {
     #region Feilds
-
-    public GameObject model;
-
-    private Animator actor;
 
     private Rigidbody rigid;
 
@@ -59,6 +55,19 @@ public class ActorController : MonoBehaviour
     public void IssueBool(string boolSign, bool val)
     {
         actor.SetBool(boolSign, val);
+    }
+
+    public override void Issue(string msg, object[] obj){
+        switch (msg)
+        {
+            case "Trigger":
+            actor.SetTrigger(obj[0] as string);
+            break;
+            case "Bool":
+            actor.SetBool(obj[0] as string, (bool)obj[1]);
+            break;
+            //default:
+        }
     }
 
     public Animator GetAnimator()
