@@ -23,6 +23,7 @@ public class ActorManager : MonoBehaviour {
                 continue;
             }
             if (ecastManager.eventName == "frontStab") {
+                ecastManager.active = false;
                 transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
                 ac.model.transform.LookAt(ecastManager.am.transform, Vector3.up);
                 dm.Play("frontStab", this, ecastManager.am);

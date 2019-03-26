@@ -31,7 +31,7 @@ public class HUDManager : MonoBehaviour
                 ep.gameObject.SetActive(false);
             }
         }
-        if (takingPanel.isActiveAndEnabled && userInput.action)
+        if (takingPanel.isActiveAndEnabled && userInput.defense)
         {
             takingPanel.gameObject.SetActive(false);
         }
