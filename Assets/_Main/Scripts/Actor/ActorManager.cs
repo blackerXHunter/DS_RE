@@ -19,9 +19,10 @@ public class ActorManager : MonoBehaviour {
 
     private void DoAction() {
         foreach (var ecastManager in im.ecastmanaList) {
-            if (!ecastManager.active && !dm.IsPlaying()) {
+            if (!ecastManager.active || dm.IsPlaying()) {
                 continue;
             }
+            Debug.Log("Do Action");
             if (ecastManager.eventName == "frontStab") {
                 ecastManager.active = false;
                 transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
