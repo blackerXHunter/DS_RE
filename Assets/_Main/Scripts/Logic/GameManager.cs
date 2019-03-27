@@ -45,13 +45,13 @@ public class GameManager : MonoBehaviour
         var playerAm = player.GetComponent<ActorManager>();
         hudm.playerAm = playerAm;
 
-        var box = cm.LoadBox();
-        box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        box.transform.position = Vector3.zero;
+        //var box = cm.LoadBox();
+        //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
+        //box.transform.position = Vector3.zero;
 
-        var lever = cm.LoadLever();
-        lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
+        //var lever = cm.LoadLever();
+        //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
+        //lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
 
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(() => playerAm.im != null);
@@ -79,28 +79,6 @@ public class GameManager : MonoBehaviour
                     hudm.tp.gameObject.SetActive(true);
                 }
             }
-            // var ecm = playerAm.im.ecastmanaList[0] as EventCasterManager;
-            // if (!ecm.active)
-            // {
-            //     hudm.tp.gameObject.SetActive(false);
-            //     return;
-            // } 
-            // switch (ecm.ect)
-            // {
-            //     case EventCasterManager.EventCasterType.attack:
-            //     hudm.tp.tipText.text = "处决！";
-            //     break;
-            //     case EventCasterManager.EventCasterType.item:
-            //     hudm.tp.tipText.text = "按 E 键拾取";
-            //     break;
-            //     case EventCasterManager.EventCasterType.lever:
-            //     hudm.tp.tipText.text = "按 E 键互动";
-            //     break;
-            //     case EventCasterManager.EventCasterType.box:
-            //     hudm.tp.tipText.text = "按 E 键开启";
-            //     break;
-            // }
-            // hudm.tp.gameObject.SetActive(true);
         };
         playerAm.im.OnECMStay += () =>
         {

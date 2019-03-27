@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4695349158633163621}
   - component: {fileID: 4695349158633163620}
-  - component: {fileID: 4695349158633163643}
-  - component: {fileID: 4695349158633163642}
   - component: {fileID: 4695349158633163641}
   - component: {fileID: 4695349158633163640}
   m_Layer: 0
@@ -55,58 +53,6 @@ MonoBehaviour:
   sm: {fileID: 0}
   dm: {fileID: 0}
   im: {fileID: 0}
---- !u!114 &4695349158633163643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4695349158633163647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2adbfc98bc2f9de48bd6771687ba67db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 4695349159297138153}
-  camCtrl: {fileID: 0}
-  walkSpeed: 1.4
-  runSpeed: 2.5
-  playerInput: {fileID: 0}
-  jumpVelocity: 3
-  rollVelocity: 3
-  jabVelocity: 2
-  fricationOne: {fileID: 0}
-  fricationZero: {fileID: 0}
-  frontStabEcManager: {fileID: 0}
---- !u!114 &4695349158633163642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4695349158633163647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f803cc17b35ac48b0be46f4c135e96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Dup: 0
-  Dright: 0
-  Dmag: 0
-  Dforward: {x: 0, y: 0, z: 0}
-  Jup: 0
-  Jright: 0
-  run: 0
-  defense: 0
-  action: 0
-  jump: 0
-  rb: 0
-  lb: 0
-  lt: 0
-  rt: 0
-  roll: 0
-  lockUnlock: 0
-  inputEnable: 1
 --- !u!54 &4695349158633163641
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -319,12 +265,6 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 2cf738e97531d0e43ae65d1c7e29dba6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35e44e7faf657a94e9902095a0144a2f, type: 3}
---- !u!1 &4695349159297138153 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100004, guid: 35e44e7faf657a94e9902095a0144a2f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4695349159297039181}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4695349159296901577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 35e44e7faf657a94e9902095a0144a2f,

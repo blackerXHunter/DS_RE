@@ -1379,7 +1379,7 @@ MonoBehaviour:
   ep: {fileID: 2108616565422886304}
   tp: {fileID: 54690178}
   takingPanel: {fileID: 69254324}
-  userInput: {fileID: 0}
+  userInput: {fileID: 741882397}
 --- !u!114 &741882397
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,23 +11,29 @@ public class HUDManager : MonoBehaviour
     public TakingPanel takingPanel;
     public UserInput userInput;
 
-    private void Start() {
+    private void Start()
+    {
         userInput = GetComponent<UserInput>();
     }
 
-    private void Update(){
+    private void Update()
+    {
         if (pp.isActiveAndEnabled && playerAm != null)
         {
-            pp.personHealth.fillAmount = playerAm.sm.HP/playerAm.sm.HPMAX;
+            pp.personHealth.fillAmount = playerAm.sm.HP / playerAm.sm.HPMAX;
         }
 
-        if (playerAm != null) {
-            if (playerAm.ac.camCtrl.lockState == true) {
-                var esm = playerAm.ac.camCtrl.lockTarget.am.sm;
+        if (playerAm != null)
+        {
+            var ac = playerAm.ac as PlayerAC;
+            if (ac.camCtrl.lockState == true)
+            {
+                var esm = ac.camCtrl.lockTarget.am.sm;
                 ep.gameObject.SetActive(true);
                 ep.personHealth.fillAmount = esm.HP / esm.HPMAX;
             }
-            else {
+            else
+            {
                 ep.gameObject.SetActive(false);
             }
         }

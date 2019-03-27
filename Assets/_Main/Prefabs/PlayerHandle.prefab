@@ -2325,6 +2325,7 @@ GameObject:
   - component: {fileID: 320260411352440804}
   - component: {fileID: 114698922271843960}
   - component: {fileID: 114885160467522346}
+  - component: {fileID: 5676242163247321868}
   m_Layer: 12
   m_Name: PlayerHandle
   m_TagString: Untagged
@@ -2435,17 +2436,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1dc7ded677196447b9b0f96bec1be6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  actor: {fileID: 0}
-  camCtrl: {fileID: 0}
+  model: {fileID: 1438702137226674}
+  actor: {fileID: 95489437683659194}
+  camCtrl: {fileID: 114110351802756142}
   walkSpeed: 1.4
   runSpeed: 2.5
   playerInput: {fileID: 0}
   jumpVelocity: 3
   rollVelocity: 3
   jabVelocity: 2
-  fricationOne: {fileID: 0}
-  fricationZero: {fileID: 0}
+  fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
+  fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
   frontStabEcManager: {fileID: 0}
 --- !u!114 &114628371112511882
 MonoBehaviour:
@@ -2588,6 +2589,19 @@ MonoBehaviour:
   immortal: 0
   counterBackSuccess: 0
   counterBackFailer: 0
+--- !u!114 &5676242163247321868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660273589279338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25358f88270eb51418c73e839e8b8fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 0}
 --- !u!1 &1679039309401374
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class BattleManager : IActorManager {
             GameObject attcker = wc.wm.am.ac.model;
             GameObject reciver = am.ac.model;
 
-            am.TryDoDamage(wc, CheckAngleTarget(reciver, attcker, 60), CheckAnglePlayer(reciver, attcker, 35));
+            am.SendCommand("TryDoDamage", wc, CheckAngleTarget(reciver, attcker, 60), CheckAnglePlayer(reciver, attcker, 35));
         }
     }
 

@@ -46,34 +46,6 @@ public class PlayerAC : IActorController
 
     #endregion
 
-    public void IssueTrigger(string triggerSign)
-    {
-        actor.SetTrigger(triggerSign);
-    }
-
-    public void IssueBool(string boolSign, bool val)
-    {
-        actor.SetBool(boolSign, val);
-    }
-
-    public override void Issue(string msg, object[] obj){
-        switch (msg)
-        {
-            case "Trigger":
-            actor.SetTrigger(obj[0] as string);
-            break;
-            case "Bool":
-            actor.SetBool(obj[0] as string, (bool)obj[1]);
-            break;
-            //default:
-        }
-    }
-
-    public Animator GetAnimator()
-    {
-        return actor;
-    }
-
     // Use this for initialization
     private void Awake()
     {
