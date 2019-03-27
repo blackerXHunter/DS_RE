@@ -44,7 +44,6 @@ class PlayerAMHandler : IActorManagerHandler
     private void HitOrDie(WeaponController targetWc, float damageSample = 1f, bool doHitAnimation = true)
     {
         float damageVal = targetWc.GetAtk() * damageSample;
-        Debug.Log(damageSample);
         am.sm.AddHP(-damageSample);
         if (am.sm.HPisZero)
         {
@@ -121,7 +120,6 @@ class PlayerAMHandler : IActorManagerHandler
             {
                 continue;
             }
-            Debug.Log("Do Action");
             if (ecastManager.eventName == "frontStab")
             {
                 ecastManager.active = false;
@@ -147,7 +145,6 @@ class PlayerAMHandler : IActorManagerHandler
                 bool canLeverUp = BattleManager.CheckAnglePlayer(am.ac.model, ecastManager.am.gameObject, 45);
                 if (canLeverUp)
                 {
-                    Debug.Log("leverUp");
                     transform.position = ecastManager.am.transform.position + ecastManager.am.transform.forward * ecastManager.offset.z;
                     am.ac.model.transform.LookAt(ecastManager.am.transform, Vector3.up);
                     am.dm.Play("leverUp", am, ecastManager.am);
@@ -156,7 +153,6 @@ class PlayerAMHandler : IActorManagerHandler
             }
             else if (ecastManager.eventName == "item")
             {
-                Debug.Log("Item");
                 //Destroy( ecastManager.am.gameObject);
                 ecastManager.am.ac.model.GetComponent<Renderer>().enabled = false;
                 FindObjectOfType<HUDManager>().takingPanel.gameObject.SetActive(true);

@@ -45,13 +45,13 @@ public class GameManager : MonoBehaviour
         var playerAm = player.GetComponent<ActorManager>();
         hudm.playerAm = playerAm;
 
-        //var box = cm.LoadBox();
+        var box = cm.LoadBox();
         //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        //box.transform.position = Vector3.zero;
+        box.transform.position = Vector3.zero;
 
-        //var lever = cm.LoadLever();
+        var lever = cm.LoadLever();
         //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        //lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
+        lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
 
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(() => playerAm.im != null);
