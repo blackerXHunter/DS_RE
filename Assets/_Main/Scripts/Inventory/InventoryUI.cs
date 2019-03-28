@@ -7,26 +7,17 @@ public class InventoryUI : MonoBehaviour
 
     public GameObject inventorySlotsParent;
     public InventorySlot[] slots;
-    public Inventory inventory;
+    public InventoryManager inventory;
     public GameObject inventoryUI;
 
     // Use this for initialization
-    void Start()
+    public void init()
     {
         slots = GetComponentsInChildren<InventorySlot>();
-        inventory = Inventory.Instance;
-        inventory.onInventoryItemsChanged += UpdateUI;
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Inventory"))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
-    }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {

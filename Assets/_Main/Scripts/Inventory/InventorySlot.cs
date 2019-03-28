@@ -32,7 +32,7 @@ public class InventorySlot : MonoBehaviour {
 
     public void OnRemoveButton()
     {
-        Inventory.Instance.Remove(item);
+        InventoryManager.Instance.Remove(item);
     }
 
     public void UseItem()

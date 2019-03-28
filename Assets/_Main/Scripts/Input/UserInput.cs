@@ -25,6 +25,7 @@ public abstract class UserInput : MonoBehaviour {
     public bool rt;
     public bool roll;
     public bool lockUnlock;
+    public bool menu;
 
     [Header("===== others =====")]
     public bool inputEnable = true;

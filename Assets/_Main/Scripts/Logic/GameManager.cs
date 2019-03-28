@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
                     hudm.tp.gameObject.SetActive(true);
                 }
             }
-            Debug.Log(soto_ecm);
             if (soto_ecm == null)
             {
                 hudm.tp.gameObject.SetActive(false);

@@ -2408,6 +2408,7 @@ MonoBehaviour:
   rt: 0
   roll: 0
   lockUnlock: 0
+  menu: 0
   inputEnable: 1
   keyUp: w
   keyDown: s
@@ -2420,6 +2421,7 @@ MonoBehaviour:
   keyM2: mouse 2
   keyQ: q
   keyE: e
+  keyI: i
   keyJUp: up
   keyJRight: right
   keyJLeft: left
@@ -2476,6 +2478,7 @@ MonoBehaviour:
   rt: 0
   roll: 0
   lockUnlock: 0
+  menu: 0
   inputEnable: 1
   axisX: axisX
   axisY: axisY

@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 259971906405350721}
   actor: {fileID: 0}
+  item: {fileID: 11400000, guid: 64614b009d6493040be6b35741d007e8, type: 2}
 --- !u!114 &4946367421219443029
 MonoBehaviour:
   m_ObjectHideFlags: 0

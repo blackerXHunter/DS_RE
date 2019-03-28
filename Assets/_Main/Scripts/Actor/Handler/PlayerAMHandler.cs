@@ -154,7 +154,10 @@ class PlayerAMHandler : IActorManagerHandler
             else if (ecastManager.eventName == "item")
             {
                 //Destroy( ecastManager.am.gameObject);
-                ecastManager.am.ac.model.GetComponent<Renderer>().enabled = false;
+                var ac = ecastManager.am.ac as ItemAC;
+                Debug.Log(ac);
+                InventoryManager.Instance.Add(ac.item);
+                ac.model.GetComponent<Renderer>().enabled = false;
                 FindObjectOfType<HUDManager>().takingPanel.gameObject.SetActive(true);
                 ecastManager.active = false;
             }
@@ -178,6 +181,7 @@ class PlayerAMHandler : IActorManagerHandler
                 Blocked();
                 break;
             case "Stunned":
+                Stunned();
                 break;
             case "SetCounterBack":
                 SetCounterBack((bool)objs[0]);
