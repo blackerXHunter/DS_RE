@@ -32,3 +32,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+
+Assets/Fungus/
+Assets/FungusExamples/
+Assets/Fungus.meta
+Assets/FungusExamples.meta
