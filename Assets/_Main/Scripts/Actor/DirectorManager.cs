@@ -108,7 +108,7 @@ public class DirectorManager : IActorManager {
                 }
                 else if (track.name == "Box Animation") {
                     pd.SetGenericBinding(track, victim.ac.GetAnimator());
-                    victim.ac.GetAnimator().SetTrigger("open");
+                    //victim.ac.GetAnimator().SetTrigger("open");
                 }
             }
             pd.Evaluate();
