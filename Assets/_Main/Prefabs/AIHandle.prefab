@@ -3110,8 +3110,6 @@ GameObject:
   - component: {fileID: 54629209426636232}
   - component: {fileID: 114097383256826492}
   - component: {fileID: 114933027084977514}
-  - component: {fileID: 320393621588380078}
-  - component: {fileID: 114270547106995806}
   - component: {fileID: 114979990634765834}
   - component: {fileID: 400378808654196584}
   - component: {fileID: 9195160717654320520}
@@ -3218,40 +3216,6 @@ MonoBehaviour:
   sm: {fileID: 0}
   dm: {fileID: 0}
   im: {fileID: 0}
---- !u!320 &320393621588380078
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628087724085866}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings: []
-  m_ExposedReferences:
-    m_References: []
---- !u!114 &114270547106995806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628087724085866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2792949bb9898e946ac0f189d9be6f2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  am: {fileID: 0}
-  pd: {fileID: 0}
-  frontStab: {fileID: 11400000, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-  openBox: {fileID: 0}
-  leverUp: {fileID: 0}
 --- !u!114 &114979990634765834
 MonoBehaviour:
   m_ObjectHideFlags: 0

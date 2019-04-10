@@ -30,6 +30,7 @@ public class ActorManager : MonoBehaviour
             handler.am = this;
         }
         ac.OnAction += handler.DoAction;
+        dm = DirectorManager.Instance;
         //ac.OnAction += DoAction;
     }
     public void SendCommand(string command,params object[] objs)

@@ -76,7 +76,7 @@ class PlayerAMHandler : IActorManagerHandler {
         if (am.sm.HPisZero) {
             
             am.dm.pd.time = am.dm.pd.playableAsset.duration;
-            am.dm.pd.Evaluate ();
+            //am.dm.pd.Evaluate ();
             am.dm.pd.Stop ();
         }
     }

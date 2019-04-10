@@ -2322,8 +2322,6 @@ GameObject:
   - component: {fileID: 114833453051682598}
   - component: {fileID: 114628371112511882}
   - component: {fileID: 114238023875285474}
-  - component: {fileID: 320260411352440804}
-  - component: {fileID: 114698922271843960}
   - component: {fileID: 114885160467522346}
   - component: {fileID: 5676242163247321868}
   m_Layer: 12
@@ -2516,50 +2514,6 @@ MonoBehaviour:
   sm: {fileID: 0}
   dm: {fileID: 0}
   im: {fileID: 0}
---- !u!320 &320260411352440804
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660273589279338}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
-  m_InitialState: 0
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 0}
-    value: {fileID: 0}
-  - key: {fileID: 114978179255274658, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 114218351256933426, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 114747513155889806, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 114018022974517500, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-    value: {fileID: 0}
-  m_ExposedReferences:
-    m_References: []
---- !u!114 &114698922271843960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660273589279338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2792949bb9898e946ac0f189d9be6f2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  am: {fileID: 0}
-  pd: {fileID: 0}
-  frontStab: {fileID: 11400000, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-  openBox: {fileID: 11400000, guid: 0577fcc377f48064aaddbf23231d82ed, type: 2}
-  leverUp: {fileID: 11400000, guid: 2253e3faa73062e45905de58ffc74e49, type: 2}
 --- !u!114 &114885160467522346
 MonoBehaviour:
   m_ObjectHideFlags: 0
