@@ -9,7 +9,7 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
     public MySuperPlayableBehaviour template = new MySuperPlayableBehaviour ();
 
     public ExposedReference<ActorManager> am;
-
+    public string command;
     public ClipCaps clipCaps
     {
         get { return ClipCaps.Blending; }
@@ -21,6 +21,7 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
         MySuperPlayableBehaviour clone = playable.GetBehaviour ();
         
         clone.am = am.Resolve(graph.GetResolver());
+        clone.command = command;
         return playable;
     }
 }

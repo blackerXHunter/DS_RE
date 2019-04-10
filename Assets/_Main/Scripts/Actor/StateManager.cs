@@ -64,7 +64,7 @@ public class StateManager : IActorManager
     {
         get
         {
-            return HP == 0;
+            return HP <= 0;
         }
     }
 }

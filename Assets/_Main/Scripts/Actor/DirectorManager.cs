@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tantawowa.TimelineEvents;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 [RequireComponent(typeof(PlayableDirector))]
-public class DirectorManager : IActorManager {
+public class DirectorManager : IActorManager
+{
     public PlayableDirector pd;
     // Use this for initialization
 
@@ -20,93 +22,130 @@ public class DirectorManager : IActorManager {
     //public ActorManager attcker;
     //public ActorManager victim;
 
-    void Start() {
+    void Start()
+    {
         pd = GetComponent<PlayableDirector>();
         pd.playOnAwake = false;
     }
 
-    private void PlayFrontStab(ActorManager attacker, ActorManager victim) {
+    private void PlayFrontStab(ActorManager attacker, ActorManager victim)
+    {
 
-        if (pd.state == PlayState.Playing) {
+        if (pd.state == PlayState.Playing)
+        {
             return;
         }
         pd.playableAsset = Instantiate(frontStab);
-        TimelineAsset timeline = (TimelineAsset) pd.playableAsset;
+        TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
 
-        foreach (var track in timeline.GetOutputTracks()) {
-            if (track.name == "Attacker Script") {
+        foreach (var track in timeline.GetOutputTracks())
+        {
+            if (track.name == "Attacker Script")
+            {
                 pd.SetGenericBinding(track, attacker);
-                foreach (var clip in track.GetClips()) {
-                    MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip) clip.asset;
+                foreach (var clip in track.GetClips())
+                {
+                    MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                     mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                 }
             }
-            else if (track.name == "Victim Script") {
+            else if (track.name == "Victim Script")
+            {
                 pd.SetGenericBinding(track, victim);
                 pd.SetGenericBinding(track, attacker);
-                foreach (var clip in track.GetClips()) {
+                foreach (var clip in track.GetClips())
+                {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                     mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                 }
             }
-            else if (track.name == "Attacker Animation") {
+            else if (track.name == "Attacker Animation")
+            {
                 pd.SetGenericBinding(track, attacker.ac.GetAnimator());
             }
-            else if (track.name == "Victim Animation") {
+            else if (track.name == "Victim Animation")
+            {
                 pd.SetGenericBinding(track, victim.ac.GetAnimator());
+            }
+            else if (track.name == "FrontStab Event")
+            {
+                Debug.Log("Binding Event");
+                pd.SetGenericBinding(track, victim);
+                foreach (var clip in track.GetClips())
+                {
+                    MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
+                    //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
+                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                    mySuperPlayableClip.command = "frontstab";
+                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                    
+                }
             }
         }
         pd.Evaluate();
         pd.Play();
     }
 
-    public bool IsPlaying() {
-        if (pd.state == PlayState.Playing) {
+    public bool IsPlaying()
+    {
+        if (pd.state == PlayState.Playing)
+        {
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
 
-    public void Play(string eventName, ActorManager attacker, ActorManager victim) {
+    public void Play(string eventName, ActorManager attacker, ActorManager victim)
+    {
 
-        if (eventName == "frontStab") {
+        if (eventName == "frontStab")
+        {
             PlayFrontStab(attacker, victim);
         }
 
-        else if (eventName == "treasureBox") {
+        else if (eventName == "treasureBox")
+        {
 
             pd.playableAsset = Instantiate(openBox);
             TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
-            foreach (var track in timeline.GetOutputTracks()) {
-                if (track.name == "Player Script") {
+            foreach (var track in timeline.GetOutputTracks())
+            {
+                if (track.name == "Player Script")
+                {
                     pd.SetGenericBinding(track, attacker);
-                    foreach (var clip in track.GetClips()) {
+                    foreach (var clip in track.GetClips())
+                    {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                     }
                 }
-                else if (track.name == "Box Script") {
+                else if (track.name == "Box Script")
+                {
                     pd.SetGenericBinding(track, victim);
                     pd.SetGenericBinding(track, attacker);
-                    foreach (var clip in track.GetClips()) {
+                    foreach (var clip in track.GetClips())
+                    {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                     }
                 }
-                else if (track.name == "Player Animation") {
+                else if (track.name == "Player Animation")
+                {
                     pd.SetGenericBinding(track, attacker.ac.GetAnimator());
                 }
-                else if (track.name == "Box Animation") {
+                else if (track.name == "Box Animation")
+                {
                     pd.SetGenericBinding(track, victim.ac.GetAnimator());
                     //victim.ac.GetAnimator().SetTrigger("open");
                 }
@@ -115,33 +154,41 @@ public class DirectorManager : IActorManager {
             pd.Play();
         }
 
-        else if (eventName == "leverUp") {
+        else if (eventName == "leverUp")
+        {
             pd.playableAsset = Instantiate(leverUp);
             TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
-            foreach (var track in timeline.GetOutputTracks()) {
-                if (track.name == "Player Script") {
+            foreach (var track in timeline.GetOutputTracks())
+            {
+                if (track.name == "Player Script")
+                {
                     pd.SetGenericBinding(track, attacker);
-                    foreach (var clip in track.GetClips()) {
+                    foreach (var clip in track.GetClips())
+                    {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
                     }
                 }
-                else if (track.name == "Lever Script") {
+                else if (track.name == "Lever Script")
+                {
                     pd.SetGenericBinding(track, victim);
                     pd.SetGenericBinding(track, attacker);
-                    foreach (var clip in track.GetClips()) {
+                    foreach (var clip in track.GetClips())
+                    {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                         mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
                         pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                     }
                 }
-                else if (track.name == "Player Animation") {
+                else if (track.name == "Player Animation")
+                {
                     pd.SetGenericBinding(track, attacker.ac.GetAnimator());
                 }
-                else if (track.name == "Lever Animation") {
+                else if (track.name == "Lever Animation")
+                {
                     pd.SetGenericBinding(track, victim.ac.GetAnimator());
                     victim.ac.GetAnimator().SetTrigger("open");
                 }
@@ -150,13 +197,15 @@ public class DirectorManager : IActorManager {
             pd.Evaluate();
             pd.Play();
         }
-        else if (eventName == "item"){
+        else if (eventName == "item")
+        {
             return;
         }
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         //if (Input.GetKey(KeyCode.H) && gameObject.layer == LayerMask.NameToLayer("Player")) {
         //    pd.Play();
         //}
