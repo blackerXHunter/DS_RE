@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Tantawowa.TimelineEvents;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 [RequireComponent(typeof(PlayableDirector))]
-public class DirectorManager : IActorManager
+public class DirectorManager : Singleton<DirectorManager>
 {
     public PlayableDirector pd;
     // Use this for initialization
@@ -80,12 +79,23 @@ public class DirectorManager : IActorManager
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
                     mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                    mySuperPlayableClip.command = "frontstab";
+                    Debug.Log(mySuperPlayableClip.name);
+                    
+                    // if (mySuperPlayableClip.name == "Frontstab")
+                    // {
+                    //     mySuperPlayableClip.command = "Frontstab";
+                    // }
+                    // else if(mySuperPlayableClip.name == "CheckDieState")
+                    // {
+                    //      mySuperPlayableClip.command = "CheckDieState";
+                    // }
+                    
                     pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
                     
                 }
             }
         }
+
         pd.Evaluate();
         pd.Play();
     }

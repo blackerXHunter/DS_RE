@@ -118,7 +118,6 @@ MonoBehaviour:
   m_OpenClipOffsetEulerAngles: {x: 0, y: 0, z: 0}
   m_OpenClipTimeOffset: 0
   m_OpenClipRemoveOffset: 0
-  m_InfiniteClipApplyFootIK: 1
   m_MatchTargetFields: 63
   m_Position: {x: 0, y: 0, z: 0}
   m_EulerAngles: {x: 0, y: 0, z: 0}
@@ -321,9 +320,11 @@ MonoBehaviour:
   template:
     myFloat: 5
     am: {fileID: 0}
+    command: 
   am:
     exposedName: a6419303-8258-4368-afe1-f445f55d9ab1
     defaultValue: {fileID: 0}
+  command: 
 --- !u!114 &114608550453982856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,9 +340,11 @@ MonoBehaviour:
   template:
     myFloat: 5
     am: {fileID: 0}
+    command: 
   am:
     exposedName: e62b2261-03e0-49a9-ba3b-e16873c74009
     defaultValue: {fileID: 0}
+  command: 
 --- !u!114 &114671604077189370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,7 +363,6 @@ MonoBehaviour:
   m_UseTrackMatchFields: 0
   m_MatchTargetFields: 63
   m_RemoveStartOffset: 1
-  m_ApplyFootIK: 1
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &114699461918297986
@@ -381,7 +383,6 @@ MonoBehaviour:
   m_UseTrackMatchFields: 0
   m_MatchTargetFields: 63
   m_RemoveStartOffset: 1
-  m_ApplyFootIK: 1
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &114815933946907222
@@ -479,7 +480,6 @@ MonoBehaviour:
   m_OpenClipOffsetEulerAngles: {x: 0, y: 0, z: 0}
   m_OpenClipTimeOffset: 0
   m_OpenClipRemoveOffset: 0
-  m_InfiniteClipApplyFootIK: 1
   m_MatchTargetFields: 63
   m_Position: {x: 0, y: 0, z: 0}
   m_EulerAngles: {x: 0, y: 0, z: 0}

@@ -287,6 +287,11 @@ public class PlayerAC : IActorController
         frontStabEcManager.active = false;
     }
 
+    private void OnDieStateEnter(){
+        playerInput.inputEnable = false;
+        planerVec = Vector3.zero;
+        //actor.SetBool("keepDieState", false);
+    }
 
     private void OnLockEnter()
     {
