@@ -3111,8 +3111,8 @@ GameObject:
   - component: {fileID: 114097383256826492}
   - component: {fileID: 114933027084977514}
   - component: {fileID: 114979990634765834}
-  - component: {fileID: 400378808654196584}
-  - component: {fileID: 9195160717654320520}
+  - component: {fileID: 4765501072371856668}
+  - component: {fileID: 9021744559552906364}
   m_Layer: 11
   m_Name: AIHandle
   m_TagString: Untagged
@@ -3248,7 +3248,7 @@ MonoBehaviour:
   immortal: 0
   counterBackSuccess: 0
   counterBackFailer: 0
---- !u!114 &400378808654196584
+--- !u!114 &4765501072371856668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3257,7 +3257,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1628087724085866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1dc7ded677196447b9b0f96bec1be6e, type: 3}
+  m_Script: {fileID: 11500000, guid: da5a305f83e74cf459ab07897a227bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 0}
+--- !u!114 &9021744559552906364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628087724085866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec06093e63abef44f818038ba4ade69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 1470072671458516}
@@ -3269,22 +3282,9 @@ MonoBehaviour:
   jumpVelocity: 3
   rollVelocity: 3
   jabVelocity: 2
-  fricationOne: {fileID: 13400000, guid: a6730e01a3be72d49850308efad90ba3, type: 2}
-  fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
-  frontStabEcManager: {fileID: 114266276778966256}
---- !u!114 &9195160717654320520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628087724085866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25358f88270eb51418c73e839e8b8fe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  am: {fileID: 0}
+  fricationOne: {fileID: 0}
+  fricationZero: {fileID: 0}
+  frontStabEcManager: {fileID: 0}
 --- !u!1 &1644432192244448
 GameObject:
   m_ObjectHideFlags: 0
