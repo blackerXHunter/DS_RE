@@ -78,7 +78,7 @@ public class EnemyAC : IActorController
         {
             actor.SetTrigger("Roll");
         }
-        if (CheckState("ground") || CheckState("blocked"))
+        if (actor.CheckState("ground") || actor.CheckState("blocked"))
         {
             actor.SetBool("defense", playerInput.defense);
             actor.SetLayerWeight(actor.GetLayerIndex("Defense Layer"), playerInput.defense ? 1 : 0);
@@ -94,7 +94,7 @@ public class EnemyAC : IActorController
         if (playerInput.rb)
         {
 
-            if (CheckState("ground") || CheckStateTag("attackR"))
+            if (actor.CheckState("ground") || actor.CheckStateTag("attackR"))
             {
                 actor.SetTrigger("attack");
             }
@@ -102,7 +102,7 @@ public class EnemyAC : IActorController
         // left heavy(left trigger)
         if (playerInput.lt)
         {
-            if (CheckState("ground") || CheckStateTag("attackR"))
+            if (actor.CheckState("ground") || actor.CheckStateTag("attackR"))
             {
                 actor.SetTrigger("counterBack");
             }
@@ -151,17 +151,6 @@ public class EnemyAC : IActorController
             thrustVec = Vector3.zero;
         }
     }
-
-    public bool CheckState(string stateName, string layerName = "Base Layer")
-    {
-        return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsName(stateName);
-    }
-
-    public bool CheckStateTag(string stateTag, string layerName = "Base Layer")
-    {
-        return actor.GetCurrentAnimatorStateInfo(actor.GetLayerIndex(layerName)).IsTag(stateTag);
-    }
-
     #region Message processing
 
 
@@ -242,7 +231,7 @@ public class EnemyAC : IActorController
 
     private void OnUpdateAnimatorMove(object _deltaPos)
     {
-        if (CheckState("attack1hC"))
+        if (actor.CheckState("attack1hC"))
         {
             this.deltaPos = this.deltaPos * .7f + (Vector3)_deltaPos * .3f;
         }
