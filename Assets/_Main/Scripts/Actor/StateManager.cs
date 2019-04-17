@@ -21,22 +21,22 @@ public class StateManager : IActorManager
 
     private void Update()
     {
-        var ac = am.ac as PlayerAC;
-        isDie = ac.CheckState("die");
-        isGround = ac.CheckState("ground");
-        isRoll = ac.CheckState("roll");
-        isJab = ac.CheckState("jab");
-        isAttack = ac.CheckStateTag("attackR") || ac.CheckStateTag("attackL");
-        isBolcked = ac.CheckState("blocked");
-        isJump = ac.CheckState("jump");
-        isImpact = ac.CheckState("impact");
-        isFall = ac.CheckState("fall");
+        var ac = am.ac as IActorController;
+        isDie = ac.GetAnimator().CheckState("die");
+        isGround = ac.GetAnimator().CheckState("ground");
+        isRoll = ac.GetAnimator().CheckState("roll");
+        isJab = ac.GetAnimator().CheckState("jab");
+        isAttack = ac.GetAnimator().CheckStateTag("attackR") || ac.GetAnimator().CheckStateTag("attackL");
+        isBolcked = ac.GetAnimator().CheckState("blocked");
+        isJump = ac.GetAnimator().CheckState("jump");
+        isImpact = ac.GetAnimator().CheckState("impact");
+        isFall = ac.GetAnimator().CheckState("fall");
 
         counterBackSuccess = isCounterBackEnable;
         counterBackFailer = isCounterBack && !isCounterBackEnable;
 
         allowDefense = isGround || isBolcked;
-        isDefense = allowDefense && ac.CheckState("defense1h", "Defense Layer");
+        isDefense = allowDefense && ac.GetAnimator().CheckState("defense1h", "Defense Layer");
         immortal = isRoll || isJab;
     }
 

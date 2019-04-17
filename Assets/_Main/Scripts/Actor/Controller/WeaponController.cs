@@ -18,6 +18,10 @@ public class WeaponController : MonoBehaviour {
 	}
 
     public float GetAtk() {
+        if (wdata == null)
+        {
+            Debug.Log(gameObject.name+ " has not wdata !");
+        }
         return wdata.ATK + wm.am.sm.ATK;
     }
 }

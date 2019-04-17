@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     private void Start() {
-        model = playerHandle.GetComponent<PlayerAC>().model;
+        model = playerHandle.GetComponent<IActorController>().model;
         cam = Camera.main.gameObject;
         playerInput = UserInput.GetEnabledUserInput(playerHandle);
         if( lockDot == null){

@@ -59,7 +59,7 @@ class EnemyAMHandler : IActorManagerHandler {
 
     private void Die () {
         am.ac.IssueTrigger ("die");
-        var ac = am.ac as PlayerAC;
+        var ac = am.ac as EnemyAC;
         ac.playerInput.inputEnable = false;
         if (ac.camCtrl.lockState == true) {
             ac.camCtrl.LockUnLock ();

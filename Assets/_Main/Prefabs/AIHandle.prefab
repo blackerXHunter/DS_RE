@@ -3197,7 +3197,7 @@ MonoBehaviour:
   roll: 0
   lockUnlock: 0
   menu: 0
-  inputEnable: 1
+  inputEnable: 0
 --- !u!114 &114933027084977514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,10 +3210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7959a9d1d0e8f9541be4c7d80a16dd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ac: {fileID: 0}
-  bm: {fileID: 0}
-  wm: {fileID: 0}
-  sm: {fileID: 0}
+  ac: {fileID: 9021744559552906364}
+  bm: {fileID: 114470381172138382}
+  wm: {fileID: 114752695431617980}
+  sm: {fileID: 114979990634765834}
   dm: {fileID: 0}
   im: {fileID: 0}
 --- !u!114 &114979990634765834
@@ -3229,8 +3229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   am: {fileID: 0}
-  HP: 15
-  HPMAX: 15
+  HP: 50
+  HPMAX: 50
   ATK: 1
   isDie: 0
   isGround: 0
