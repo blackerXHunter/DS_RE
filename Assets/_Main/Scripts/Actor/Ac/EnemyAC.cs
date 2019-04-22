@@ -93,7 +93,6 @@ public class EnemyAC : IActorController
 
         if (playerInput.rb)
         {
-
             if (actor.CheckState("ground") || actor.CheckStateTag("attackR"))
             {
                 actor.SetTrigger("attack");

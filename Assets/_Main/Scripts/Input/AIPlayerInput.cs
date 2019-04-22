@@ -5,13 +5,15 @@ using UnityEngine;
 public class AIPlayerInput : UserInput
 {
 
-	IEnumerator Start(){
-		while (true)
-		{
-			Move(transform.forward, 0.7f);			
-			yield return new WaitForSeconds(0.1f);
-		}
-	}
+	// IEnumerator Start(){
+	// 	while (true)
+	// 	{
+    //         yield return new WaitForSeconds(1f);
+    //         Attack();
+    //         yield return new WaitForSeconds(0.3f);
+    //         UnAttack();
+	// 	}
+	// }
 
     public void Move(Vector3 direction, float distance, bool run = false)
     {
@@ -22,7 +24,11 @@ public class AIPlayerInput : UserInput
 
     public void Attack()
     {
-        lb = true;
+        rb = true;
+    }
+
+    public void UnAttack(){
+        rb = false;
     }
 
     public void Roll(Vector3 direction)
@@ -32,14 +38,15 @@ public class AIPlayerInput : UserInput
 
     public void Defense()
     {
-		rb = true;
+		lb = true;
     }
 
-    // Use this for initialization
-
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void Reset(){
+        Dmag = 0;
+        Dforward = Vector3.zero;
+        run = false;
+        rb =  false;
+        lb = false;
     }
+
 }
