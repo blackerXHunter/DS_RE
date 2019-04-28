@@ -30,10 +30,13 @@ public class BlackKnightAI : MonoBehaviour
             Debug.Log("patrol points is not set");
             return;
         }
+        partrolTaskCTS?.Cancel();
         partrolTaskCTS = new CancellationTokenSource();
         var ct = partrolTaskCTS.Token;
-        var partrolTask = PatrolTask(true, ct);
-        await partrolTask;
+        using (var partrolTask = PatrolTask(true, ct))
+        {
+            await partrolTask;
+        }
     }
     CancellationTokenSource partrolTaskCTS;
     [ContextMenu("Stop Parol Task")]
@@ -44,16 +47,17 @@ public class BlackKnightAI : MonoBehaviour
             partrolTaskCTS.Cancel();
         }
     }
-    public async Task PatrolTask(bool loop, CancellationToken cancellationToken)
+    private async Task PatrolTask(bool loop, CancellationToken cancellationToken)
     {
 
         do
         {
             for (int i = 0; i < patrolPoints.Length; i++)
             {
-                if (cancellationToken.IsCancellationRequested){
+                if (cancellationToken.IsCancellationRequested)
+                {
                     loop = false;
-                    break;
+                    return;
                 }
                 await MoveToThePointAsync(patrolPoints[i], cancellationToken);
                 await Task.Delay(TimeSpan.FromSeconds(waitTime));
@@ -61,7 +65,43 @@ public class BlackKnightAI : MonoBehaviour
         } while (loop);
 
     }
+    #endregion
 
+
+#region FindPlayerAndFollow
+    public Transform playerTansform;
+    public CancellationTokenSource findCTS;
+    [ContextMenu("Start Find")]
+    public async void StartFind(){
+        findCTS?.Cancel();
+        findCTS = new CancellationTokenSource();
+        var ct = findCTS.Token;
+        using (var task =  FindTaskAsync(ct))
+        {
+            await task;
+        }
+    }
+    
+    private async Task FindTaskAsync(CancellationToken ct){
+        GameObject player = null;
+        while (player == null)
+        {
+            if (ct.IsCancellationRequested)
+            {
+                return;
+            }
+            player = CheckFoundPlayer();
+            await Task.Delay((int)(Time.deltaTime * 1000));
+        }
+        partrolTaskCTS?.Cancel();
+        playerTansform = player.transform;
+        await MoveToThePointAsync(playerTansform, ct);
+    }
+    [ContextMenu("Stop Find")]
+    public void StopFind(){
+        findCTS.Cancel();
+    }
+#endregion
     private async Task MoveToThePointAsync(Transform transform, CancellationToken cancellationToken)
     {
 
@@ -147,5 +187,11 @@ public class BlackKnightAI : MonoBehaviour
         ac.playerInput.rb = false;
         ac.playerInput.lb = false;
     }
-    #endregion
+
+
+    void OnDestroy()
+    {
+        partrolTaskCTS?.Cancel();
+        findCTS?.Cancel();
+    }
 }
