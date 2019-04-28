@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -29,48 +30,80 @@ public class BlackKnightAI : MonoBehaviour
             Debug.Log("patrol points is not set");
             return;
         }
-        await PatrolTask();
+        partrolTaskCTS = new CancellationTokenSource();
+        var ct = partrolTaskCTS.Token;
+        var partrolTask = PatrolTask(true, ct);
+        await partrolTask;
     }
+    CancellationTokenSource partrolTaskCTS;
+    [ContextMenu("Stop Parol Task")]
     public void StopParolTask()
     {
-        
-    }
-    public async Task PatrolTask()
-    {
-
-        for (int i = 0; i < patrolPoints.Length; i++)
+        if (partrolTaskCTS != null)
         {
-            await MoveToThePointAsync(patrolPoints[i]);
-            Reset();
-            await Task.Delay(TimeSpan.FromSeconds(waitTime));
+            partrolTaskCTS.Cancel();
         }
     }
-
-    private async Task MoveToThePointAsync(Transform transform)
+    public async Task PatrolTask(bool loop, CancellationToken cancellationToken)
     {
-        while (!IsTouched(this.transform, transform) )
+
+        do
         {
+            for (int i = 0; i < patrolPoints.Length; i++)
+            {
+                if (cancellationToken.IsCancellationRequested){
+                    loop = false;
+                    break;
+                }
+                await MoveToThePointAsync(patrolPoints[i], cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(waitTime));
+            }
+        } while (loop);
+
+    }
+
+    private async Task MoveToThePointAsync(Transform transform, CancellationToken cancellationToken)
+    {
+
+        while (!IsTouched(this.transform, transform))
+        {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
             Vector3 dir = transform.position - this.transform.position;
             dir.Normalize();
             this.transform.LookAt(dir);
             Move(dir, speed, run);
-            await Task.Delay( (int)(Time.deltaTime * 1000));
+            await Task.Delay((int)(Time.deltaTime * 1000));
         }
         Debug.Log("OK");
         Reset();
     }
 
-    public bool IsTouched(Transform personTrans, Transform targetTrans){
+    private GameObject CheckFoundPlayer()
+    {
+        var cols = Physics.OverlapBox(this.transform.position, new Vector3(0.5f, 0.5f, 5), am.ac.model.transform.rotation, LayerMask.GetMask("Player"));
+        if (cols.Length > 0)
+        {
+            return cols[0].gameObject;
+        }
+        else return null;
+    }
+
+    public bool IsTouched(Transform personTrans, Transform targetTrans)
+    {
         var personPos = personTrans.position;
         var targetPos = targetTrans.position;
         Vector2 pplanePos = new Vector2(personPos.x, personPos.z);
         Vector2 tplanePos = new Vector2(targetPos.x, targetPos.z);
-//        Debug.Log( Vector2.Distance(pplanePos, tplanePos));
+        //        Debug.Log( Vector2.Distance(pplanePos, tplanePos));
         if (Vector2.Distance(pplanePos, tplanePos) < 0.5f)
         {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
