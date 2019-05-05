@@ -67,22 +67,23 @@ public class BlackKnightAI : MonoBehaviour
     }
     #endregion
 
-
-#region FindPlayerAndFollow
+    #region FindPlayerAndFollow
     public Transform playerTansform;
     public CancellationTokenSource findCTS;
     [ContextMenu("Start Find")]
-    public async void StartFind(){
+    public async void StartFind()
+    {
         findCTS?.Cancel();
         findCTS = new CancellationTokenSource();
         var ct = findCTS.Token;
-        using (var task =  FindTaskAsync(ct))
+        using (var task = FindTaskAsync(ct))
         {
             await task;
         }
     }
-    
-    private async Task FindTaskAsync(CancellationToken ct){
+
+    private async Task FindTaskAsync(CancellationToken ct)
+    {
         GameObject player = null;
         while (player == null)
         {
@@ -98,15 +99,58 @@ public class BlackKnightAI : MonoBehaviour
         await MoveToThePointAsync(playerTansform, ct);
     }
     [ContextMenu("Stop Find")]
-    public void StopFind(){
+    public void StopFind()
+    {
         findCTS.Cancel();
     }
-#endregion
+    #endregion
+
+    #region Attack Auto
+    public CancellationTokenSource autoAttackCTS;
+    [ContextMenu("Start Attak")]
+    public async void StartAutoAttack()
+    {
+        findCTS?.Cancel();
+        findCTS = new CancellationTokenSource();
+        await AutoAttackTask(findCTS.Token);
+    }
+
+    public async Task AutoAttackTask(CancellationToken ct)
+    {
+        while (true)
+        {
+            if (ct.IsCancellationRequested)
+            {
+                UnAttack();
+                return;
+            }
+            var canAttack = CheckCanAttackPlayer();
+            if (canAttack)
+            {
+                Attack();
+            }
+            else
+            {
+                UnAttack();
+            }
+            await Task.Delay((int)(1000 * Time.deltaTime));
+        }
+    }
+
+    [ContextMenu("Stop Attack")]
+    public void StopAutoAttack()
+    {
+        UnAttack();
+        autoAttackCTS.Cancel();
+    }
+    #endregion
+
     private async Task MoveToThePointAsync(Transform transform, CancellationToken cancellationToken)
     {
 
         while (!IsTouched(this.transform, transform))
         {
+
             if (cancellationToken.IsCancellationRequested)
             {
                 break;
@@ -116,6 +160,10 @@ public class BlackKnightAI : MonoBehaviour
             this.transform.LookAt(dir);
             Move(dir, speed, run);
             await Task.Delay((int)(Time.deltaTime * 1000));
+            if (this == null)
+            {
+                return;
+            }
         }
         Debug.Log("OK");
         Reset();
@@ -129,6 +177,16 @@ public class BlackKnightAI : MonoBehaviour
             return cols[0].gameObject;
         }
         else return null;
+    }
+
+    private bool CheckCanAttackPlayer()
+    {
+        var cols = Physics.OverlapBox(this.transform.position, new Vector3(0.5f, 0.5f, 1), am.ac.model.transform.rotation, LayerMask.GetMask("Player"));
+        if (cols.Length > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 
     public bool IsTouched(Transform personTrans, Transform targetTrans)
