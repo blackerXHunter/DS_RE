@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Stateless;
 using UnityEngine;
 
 public class BlackKnightAI : MonoBehaviour
@@ -17,13 +18,99 @@ public class BlackKnightAI : MonoBehaviour
         {
             am = GetComponent<ActorManager>();
         }
+        Configure();
+        if (patrolPoints != null && patrolPoints.Length > 0)
+        {
+            fsm.Fire(BlackKnightTrigger.Patrol);
+        }
     }
+    void Update()
+    {
+        if (playerTansform != null && fsm != null)
+        {
+            if (Vector3.Distance(this.transform.position, playerTansform.position) < 2f && !fsm.IsInState(BlackKnightState.Attcking))
+            {
+                fsm.Fire(BlackKnightTrigger.Touch);
+            }
+            else
+            {
+                
+            }
+        }
+    }
+    #region State Machine
+    enum BlackKnightState
+    {
+
+        Finding,
+        Idle,
+        Patroling,
+        Attcking,
+        Following
+    }
+    enum BlackKnightTrigger
+    {
+        Patrol,
+        Found,
+        FollowFail,
+        Touch
+    }
+    [ContextMenu("Partrol")]
+    public void Patrol()
+    {
+        fsm.Fire(BlackKnightTrigger.Patrol);
+    }
+    [ContextMenu("Stop Follow")]
+    public void FollowFail()
+    {
+        fsm.Fire(BlackKnightTrigger.FollowFail);
+    }
+
+    private StateMachine<BlackKnightState, BlackKnightTrigger> fsm;
+
+    void Configure()
+    {
+        fsm = new StateMachine<BlackKnightState, BlackKnightTrigger>(BlackKnightState.Idle);
+
+        fsm.Configure(BlackKnightState.Idle).Permit(BlackKnightTrigger.Patrol, BlackKnightState.Patroling);
+
+        fsm.Configure(BlackKnightState.Patroling).OnEntry(() =>
+        {
+            StartFind();
+            StartPatrol();
+        })
+        .OnExit(() =>
+        {
+            StopFind();
+            StopPatrol();
+        })
+        .Permit(BlackKnightTrigger.Found, BlackKnightState.Following);
+
+        fsm.Configure(BlackKnightState.Following).OnEntry(() =>
+        {
+            StartFollow();
+        })
+        .OnExit(() =>
+        {
+            StopFollow();
+        })
+        .Permit(BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
+        .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking);
+
+        fsm.Configure(BlackKnightState.Attcking).OnEntry(()=>{
+            StartAutoAttack();
+        }).OnExit(()=>{
+            StopAutoAttack();
+        });
+    }
+    #endregion
+
     #region Patrol
     public Transform[] patrolPoints;
 
     public float waitTime;
-    [ContextMenu("Start Parol Task")]
-    public async void StartParolTask()
+    [ContextMenu("Start Patrol Task")]
+    public async void StartPatrol()
     {
         if (patrolPoints == null || patrolPoints.Length <= 0)
         {
@@ -39,8 +126,8 @@ public class BlackKnightAI : MonoBehaviour
         }
     }
     CancellationTokenSource partrolTaskCTS;
-    [ContextMenu("Stop Parol Task")]
-    public void StopParolTask()
+    [ContextMenu("Stop Patrol Task")]
+    public void StopPatrol()
     {
         if (partrolTaskCTS != null)
         {
@@ -67,7 +154,7 @@ public class BlackKnightAI : MonoBehaviour
     }
     #endregion
 
-    #region FindPlayerAndFollow
+    #region Find Player
     public Transform playerTansform;
     public CancellationTokenSource findCTS;
     [ContextMenu("Start Find")]
@@ -96,12 +183,37 @@ public class BlackKnightAI : MonoBehaviour
         }
         partrolTaskCTS?.Cancel();
         playerTansform = player.transform;
-        await MoveToThePointAsync(playerTansform, ct);
+        fsm.Fire(BlackKnightTrigger.Found);
+        //await MoveToThePointAsync(playerTansform, ct);
     }
     [ContextMenu("Stop Find")]
     public void StopFind()
     {
         findCTS.Cancel();
+    }
+    #endregion
+
+    #region Follow Player
+    public CancellationTokenSource followCTS;
+    public async void StartFollow()
+    {
+        followCTS?.Cancel();
+        followCTS = new CancellationTokenSource();
+        var ct = followCTS.Token;
+        using (var task = FollowTaskAsync(ct))
+        {
+            await task;
+        }
+    }
+
+    private async Task FollowTaskAsync(CancellationToken ct)
+    {
+        await MoveToThePointAsync(playerTansform, ct);
+    }
+    [ContextMenu("Stop Find")]
+    public void StopFollow()
+    {
+        followCTS?.Cancel();
     }
     #endregion
 
