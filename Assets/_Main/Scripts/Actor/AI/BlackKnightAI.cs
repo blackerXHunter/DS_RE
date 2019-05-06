@@ -32,17 +32,15 @@ public class BlackKnightAI : MonoBehaviour
             {
                 fsm.Fire(BlackKnightTrigger.Touch);
             }
-            else
+            else if(Vector3.Distance(this.transform.position, playerTansform.position) >= 2f && fsm.IsInState(BlackKnightState.Attcking))
             {
-                
+                fsm.Fire(BlackKnightTrigger.UnTouch);
             }
         }
     }
     #region State Machine
     enum BlackKnightState
     {
-
-        Finding,
         Idle,
         Patroling,
         Attcking,
@@ -53,7 +51,8 @@ public class BlackKnightAI : MonoBehaviour
         Patrol,
         Found,
         FollowFail,
-        Touch
+        Touch,
+        UnTouch
     }
     [ContextMenu("Partrol")]
     public void Patrol()
@@ -101,7 +100,8 @@ public class BlackKnightAI : MonoBehaviour
             StartAutoAttack();
         }).OnExit(()=>{
             StopAutoAttack();
-        });
+        })
+        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling);
     }
     #endregion
 
@@ -222,9 +222,9 @@ public class BlackKnightAI : MonoBehaviour
     [ContextMenu("Start Attak")]
     public async void StartAutoAttack()
     {
-        findCTS?.Cancel();
-        findCTS = new CancellationTokenSource();
-        await AutoAttackTask(findCTS.Token);
+        autoAttackCTS?.Cancel();
+        autoAttackCTS = new CancellationTokenSource();
+        await AutoAttackTask(autoAttackCTS.Token);
     }
 
     public async Task AutoAttackTask(CancellationToken ct)
@@ -253,7 +253,7 @@ public class BlackKnightAI : MonoBehaviour
     public void StopAutoAttack()
     {
         UnAttack();
-        autoAttackCTS.Cancel();
+        autoAttackCTS?.Cancel();
     }
     #endregion
 
