@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Stateless;
+using LiquidState;
+using LiquidState.Synchronous.Core;
 using UnityEngine;
 
 public class BlackKnightAI : MonoBehaviour
@@ -12,6 +13,9 @@ public class BlackKnightAI : MonoBehaviour
     private ActorManager am;
     public float speed = 1.0f;
     public bool run = true;
+
+    [SerializeField]
+    private float canAttackDistance = 1.4f;
     void Start()
     {
         if (am == null)
@@ -28,11 +32,12 @@ public class BlackKnightAI : MonoBehaviour
     {
         if (playerTansform != null && fsm != null)
         {
-            if (Vector3.Distance(this.transform.position, playerTansform.position) < 2f && !fsm.IsInState(BlackKnightState.Attcking))
+            if (Vector3.Distance(this.transform.position, playerTansform.position) < canAttackDistance && fsm.CurrentState == BlackKnightState.Following)
             {
                 fsm.Fire(BlackKnightTrigger.Touch);
             }
-            else if(Vector3.Distance(this.transform.position, playerTansform.position) >= 2f && fsm.IsInState(BlackKnightState.Attcking))
+            else 
+            if(Vector3.Distance(this.transform.position, playerTansform.position) >= canAttackDistance && fsm.CurrentState == BlackKnightState.Attcking)
             {
                 fsm.Fire(BlackKnightTrigger.UnTouch);
             }
@@ -64,16 +69,14 @@ public class BlackKnightAI : MonoBehaviour
     {
         fsm.Fire(BlackKnightTrigger.FollowFail);
     }
-
-    private StateMachine<BlackKnightState, BlackKnightTrigger> fsm;
-
+    private IStateMachine<BlackKnightState, BlackKnightTrigger> fsm;
     void Configure()
     {
-        fsm = new StateMachine<BlackKnightState, BlackKnightTrigger>(BlackKnightState.Idle);
+        var config = StateMachineFactory.CreateConfiguration<BlackKnightState, BlackKnightTrigger>();
 
-        fsm.Configure(BlackKnightState.Idle).Permit(BlackKnightTrigger.Patrol, BlackKnightState.Patroling);
+        config.ForState(BlackKnightState.Idle).Permit(BlackKnightTrigger.Patrol, BlackKnightState.Patroling);
 
-        fsm.Configure(BlackKnightState.Patroling).OnEntry(() =>
+        config.ForState(BlackKnightState.Patroling).OnEntry(() =>
         {
             StartFind();
             StartPatrol();
@@ -85,7 +88,7 @@ public class BlackKnightAI : MonoBehaviour
         })
         .Permit(BlackKnightTrigger.Found, BlackKnightState.Following);
 
-        fsm.Configure(BlackKnightState.Following).OnEntry(() =>
+         config.ForState(BlackKnightState.Following).OnEntry(() =>
         {
             StartFollow();
         })
@@ -96,12 +99,16 @@ public class BlackKnightAI : MonoBehaviour
         .Permit(BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
         .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking);
 
-        fsm.Configure(BlackKnightState.Attcking).OnEntry(()=>{
+        config.ForState(BlackKnightState.Attcking).OnEntry(()=>{
             StartAutoAttack();
+            //Attack();
         }).OnExit(()=>{
             StopAutoAttack();
+            //UnAttack();
         })
-        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling);
+        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
+        ;
+        fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
     }
     #endregion
 
@@ -239,6 +246,7 @@ public class BlackKnightAI : MonoBehaviour
             var canAttack = CheckCanAttackPlayer();
             if (canAttack)
             {
+                am.ac.model.transform.LookAt(playerTansform);
                 Attack();
             }
             else
@@ -279,6 +287,10 @@ public class BlackKnightAI : MonoBehaviour
         }
         Debug.Log("OK");
         Reset();
+        // if (fsm != null&& fsm.CurrentState == BlackKnightState.Following)
+        // {
+        //     fsm?.Fire(BlackKnightTrigger.Touch);
+        // }
     }
 
     private GameObject CheckFoundPlayer()
