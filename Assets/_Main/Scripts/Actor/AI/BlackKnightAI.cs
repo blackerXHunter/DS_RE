@@ -16,6 +16,9 @@ public class BlackKnightAI : MonoBehaviour
 
     [SerializeField]
     private float canAttackDistance = 1.4f;
+
+
+    #region Mono
     void Start()
     {
         if (am == null)
@@ -28,6 +31,7 @@ public class BlackKnightAI : MonoBehaviour
             fsm.Fire(BlackKnightTrigger.Patrol);
         }
     }
+
     void Update()
     {
         if (playerTansform != null && fsm != null)
@@ -36,20 +40,29 @@ public class BlackKnightAI : MonoBehaviour
             {
                 fsm.Fire(BlackKnightTrigger.Touch);
             }
-            else 
-            if(Vector3.Distance(this.transform.position, playerTansform.position) >= canAttackDistance && fsm.CurrentState == BlackKnightState.Attcking)
+            else
+            if (Vector3.Distance(this.transform.position, playerTansform.position) >= canAttackDistance && fsm.CurrentState == BlackKnightState.Attcking)
             {
                 fsm.Fire(BlackKnightTrigger.UnTouch);
             }
         }
     }
+
+    void OnDestroy()
+    {
+        partrolTaskCTS?.Cancel();
+        findCTS?.Cancel();
+    }
+    #endregion
+
     #region State Machine
     enum BlackKnightState
     {
         Idle,
         Patroling,
         Attcking,
-        Following
+        Following,
+        Confrontation
     }
     enum BlackKnightTrigger
     {
@@ -57,7 +70,8 @@ public class BlackKnightAI : MonoBehaviour
         Found,
         FollowFail,
         Touch,
-        UnTouch
+        UnTouch,
+        Confrontation
     }
     [ContextMenu("Partrol")]
     public void Patrol()
@@ -88,27 +102,45 @@ public class BlackKnightAI : MonoBehaviour
         })
         .Permit(BlackKnightTrigger.Found, BlackKnightState.Following);
 
-         config.ForState(BlackKnightState.Following).OnEntry(() =>
-        {
-            StartFollow();
-        })
-        .OnExit(() =>
-        {
-            StopFollow();
-        })
-        .Permit(BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
-        .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking);
+        config.ForState(BlackKnightState.Following).OnEntry(() =>
+       {
+           StartFollow();
+       })
+       .OnExit(() =>
+       {
+           StopFollow();
+       })
+       .Permit(BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
+       .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking)
+       .Permit(BlackKnightTrigger.Confrontation, BlackKnightState.Confrontation);
 
-        config.ForState(BlackKnightState.Attcking).OnEntry(()=>{
+        config.ForState(BlackKnightState.Attcking).OnEntry(() =>
+        {
             StartAutoAttack();
             //Attack();
-        }).OnExit(()=>{
+        }).OnExit(() =>
+        {
             StopAutoAttack();
             //UnAttack();
         })
         .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
         ;
         fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
+
+        config.ForState(BlackKnightState.Confrontation)
+        .OnEntry(() =>
+        {
+            var enemyAC = am.ac as EnemyAC;
+            enemyAC.camCtrl.LockUnLock();
+        })
+        .OnExit(() =>
+        {
+            var enemyAC = am.ac as EnemyAC;
+            if (enemyAC.camCtrl.lockState == true)
+            {
+                enemyAC.camCtrl.LockUnLock();
+            }
+        });
     }
     #endregion
 
@@ -191,6 +223,7 @@ public class BlackKnightAI : MonoBehaviour
         partrolTaskCTS?.Cancel();
         playerTansform = player.transform;
         fsm.Fire(BlackKnightTrigger.Found);
+        fsm.Fire(BlackKnightTrigger.Confrontation);
         //await MoveToThePointAsync(playerTansform, ct);
     }
     [ContextMenu("Stop Find")]
@@ -265,6 +298,19 @@ public class BlackKnightAI : MonoBehaviour
     }
     #endregion
 
+    #region Confrontation
+        async void StartConfrontatoin(){
+
+        }
+        async Task ConfrontationTask(){
+            
+        }
+        async void StopConfrontatation(){
+
+        }
+    #endregion
+
+    #region Utility
     private async Task MoveToThePointAsync(Transform transform, CancellationToken cancellationToken)
     {
 
@@ -287,10 +333,6 @@ public class BlackKnightAI : MonoBehaviour
         }
         Debug.Log("OK");
         Reset();
-        // if (fsm != null&& fsm.CurrentState == BlackKnightState.Following)
-        // {
-        //     fsm?.Fire(BlackKnightTrigger.Touch);
-        // }
     }
 
     private GameObject CheckFoundPlayer()
@@ -305,6 +347,10 @@ public class BlackKnightAI : MonoBehaviour
 
     private bool CheckCanAttackPlayer()
     {
+        if (this == null)
+        {
+            return false;
+        }
         var cols = Physics.OverlapBox(this.transform.position, new Vector3(0.5f, 0.5f, 1), am.ac.model.transform.rotation, LayerMask.GetMask("Player"));
         if (cols.Length > 0)
         {
@@ -329,7 +375,9 @@ public class BlackKnightAI : MonoBehaviour
             return false;
         }
     }
+    #endregion
 
+    #region Action
     public void Move(Vector3 direction, float speed = 0.7f, bool run = false)
     {
         var ac = am.ac as EnemyAC;
@@ -369,11 +417,6 @@ public class BlackKnightAI : MonoBehaviour
         ac.playerInput.rb = false;
         ac.playerInput.lb = false;
     }
+    #endregion
 
-
-    void OnDestroy()
-    {
-        partrolTaskCTS?.Cancel();
-        findCTS?.Cancel();
-    }
 }
