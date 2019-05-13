@@ -52,6 +52,9 @@ public class BlackKnightAI : MonoBehaviour
     {
         partrolTaskCTS?.Cancel();
         findCTS?.Cancel();
+        autoAttackCTS?.Cancel();
+        followCTS?.Cancel();
+        confrontationCTS?.Cancel();
     }
     #endregion
 
@@ -132,6 +135,7 @@ public class BlackKnightAI : MonoBehaviour
         {
             var enemyAC = am.ac as EnemyAC;
             enemyAC.camCtrl.LockUnLock();
+            StartConfrontatoin();
         })
         .OnExit(() =>
         {
@@ -140,6 +144,7 @@ public class BlackKnightAI : MonoBehaviour
             {
                 enemyAC.camCtrl.LockUnLock();
             }
+            StopConfrontatation();
         });
     }
     #endregion
@@ -299,15 +304,32 @@ public class BlackKnightAI : MonoBehaviour
     #endregion
 
     #region Confrontation
-        async void StartConfrontatoin(){
+    private CancellationTokenSource confrontationCTS;
+    async void StartConfrontatoin()
+    {
+        confrontationCTS?.Cancel();
+        confrontationCTS = new CancellationTokenSource();
+        await ConfrontationTask(confrontationCTS.Token);
+    }
+    async Task ConfrontationTask(CancellationToken token)
+    {
+        while (true)
+        {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+            Vector3 forwardDir = playerTansform.position - this.transform.position;
+            Vector3 dir = Vector3.Cross(forwardDir, transform.up).normalized;
+            Move(dir, 0.7f, false);
 
+            await Task.Delay((int)(Time.deltaTime * 1000));
         }
-        async Task ConfrontationTask(){
-            
-        }
-        async void StopConfrontatation(){
-
-        }
+    }
+    void StopConfrontatation()
+    {
+        confrontationCTS?.Cancel();
+    }
     #endregion
 
     #region Utility
