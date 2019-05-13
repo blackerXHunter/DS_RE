@@ -321,7 +321,7 @@ public class BlackKnightAI : MonoBehaviour
             }
             Vector3 forwardDir = playerTansform.position - this.transform.position;
             Vector3 dir = Vector3.Cross(forwardDir, transform.up).normalized;
-            Move(dir, 0.7f, false);
+            Move(dir, 0.7f, false, true);
 
             await Task.Delay((int)(Time.deltaTime * 1000));
         }
@@ -400,11 +400,23 @@ public class BlackKnightAI : MonoBehaviour
     #endregion
 
     #region Action
-    public void Move(Vector3 direction, float speed = 0.7f, bool run = false)
+    public void Move(Vector3 direction, float speed = 0.7f, bool run = false, bool locked = false)
     {
         var ac = am.ac as EnemyAC;
-        ac.playerInput.Dmag = speed;
-        ac.playerInput.Dforward = direction;
+
+        if (locked)
+        {
+            ac.playerInput.Dforward = direction;
+             ac.playerInput.Dmag = speed;
+            ac.playerInput.Dup = 0.5f;
+            ac.playerInput.Dright = speed;
+        }
+        else
+        {
+            ac.playerInput.Dmag = speed;
+            ac.playerInput.Dforward = direction;
+        }
+
         ac.playerInput.run = run;
     }
     public void Attack()
