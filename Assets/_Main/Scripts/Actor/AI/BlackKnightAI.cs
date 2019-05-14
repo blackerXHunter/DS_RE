@@ -74,7 +74,8 @@ public class BlackKnightAI : MonoBehaviour
         FollowFail,
         Touch,
         UnTouch,
-        Confrontation
+        Confrontation,
+        Go
     }
     [ContextMenu("Partrol")]
     public void Patrol()
@@ -145,7 +146,9 @@ public class BlackKnightAI : MonoBehaviour
                 enemyAC.camCtrl.LockUnLock();
             }
             StopConfrontatation();
-        });
+        })
+        .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking)
+        .Permit(BlackKnightTrigger.Go, BlackKnightState.Following);
     }
     #endregion
 
@@ -407,7 +410,7 @@ public class BlackKnightAI : MonoBehaviour
         if (locked)
         {
             ac.playerInput.Dforward = direction;
-             ac.playerInput.Dmag = speed;
+            ac.playerInput.Dmag = speed;
             ac.playerInput.Dup = 0.5f;
             ac.playerInput.Dright = speed;
         }
