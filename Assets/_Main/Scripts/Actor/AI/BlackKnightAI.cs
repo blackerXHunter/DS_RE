@@ -38,9 +38,13 @@ public class BlackKnightAI : MonoBehaviour {
         }
     }
 
-    void OnDestroy () {
-        partrolTaskCTS?.Cancel ();
-        findCTS?.Cancel ();
+    void OnDestroy()
+    {
+        partrolTaskCTS?.Cancel();
+        findCTS?.Cancel();
+        autoAttackCTS?.Cancel();
+        followCTS?.Cancel();
+        confrontationCTS?.Cancel();
     }
     #endregion
 
@@ -58,7 +62,8 @@ public class BlackKnightAI : MonoBehaviour {
         FollowFail,
         Touch,
         UnTouch,
-        Confrontation
+        Confrontation,
+        Go
     }
 
     [ContextMenu ("Partrol")]
@@ -71,52 +76,67 @@ public class BlackKnightAI : MonoBehaviour {
         fsm.Fire (BlackKnightTrigger.FollowFail);
     }
     private IStateMachine<BlackKnightState, BlackKnightTrigger> fsm;
-    void Configure () {
-        var config = StateMachineFactory.CreateConfiguration<BlackKnightState, BlackKnightTrigger> ();
+    void Configure()
+    {
+        var config = StateMachineFactory.CreateConfiguration<BlackKnightState, BlackKnightTrigger>();
 
-        config.ForState (BlackKnightState.Idle).Permit (BlackKnightTrigger.Patrol, BlackKnightState.Patroling);
+        config.ForState(BlackKnightState.Idle).Permit(BlackKnightTrigger.Patrol, BlackKnightState.Patroling);
 
-        config.ForState (BlackKnightState.Patroling).OnEntry (() => {
-                StartFind ();
-                StartPatrol ();
-            })
-            .OnExit (() => {
-                StopFind ();
-                StopPatrol ();
-            })
-            .Permit (BlackKnightTrigger.Found, BlackKnightState.Following);
+        config.ForState(BlackKnightState.Patroling).OnEntry(() =>
+        {
+            StartFind();
+            StartPatrol();
+        })
+        .OnExit(() =>
+        {
+            StopFind();
+            StopPatrol();
+        })
+        .Permit(BlackKnightTrigger.Found, BlackKnightState.Following);
 
-        config.ForState (BlackKnightState.Following).OnEntry (() => {
-                StartFollow ();
-            })
-            .OnExit (() => {
-                StopFollow ();
-            })
-            .Permit (BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
-            .Permit (BlackKnightTrigger.Touch, BlackKnightState.Attcking)
-            .Permit (BlackKnightTrigger.Confrontation, BlackKnightState.Confrontation);
+        config.ForState(BlackKnightState.Following).OnEntry(() =>
+       {
+           StartFollow();
+       })
+       .OnExit(() =>
+       {
+           StopFollow();
+       })
+       .Permit(BlackKnightTrigger.FollowFail, BlackKnightState.Patroling)
+       .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking)
+       .Permit(BlackKnightTrigger.Confrontation, BlackKnightState.Confrontation);
 
-        config.ForState (BlackKnightState.Attcking).OnEntry (() => {
-                StartAutoAttack ();
-                //Attack();
-            }).OnExit (() => {
-                StopAutoAttack ();
-                //UnAttack();
-            })
-            .Permit (BlackKnightTrigger.UnTouch, BlackKnightState.Patroling);
-        fsm = StateMachineFactory.Create (BlackKnightState.Idle, config);
+        config.ForState(BlackKnightState.Attcking).OnEntry(() =>
+        {
+            StartAutoAttack();
+            //Attack();
+        }).OnExit(() =>
+        {
+            StopAutoAttack();
+            //UnAttack();
+        })
+        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
+        ;
+        fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
 
-        config.ForState (BlackKnightState.Confrontation)
-            .OnEntry (() => {
-                var enemyAC = am.ac as EnemyAC;
-                enemyAC.camCtrl.LockUnLock ();
-            })
-            .OnExit (() => {
-                var enemyAC = am.ac as EnemyAC;
-                if (enemyAC.camCtrl.lockState == true) {
-                    enemyAC.camCtrl.LockUnLock ();
-                }
-            });
+        config.ForState(BlackKnightState.Confrontation)
+        .OnEntry(() =>
+        {
+            var enemyAC = am.ac as EnemyAC;
+            enemyAC.camCtrl.LockUnLock();
+            StartConfrontatoin();
+        })
+        .OnExit(() =>
+        {
+            var enemyAC = am.ac as EnemyAC;
+            if (enemyAC.camCtrl.lockState == true)
+            {
+                enemyAC.camCtrl.LockUnLock();
+            }
+            StopConfrontatation();
+        })
+        .Permit(BlackKnightTrigger.Touch, BlackKnightState.Attcking)
+        .Permit(BlackKnightTrigger.Go, BlackKnightState.Following);
     }
     #endregion
 
@@ -250,14 +270,31 @@ public class BlackKnightAI : MonoBehaviour {
     #endregion
 
     #region Confrontation
-    async void StartConfrontatoin () {
-
+    private CancellationTokenSource confrontationCTS;
+    async void StartConfrontatoin()
+    {
+        confrontationCTS?.Cancel();
+        confrontationCTS = new CancellationTokenSource();
+        await ConfrontationTask(confrontationCTS.Token);
     }
-    async Task ConfrontationTask () {
+    async Task ConfrontationTask(CancellationToken token)
+    {
+        while (true)
+        {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+            Vector3 forwardDir = playerTansform.position - this.transform.position;
+            Vector3 dir = Vector3.Cross(forwardDir, transform.up).normalized;
+            Move(dir, 0.7f, false, true);
 
+            await Task.Delay((int)(Time.deltaTime * 1000));
+        }
     }
-    async void StopConfrontatation () {
-
+    void StopConfrontatation()
+    {
+        confrontationCTS?.Cancel();
     }
     #endregion
 
@@ -314,10 +351,23 @@ public class BlackKnightAI : MonoBehaviour {
     #endregion
 
     #region Action
-    public void Move (Vector3 direction, float speed = 0.7f, bool run = false) {
+    public void Move(Vector3 direction, float speed = 0.7f, bool run = false, bool locked = false)
+    {
         var ac = am.ac as EnemyAC;
-        ac.playerInput.Dmag = speed;
-        ac.playerInput.Dforward = direction;
+
+        if (locked)
+        {
+            ac.playerInput.Dforward = direction;
+            ac.playerInput.Dmag = speed;
+            ac.playerInput.Dup = 0.5f;
+            ac.playerInput.Dright = speed;
+        }
+        else
+        {
+            ac.playerInput.Dmag = speed;
+            ac.playerInput.Dforward = direction;
+        }
+
         ac.playerInput.run = run;
     }
     public void Attack () {
