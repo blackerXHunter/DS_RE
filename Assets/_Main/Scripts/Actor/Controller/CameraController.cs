@@ -155,7 +155,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void UnLock()
+    public void UnLock()
     {
         lockTarget = null;
         lockState = false;
@@ -164,9 +164,13 @@ public class CameraController : MonoBehaviour
             lockDot.enabled = false;
         }
     }
-    private void Lock(Collider target)
+    public void Lock(Collider target)
     {
-        lockTarget = new LockTarget(target.gameObject);
+        Lock(target.gameObject);
+    }
+    public void Lock(GameObject target)
+    {
+        lockTarget = new LockTarget(target);
         lockState = true;
         if (!isAI)
         {
