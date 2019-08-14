@@ -16,6 +16,10 @@ public class BlackKnightAI : MonoBehaviour
 
     [SerializeField]
     private float canAttackDistance = 1.4f;
+    [SerializeField]
+    private float canFollowingDistance = 10.0f;
+    [SerializeField]
+    private float canControtationDistance = 5.0f;
 
     #region Mono
     void Start()
@@ -35,15 +39,28 @@ public class BlackKnightAI : MonoBehaviour
     {
         if (playerTansform != null && fsm != null)
         {
-            if (Vector3.Distance(this.transform.position, playerTansform.position) < canAttackDistance && (fsm.CurrentState == BlackKnightState.Following || fsm.CurrentState == BlackKnightState.Confrontation))
+            if (Vector3.Distance(this.transform.position, playerTansform.position) < canAttackDistance && fsm.CurrentState == BlackKnightState.Confrontation)
             {
                 Debug.Log("Send Touch");
                 fsm.Fire(BlackKnightTrigger.Touch);
             }
             else
-            if (Vector3.Distance(this.transform.position, playerTansform.position) >= canAttackDistance && fsm.CurrentState == BlackKnightState.Attcking)
+            if (Vector3.Distance(this.transform.position, playerTansform.position) >= canAttackDistance + 1f && fsm.CurrentState == BlackKnightState.Attcking)
             {
                 fsm.Fire(BlackKnightTrigger.UnTouch);
+            }
+            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canControtationDistance + 3 && fsm.CurrentState == BlackKnightState.Confrontation)
+            {
+                fsm.Fire(BlackKnightTrigger.Go);
+            }
+            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canFollowingDistance && fsm.CurrentState == BlackKnightState.Following)
+            {
+                fsm.Fire(BlackKnightTrigger.FollowFail);
+                //playerTansform = null;
+            }
+            else if (Vector3.Distance(this.transform.position, playerTansform.position) < canControtationDistance && fsm.CurrentState == BlackKnightState.Following)
+            {
+                fsm.Fire(BlackKnightTrigger.Confrontation);
             }
         }
     }
@@ -129,7 +146,7 @@ public class BlackKnightAI : MonoBehaviour
             StopAutoAttack();
             //UnAttack();
         })
-        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
+        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Confrontation)
         ;
         fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
 
@@ -227,13 +244,13 @@ public class BlackKnightAI : MonoBehaviour
             {
                 return;
             }
-            player = CheckFoundPlayer();
+            player = CheckFoundPlayer(canFollowingDistance);
             await Task.Delay((int)(Time.deltaTime * 1000));
         }
         partrolTaskCTS?.Cancel();
         playerTansform = player.transform;
         fsm.Fire(BlackKnightTrigger.Found);
-        fsm.Fire(BlackKnightTrigger.Confrontation);
+        //fsm.Fire(BlackKnightTrigger.Confrontation);
         //await MoveToThePointAsync(playerTansform, ct);
     }
 
@@ -364,9 +381,9 @@ public class BlackKnightAI : MonoBehaviour
         Reset();
     }
 
-    private GameObject CheckFoundPlayer()
+    private GameObject CheckFoundPlayer(float distance)
     {
-        var cols = Physics.OverlapBox(this.transform.position, new Vector3(0.5f, 0.5f, 5), am.ac.model.transform.rotation, LayerMask.GetMask("Player"));
+        var cols = Physics.OverlapBox(this.transform.position, new Vector3(0.5f, 0.5f, distance), am.ac.model.transform.rotation, LayerMask.GetMask("Player"));
         if (cols.Length > 0)
         {
             return cols[0].gameObject;
