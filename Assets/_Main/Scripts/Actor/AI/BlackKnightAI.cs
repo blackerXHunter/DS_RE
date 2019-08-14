@@ -49,11 +49,11 @@ public class BlackKnightAI : MonoBehaviour
             {
                 fsm.Fire(BlackKnightTrigger.UnTouch);
             }
-            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canControtationDistance + 3 && fsm.CurrentState == BlackKnightState.Confrontation)
+            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canControtationDistance + 3f && fsm.CurrentState == BlackKnightState.Confrontation)
             {
                 fsm.Fire(BlackKnightTrigger.Go);
             }
-            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canFollowingDistance && fsm.CurrentState == BlackKnightState.Following)
+            else if (Vector3.Distance(this.transform.position, playerTansform.position) >= canFollowingDistance + 3f && fsm.CurrentState == BlackKnightState.Following)
             {
                 fsm.Fire(BlackKnightTrigger.FollowFail);
                 //playerTansform = null;
@@ -147,7 +147,7 @@ public class BlackKnightAI : MonoBehaviour
             StopAutoAttack();
             //UnAttack();
         })
-        .PermitIf(()=> playerTansform != null, BlackKnightTrigger.UnTouch, BlackKnightState.Confrontation)
+        .PermitIf(() => playerTansform != null, BlackKnightTrigger.UnTouch, BlackKnightState.Confrontation)
         //.Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
         ;
         fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
