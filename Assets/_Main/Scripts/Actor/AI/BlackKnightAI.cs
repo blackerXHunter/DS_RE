@@ -115,6 +115,7 @@ public class BlackKnightAI : MonoBehaviour
 
         config.ForState(BlackKnightState.Patroling).OnEntry(() =>
         {
+            playerTansform = null;
             StartFind();
             StartPatrol();
         })
@@ -146,7 +147,8 @@ public class BlackKnightAI : MonoBehaviour
             StopAutoAttack();
             //UnAttack();
         })
-        .Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Confrontation)
+        .PermitIf(()=> playerTansform != null, BlackKnightTrigger.UnTouch, BlackKnightState.Confrontation)
+        //.Permit(BlackKnightTrigger.UnTouch, BlackKnightState.Patroling)
         ;
         fsm = StateMachineFactory.Create(BlackKnightState.Idle, config);
 
@@ -154,15 +156,15 @@ public class BlackKnightAI : MonoBehaviour
         .OnEntry(() =>
         {
             var enemyAC = am.ac as EnemyAC;
-            enemyAC.camCtrl.LockUnLock();
+            enemyAC.camCtrl.Lock(playerTansform.gameObject);
             StartConfrontatoin();
         })
         .OnExit(() =>
         {
             var enemyAC = am.ac as EnemyAC;
-            if (enemyAC.camCtrl.lockState == true)
+            if (enemyAC.camCtrl.lockState == true && playerTansform == null)
             {
-                enemyAC.camCtrl.LockUnLock();
+                enemyAC.camCtrl.UnLock();
             }
             StopConfrontatation();
         })
