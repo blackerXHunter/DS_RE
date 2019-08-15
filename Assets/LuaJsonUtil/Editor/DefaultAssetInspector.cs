@@ -73,7 +73,7 @@ public class DefaultAssetInspector : Editor
 
         var extension = Path.GetExtension(assetPath);
         var customAssetEditorType = GetCustomAssetEditorType(extension);
-        editor = CreateEditor(target, customAssetEditorType);
+        //editor = CreateEditor(target, customAssetEditorType);
     }
 
     public override void OnInspectorGUI()

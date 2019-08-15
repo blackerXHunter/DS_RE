@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using FLAG = System.Boolean;
 public class GameManager : MonoBehaviour
 {
@@ -37,19 +38,23 @@ public class GameManager : MonoBehaviour
     {
         um.CloseStartUI();
         um.OpenLoadingUI();
-        gsm.LoadScene(0, () => um.CloseLoadingUI());
-        LoadingScene = true;
-        yield return new WaitUntil(() => LoadingScene == false);
-        var player = cm.LoadPlayer();
-        var enemy = cm.LoadEnemy();
+        yield return gsm.LoadScene();
+        um.CloseLoadingUI();
+        var sceneConfig = gsm.currentConfig;
+
+        var scene = SceneManager.GetSceneByName(gsm.sceneNames[gsm.loadSceneIndex]);
+
+        var player = cm.LoadPlayer(sceneConfig.playerPos, scene);
+        var enemy = cm.LoadEnemy(sceneConfig.EnemyPos, scene);
+        enemy.GetComponent<BlackKnightAI>().Init();
         var playerAm = player.GetComponent<ActorManager>();
         hudm.playerAm = playerAm;
 
-        var box = cm.LoadBox();
+        var box = cm.LoadBox(Vector3.zero, scene);
         //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
         box.transform.position = Vector3.zero;
 
-        var lever = cm.LoadLever();
+        var lever = cm.LoadLever(Vector3.zero, scene);
         //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
         lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
 

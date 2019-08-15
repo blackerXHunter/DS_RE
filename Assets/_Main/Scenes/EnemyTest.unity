@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -211,11 +211,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 136533047782373114, guid: 746cec31e20ee784d926b7a52925bcda,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 733028363, guid: 746cec31e20ee784d926b7a52925bcda, type: 3}
+      propertyPath: patrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1450270767}
+    - target: {fileID: 733028363, guid: 746cec31e20ee784d926b7a52925bcda, type: 3}
+      propertyPath: patrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1602099188}
+    - target: {fileID: 733028363, guid: 746cec31e20ee784d926b7a52925bcda, type: 3}
+      propertyPath: patrolPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 1002096942}
+    - target: {fileID: 733028363, guid: 746cec31e20ee784d926b7a52925bcda, type: 3}
+      propertyPath: patrolPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 434775215}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 746cec31e20ee784d926b7a52925bcda, type: 3}
 --- !u!1 &434775214
@@ -248,33 +259,6 @@ Transform:
   m_Father: {fileID: 1240421032}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &733028362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1628087724085866, guid: 746cec31e20ee784d926b7a52925bcda,
-    type: 3}
-  m_PrefabInstance: {fileID: 319402299}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &733028363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733028362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e71c2c78e786c5458c9c30ff73a439e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  run: 1
-  patrolPoints:
-  - {fileID: 1450270767}
-  - {fileID: 1602099188}
-  - {fileID: 1002096942}
-  - {fileID: 434775215}
-  waitTime: 1
-  playerTansform: {fileID: 0}
 --- !u!1 &1002096941
 GameObject:
   m_ObjectHideFlags: 0

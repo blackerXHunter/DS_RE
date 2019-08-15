@@ -22,14 +22,27 @@ public class BlackKnightAI : MonoBehaviour
     private float canControtationDistance = 5.0f;
 
     #region Mono
-    void Start()
+    public void Init()
     {
         if (am == null)
         {
             am = GetComponent<ActorManager>();
         }
         Configure();
-        if (patrolPoints != null && patrolPoints.Length > 0)
+
+        //var g = GameObject.FindGameObjectsWithTag("Patrol Point");
+        //patrolPoints = FindObjectsOfType<PatrolPoint>();
+        var scene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(GameSceneManager.currentLevelSceneName);
+        var objs = scene.GetRootGameObjects();
+        foreach (var obj in objs)
+        {
+            var p = obj.GetComponent<PatrolPoint>();
+            if (p != null)
+            {
+                patrolPoints.Add(p);
+            }
+        }
+        if (patrolPoints != null && patrolPoints.Count > 0)
         {
             fsm.Fire(BlackKnightTrigger.Patrol);
         }
@@ -174,13 +187,13 @@ public class BlackKnightAI : MonoBehaviour
     #endregion
 
     #region Patrol
-    public Transform[] patrolPoints;
+    public List<PatrolPoint> patrolPoints;
 
     public float waitTime;
     [ContextMenu("Start Patrol Task")]
     public async void StartPatrol()
     {
-        if (patrolPoints == null || patrolPoints.Length <= 0)
+        if (patrolPoints == null || patrolPoints.Count <= 0)
         {
             Debug.Log("patrol points is not set");
             return;
@@ -207,14 +220,14 @@ public class BlackKnightAI : MonoBehaviour
 
         do
         {
-            for (int i = 0; i < patrolPoints.Length; i++)
+            for (int i = 0; i < patrolPoints.Count; i++)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
                     loop = false;
                     return;
                 }
-                await MoveToThePointAsync(patrolPoints[i], cancellationToken);
+                await MoveToThePointAsync(patrolPoints[i].transform, cancellationToken);
                 await Task.Delay(TimeSpan.FromSeconds(waitTime));
             }
         } while (loop);

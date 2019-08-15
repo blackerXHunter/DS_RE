@@ -1602,7 +1602,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1301752798348734}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.06
   m_Height: 2.07
   m_Direction: 2
@@ -3113,6 +3113,7 @@ GameObject:
   - component: {fileID: 114979990634765834}
   - component: {fileID: 4765501072371856668}
   - component: {fileID: 9021744559552906364}
+  - component: {fileID: 733028363}
   m_Layer: 11
   m_Name: AIHandle
   m_TagString: Untagged
@@ -3284,7 +3285,27 @@ MonoBehaviour:
   jabVelocity: 2
   fricationOne: {fileID: 0}
   fricationZero: {fileID: 0}
-  frontStabEcManager: {fileID: 0}
+  frontStabEcManager: {fileID: 114266276778966256}
+--- !u!114 &733028363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628087724085866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e71c2c78e786c5458c9c30ff73a439e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  run: 1
+  canAttackDistance: 1.4
+  canFollowingDistance: 10
+  canControtationDistance: 5
+  patrolPoints: []
+  waitTime: 1
+  playerTansform: {fileID: 0}
 --- !u!1 &1644432192244448
 GameObject:
   m_ObjectHideFlags: 0

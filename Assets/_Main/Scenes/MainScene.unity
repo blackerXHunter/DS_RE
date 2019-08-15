@@ -1158,7 +1158,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneNames:
   - Plane
-  loadingValue: 0
+  - Mori
+  configurations:
+  - {fileID: 11400000, guid: f87ff36d2adb62a4283f93bc46fdd988, type: 2}
+  - {fileID: 11400000, guid: 262e74d77c9632d48817a23cef31d8d8, type: 2}
+  currentConfig: {fileID: 0}
+  loadSceneIndex: 1
+  loadingValue: 1
 --- !u!4 &418095029
 Transform:
   m_ObjectHideFlags: 0
