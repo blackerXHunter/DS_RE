@@ -56,6 +56,10 @@ public class CameraController : MonoBehaviour
 
     public Image lockDot;
 
+    private Vector3 originLocalEulerAngles = Vector3.zero;
+
+    private float lockCamAdjustDistance = 5f;
+
     // Use this for initialization
     private void Start()
     {
@@ -94,14 +98,33 @@ public class CameraController : MonoBehaviour
             }
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
-        //else {
-        //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
-        //playerHandle.transform.forward = tempForward;
-        //tempForward.y = 0;
-        //}
+        else
+        {
+            if (originLocalEulerAngles == Vector3.zero)
+            {
+                originLocalEulerAngles = cameraHandle.transform.localEulerAngles;
+            }
+            float distance = Vector3.Distance(model.transform.position, lockTarget.obj.transform.position);
+            if (distance < lockCamAdjustDistance)
+            {
+                float radio = (lockCamAdjustDistance - distance) / lockCamAdjustDistance;
+                float deltaEulerAngles = 40 * radio;
+                var localEulerAngles = new Vector3(originLocalEulerAngles.x + deltaEulerAngles, 0, 0);
+                cameraHandle.transform.localEulerAngles = localEulerAngles;
+            }
+            else
+            {
+                cameraHandle.transform.localEulerAngles = originLocalEulerAngles;
+            }
+
+            //Vector3 tempForward = lockTarget.obj.transform.position - model.transform.position;
+            //playerHandle.transform.forward = tempForward;
+            //tempForward.y = 0;
+        }
         if (!isAI)
         {
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
+
             //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
             cam.transform.LookAt(cameraHandle.transform);
         }
@@ -118,7 +141,7 @@ public class CameraController : MonoBehaviour
         {
             if (!isAI)
             {
-                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight, 0));
+                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight*1.6f, 0));
             }
             playerHandle.transform.LookAt(lockTarget.obj.transform);
             if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > 10.0f)
