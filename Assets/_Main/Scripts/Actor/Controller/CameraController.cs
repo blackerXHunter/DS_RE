@@ -79,7 +79,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-
+        Debug.Log(playerInput.Dright);
         if (lockTarget == null)
         {
 
@@ -98,7 +98,9 @@ public class CameraController : MonoBehaviour
             }
             model.transform.rotation = Quaternion.Euler(tempModelEuler);
         }
+
         else
+        
         {
             if (originLocalEulerAngles == Vector3.zero)
             {
