@@ -107,7 +107,8 @@ public class PlayerAC : IActorController
                 actor.SetTrigger("counterBack");
             }
         }
-        if (camCtrl.lockState == false)
+        // TODO:翻滚时不应该锁定
+        if (camCtrl.lockState == false || playerInput.roll)
         {
             if (playerInput.inputEnable)
             {
@@ -287,7 +288,8 @@ public class PlayerAC : IActorController
         frontStabEcManager.active = false;
     }
 
-    private void OnDieStateEnter(){
+    private void OnDieStateEnter()
+    {
         playerInput.inputEnable = false;
         planerVec = Vector3.zero;
         //actor.SetBool("keepDieState", false);

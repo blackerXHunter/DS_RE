@@ -102,10 +102,12 @@ public class CameraController : MonoBehaviour
         else
         
         {
+
             if (originLocalEulerAngles == Vector3.zero)
             {
                 originLocalEulerAngles = cameraHandle.transform.localEulerAngles;
             }
+            // 根据人物和敌人的距离来调整摄像头角度
             float distance = Vector3.Distance(model.transform.position, lockTarget.obj.transform.position);
             if (distance < lockCamAdjustDistance)
             {
@@ -127,8 +129,8 @@ public class CameraController : MonoBehaviour
         {
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
 
-            //cam.transform.eulerAngles = cameraPos.transform.eulerAngles;
             cam.transform.LookAt(cameraHandle.transform);
+            
         }
     }
 
