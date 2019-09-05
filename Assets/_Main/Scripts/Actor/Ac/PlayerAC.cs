@@ -147,7 +147,7 @@ public class PlayerAC : IActorController
         }
         else
         {
-            model.transform.forward = transform.forward;
+            model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.1f);
 
             if (!lockPlaner)
             {
