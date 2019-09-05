@@ -54,7 +54,7 @@ public class BlackKnightAI : MonoBehaviour
         {
             if (Vector3.Distance(this.transform.position, playerTansform.position) < canAttackDistance && fsm.CurrentState == BlackKnightState.Confrontation)
             {
-                Debug.Log("Send Touch");
+
                 fsm.Fire(BlackKnightTrigger.Touch);
             }
             else
@@ -392,7 +392,6 @@ public class BlackKnightAI : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("OK");
         Reset();
     }
 

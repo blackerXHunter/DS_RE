@@ -79,7 +79,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Debug.Log(playerInput.Dright);
+
         if (lockTarget == null)
         {
 
@@ -130,7 +130,7 @@ public class CameraController : MonoBehaviour
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
 
             cam.transform.LookAt(cameraHandle.transform);
-            
+
         }
     }
 
@@ -138,7 +138,7 @@ public class CameraController : MonoBehaviour
     {
         if (playerInput.lockUnlock)
         {
-            Debug.Log("LockUnLock");
+
             LockUnLock();
         }
         if (lockTarget != null)

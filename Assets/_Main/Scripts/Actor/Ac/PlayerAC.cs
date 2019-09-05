@@ -54,6 +54,25 @@ public class PlayerAC : IActorController
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<Collider>();
     }
+    bool rollingStart = false;
+    private bool CheckRolling()
+    {
+        if (playerInput.roll)
+        {
+            rollingStart = true;
+            return true;
+        } else
+        if (actor.CheckState("roll"))
+        {
+            rollingStart = false;
+            return true;
+        }
+        else if (rollingStart)
+        {
+            return true;
+        }
+        return false;
+    }
 
     // Update is called once per frame
     private void Update()
@@ -107,8 +126,9 @@ public class PlayerAC : IActorController
                 actor.SetTrigger("counterBack");
             }
         }
-        // TODO:翻滚时不应该锁定
-        if (camCtrl.lockState == false || playerInput.roll)
+        
+        //Debug.Log(CheckRolling());
+        if (camCtrl.lockState == false || CheckRolling())
         {
             if (playerInput.inputEnable)
             {
