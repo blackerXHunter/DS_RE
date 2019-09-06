@@ -57,11 +57,12 @@ public class PlayerAC : IActorController
     bool rollingStart = false;
     private bool CheckRolling()
     {
-        if (playerInput.roll)
+        if (playerInput.roll && playerInput.Dmag > 0.1f)
         {
             rollingStart = true;
             return true;
-        } else
+        }
+        else
         if (actor.CheckState("roll"))
         {
             rollingStart = false;
@@ -126,16 +127,24 @@ public class PlayerAC : IActorController
                 actor.SetTrigger("counterBack");
             }
         }
-        
+
         //Debug.Log(CheckRolling());
         if (camCtrl.lockState == false || CheckRolling())
         {
             if (playerInput.inputEnable)
             {
 
-                if (playerInput.Dmag > 0.1f)
+                if (CheckRolling() && playerInput.Dmag > 0.1f)
                 {
-                    model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
+                    // model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.03f);
+                    model.transform.forward = playerInput.Dforward;
+                }
+                else
+                {
+                    if (playerInput.Dmag > 0.1f)
+                    {
+                        model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
+                    }
                 }
 
             }
@@ -147,7 +156,8 @@ public class PlayerAC : IActorController
         }
         else
         {
-            model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.1f);
+            //model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.1f);
+            model.transform.forward = transform.forward;
 
             if (!lockPlaner)
             {
@@ -205,6 +215,7 @@ public class PlayerAC : IActorController
 
     private void OnGroundEnter()
     {
+        actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 1f);
         playerInput.inputEnable = true;
         lockPlaner = false;
         //canAttack = true;
@@ -213,6 +224,7 @@ public class PlayerAC : IActorController
 
     private void OnGroundExit()
     {
+        actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 0f);
         playerInput.inputEnable = true;
         lockPlaner = true;
         //canAttack = true;

@@ -136,6 +136,18 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
+    m_Name: Weapon Up
+    m_StateMachine: {fileID: 1107432440589893692}
+    m_Mask: {fileID: 31900000, guid: cdb2730375f59ac48a20440eac30cafe, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 1
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
 --- !u!114 &114006653920666884
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -644,7 +656,7 @@ BlendTree:
     m_DirectBlendParameter: Forward
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9de9c1ecaed23584ca62acfda8a9a454, type: 3}
+    m_Motion: {fileID: 7400000, guid: d8ebb3513b18ea14ab0217b629f3374d, type: 3}
     m_Threshold: 4.799999
     m_Position: {x: -1.2, y: 0}
     m_TimeScale: 1
@@ -652,7 +664,7 @@ BlendTree:
     m_DirectBlendParameter: Forward
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 21386c9f515a90744b8e2c9f76b205ae, type: 3}
+    m_Motion: {fileID: 7400000, guid: 7c0c2fe591f58d44794888da5453c214, type: 3}
     m_Threshold: 5.699999
     m_Position: {x: -2.1, y: 0}
     m_TimeScale: 1
@@ -660,7 +672,7 @@ BlendTree:
     m_DirectBlendParameter: Forward
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 64e114b258e0f374b9a9bee15fecfa49, type: 3}
+    m_Motion: {fileID: 7400000, guid: c9f921271bac2db40addae276a4514fd, type: 3}
     m_Threshold: 6.5999985
     m_Position: {x: 1.2, y: 0}
     m_TimeScale: 1
@@ -668,7 +680,7 @@ BlendTree:
     m_DirectBlendParameter: Forward
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1a691e0ad9c30f249905effc398e6372, type: 3}
+    m_Motion: {fileID: 7400000, guid: 67d6d7dc221b9a14bb1befd9a306ac39, type: 3}
     m_Threshold: 7.499998
     m_Position: {x: 2.1, y: 0}
     m_TimeScale: 1
@@ -1231,9 +1243,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.3647542
+  m_TransitionDuration: 0.18101066
   m_TransitionOffset: 0
-  m_ExitTime: 0.8256439
+  m_ExitTime: 0.7031615
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -2066,6 +2078,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102694833310493116
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SwordIdle4
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 504d9d0fcc0cf8541a2bd1f5ba2d14c8, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1102706774481537320
 AnimatorState:
   serializedVersion: 5
@@ -2228,6 +2266,28 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102757549121905896}
+--- !u!1107 &1107432440589893692
+AnimatorStateMachine:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Weapon Up
+  m_ChildStates:
+  - serializedVersion: 1
+    m_State: {fileID: 1102694833310493116}
+    m_Position: {x: 384, y: 96, z: 0}
+  m_ChildStateMachines: []
+  m_AnyStateTransitions: []
+  m_EntryTransitions: []
+  m_StateMachineTransitions: {}
+  m_StateMachineBehaviours: []
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_DefaultState: {fileID: 1102694833310493116}
 --- !u!1107 &1107515091622344438
 AnimatorStateMachine:
   serializedVersion: 5
