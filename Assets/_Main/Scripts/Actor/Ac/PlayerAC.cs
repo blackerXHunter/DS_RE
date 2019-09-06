@@ -78,6 +78,7 @@ public class PlayerAC : IActorController
     // Update is called once per frame
     private void Update()
     {
+        actor.SetBool("camera lock", camCtrl.lockState);
         if (playerInput == null)
         {
             return;
