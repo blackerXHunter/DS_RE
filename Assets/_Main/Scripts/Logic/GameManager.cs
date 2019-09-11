@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         um.CloseStartUI();
         um.OpenLoadingUI();
         yield return gsm.LoadScene();
-        um.CloseLoadingUI();
+
         var sceneConfig = gsm.currentConfig;
 
         var scene = SceneManager.GetSceneByName(gsm.sceneNames[gsm.loadSceneIndex]);
@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
         playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
 
         gameState = GameState.playing;
+        um.CloseLoadingUI();
     }
 
     // Update is called once per frame

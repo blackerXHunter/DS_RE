@@ -130,23 +130,17 @@ public class PlayerAC : IActorController
         }
 
         //Debug.Log(CheckRolling());
-        if (camCtrl.lockState == false || CheckRolling())
+        if (camCtrl.lockState == false)
         {
             if (playerInput.inputEnable)
             {
 
-                if (CheckRolling() && playerInput.Dmag > 0.1f)
+
+                if (playerInput.Dmag > 0.1f)
                 {
-                    // model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.03f);
-                    model.transform.forward = playerInput.Dforward;
+                    model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
                 }
-                else
-                {
-                    if (playerInput.Dmag > 0.1f)
-                    {
-                        model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.3f);
-                    }
-                }
+
 
             }
             if (!lockPlaner)
@@ -154,6 +148,21 @@ public class PlayerAC : IActorController
                 planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
             }
 
+        }
+        else if (camCtrl.lockState == true && CheckRolling())
+        {
+            if (playerInput.inputEnable)
+            {
+                if (playerInput.Dmag > 0.1f)
+                {
+                    // model.transform.forward = Vector3.Slerp(model.transform.forward, playerInput.Dforward, 0.03f);
+                    model.transform.forward = playerInput.Dforward;
+                }
+            }
+            if (!lockPlaner)
+            {
+                planerVec = playerInput.Dforward * playerInput.Dmag * walkSpeed * (playerInput.run ? runSpeed : 1.0f);
+            }
         }
         else
         {
@@ -200,8 +209,15 @@ public class PlayerAC : IActorController
     private void OnJumpEnter()
     {
         playerInput.inputEnable = false;
+        Debug.Log("Jump!");
         lockPlaner = true;
         thrustVec = new Vector3(0, jumpVelocity, 0);
+    }
+
+    private void OnJumpStay()
+    {
+        //playerInput.inputEnable = false;
+
     }
 
     private void InGround()
@@ -218,6 +234,7 @@ public class PlayerAC : IActorController
     {
         actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 1f);
         playerInput.inputEnable = true;
+        Debug.Log("Ground Enter");
         lockPlaner = false;
         //canAttack = true;
         coll.material = fricationOne;
@@ -226,7 +243,8 @@ public class PlayerAC : IActorController
     private void OnGroundExit()
     {
         actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 0f);
-        playerInput.inputEnable = true;
+       // playerInput.inputEnable = true;
+        Debug.Log("Ground Exit");
         lockPlaner = true;
         //canAttack = true;
         coll.material = fricationZero;

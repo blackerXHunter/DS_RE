@@ -100,7 +100,7 @@ public class CameraController : MonoBehaviour
         }
 
         else
-        
+
         {
 
             if (originLocalEulerAngles == Vector3.zero)
@@ -127,7 +127,14 @@ public class CameraController : MonoBehaviour
         }
         if (!isAI)
         {
-            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
+            if (Vector3.Distance(cam.transform.position, cameraPos.transform.position) > 3)
+            {
+                cam.transform.position = cameraPos.transform.position;
+            }
+            else
+            {
+                cam.transform.position = Vector3.SmoothDamp(cam.transform.position, cameraPos.transform.position, ref smoothDampVec, .2f);
+            }
 
             cam.transform.LookAt(cameraHandle.transform);
 
@@ -145,7 +152,7 @@ public class CameraController : MonoBehaviour
         {
             if (!isAI)
             {
-                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight*1.6f, 0));
+                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHeight * 1.6f, 0));
             }
             playerHandle.transform.LookAt(lockTarget.obj.transform);
             if (Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > 10.0f)
