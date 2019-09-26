@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Mori
   m_EditorClassIdentifier: 
   playerPos: {x: 70, y: 0, z: 120}
-  EnemyPos: {x: 80, y: 0, z: 130}
+  enemyPos: {x: 80, y: 0, z: 110}
+  boxPos: {x: 80, y: 0.5, z: 115}
+  leverPos: {x: 80, y: 0.5, z: 113}

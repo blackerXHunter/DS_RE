@@ -45,18 +45,18 @@ public class GameManager : MonoBehaviour
         var scene = SceneManager.GetSceneByName(gsm.sceneNames[gsm.loadSceneIndex]);
 
         var player = cm.LoadPlayer(sceneConfig.playerPos, scene);
-        var enemy = cm.LoadEnemy(sceneConfig.EnemyPos, scene);
+        var enemy = cm.LoadEnemy(sceneConfig.enemyPos, scene);
         enemy.GetComponent<BlackKnightAI>().Init();
         var playerAm = player.GetComponent<ActorManager>();
         hudm.playerAm = playerAm;
 
         var box = cm.LoadBox(Vector3.zero, scene);
         //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        box.transform.position = Vector3.zero;
+        box.transform.position = sceneConfig.boxPos;
 
         var lever = cm.LoadLever(Vector3.zero, scene);
         //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        lever.transform.position = Vector3.zero + new Vector3(5, 0, 0);
+        lever.transform.position = sceneConfig.leverPos;
 
         hudm.gameObject.SetActive(true);
         yield return new WaitUntil(() => playerAm.im != null);

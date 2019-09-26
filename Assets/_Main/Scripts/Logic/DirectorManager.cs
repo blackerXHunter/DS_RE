@@ -200,7 +200,7 @@ public class DirectorManager : Singleton<DirectorManager>
                 else if (track.name == "Lever Animation")
                 {
                     pd.SetGenericBinding(track, victim.ac.GetAnimator());
-                    victim.ac.GetAnimator().SetTrigger("open");
+                    //victim.ac.GetAnimator().SetTrigger("open");
                 }
             }
 

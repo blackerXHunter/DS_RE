@@ -234,7 +234,7 @@ public class PlayerAC : IActorController
     {
         actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 1f);
         playerInput.inputEnable = true;
-        Debug.Log("Ground Enter");
+
         lockPlaner = false;
         //canAttack = true;
         coll.material = fricationOne;
@@ -244,7 +244,6 @@ public class PlayerAC : IActorController
     {
         actor.SetLayerWeight(actor.GetLayerIndex("Weapon Up"), 0f);
        // playerInput.inputEnable = true;
-        Debug.Log("Ground Exit");
         lockPlaner = true;
         //canAttack = true;
         coll.material = fricationZero;
