@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public UIManager um;
     public GameSceneManager gsm;
-    public CharaManager cm;
+    public GameObjectManager cm;
     public HUDManager hudm;
     public FLAG LoadingScene = false;
     // Start is called before the first frame update

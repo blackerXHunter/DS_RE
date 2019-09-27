@@ -54,7 +54,7 @@ public class StateManager : IActorManager
     public bool isCounterBack;
     public bool isCounterBackEnable;
 
-    [Header("2nd order stae flags")]
+    [Header("2nd order state flags")]
     public bool allowDefense;
     public bool immortal;
     public bool counterBackSuccess;

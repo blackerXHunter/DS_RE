@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DS_RE;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,7 +64,7 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        model = playerHandle.GetComponent<IActorController>().model;
+        model = playerHandle.GetComponent<PlayerController>().model;
         cam = Camera.main.gameObject;
         playerInput = UserInput.GetEnabledUserInput(playerHandle);
         if (lockDot == null)

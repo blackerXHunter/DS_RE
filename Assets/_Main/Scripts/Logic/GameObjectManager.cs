@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CharaManager : MonoBehaviour
+public class GameObjectManager : MonoBehaviour
 {
     public GameObject prefab_player;
     public GameObject prefab_enemy;
