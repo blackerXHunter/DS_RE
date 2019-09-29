@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace DS_RE
 {
-    public abstract class IGameObjectController : MonoBehaviour
+    public abstract class IActorController : MonoBehaviour
     {
         public string myID, myName;
         public GameObject model;

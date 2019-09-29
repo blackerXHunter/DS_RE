@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DS_RE
 {
 
-    public class AnimatedObjectController : IGameObjectController
+    public class AnimatedObjectController : IActorController
     {
         public Animator animator;
     }

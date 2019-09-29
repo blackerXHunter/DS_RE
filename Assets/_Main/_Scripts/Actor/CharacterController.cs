@@ -46,6 +46,9 @@ namespace DS_RE
         public PhysicMaterial fricationOne;
         public PhysicMaterial fricationZero;
 
+        [Header("===== Controller ======")]
+        public WeaponController weaponController;
+        public StateController stateController;
         #endregion
 
         protected override void Awake()
@@ -95,6 +98,7 @@ namespace DS_RE
             }
             if (animator.CheckState("ground") || animator.CheckState("blocked"))
             {
+                
                 animator.SetBool("defense", input.defense);
                 animator.SetLayerWeight(animator.GetLayerIndex("Defense Layer"), input.defense ? 1 : 0);
             }
@@ -171,7 +175,7 @@ namespace DS_RE
 
         private void OnGroundEnter()
         {
-            animator.SetLayerWeight(animator.GetLayerIndex("Weapon Up"), 1f);
+         //   animator.SetLayerWeight(animator.GetLayerIndex("Weapon Up"), 1f);
             input.inputEnable = true;
 
             lockPlaner = false;
@@ -219,7 +223,8 @@ namespace DS_RE
 
         private void OnAttackExit()
         {
-            animator.gameObject.SendMessage("WeaponDisable");
+            //animator.gameObject.SendMessage("WeaponDisable");
+            weaponController.WeaponDisable();
         }
 
         private void OnAttack1hAUpdate()
