@@ -7,9 +7,13 @@ namespace DS_RE
     {
         public string myID, myName;
         public GameObject model;
+        [Header("===== Controller ======")]
+        public EventCasterController eventCaster;
+        public InteractionController interactionController;
         protected virtual void Update() { }
         protected virtual void FixedUpdate() { }
         protected virtual void Awake() { }
         protected virtual void Start() { }
+        protected virtual void DoAction() { }
     }
 }

@@ -9,6 +9,7 @@ namespace DS_RE
         public Collider weaponColliderL, weaponColliderR;
         public GameObject whL, whR;
         public Weapon weaponL, weaponR;
+        public float GetAtk() => weaponR.GetAtk();
 
         private void Start()
         {
