@@ -48,6 +48,7 @@ namespace DS_RE
         [Header("===== Controller ======")]
         public WeaponController weaponController;
         public StateController stateController;
+        public LockController lockController;
         [Header("===== Manager =====")]
         public DirectorManager dm;
         public EventCasterManager frontStabEcManager;
@@ -63,6 +64,7 @@ namespace DS_RE
             input = UserInput.GetEnabledUserInput(this.gameObject);
             rigid = GetComponent<Rigidbody>();
             coll = GetComponent<Collider>();
+            
         }
 
         protected override void Start()
@@ -157,6 +159,68 @@ namespace DS_RE
             if (input.action)
             {
                 OnAction.Invoke();
+            }
+
+            animator.SetBool("camera lock", lockController.lockState);
+            float targetRunMulti = (input.run ? 2.0f : 1.0f);
+            if (lockController.lockState == false)
+            {
+                animator.SetFloat("Forward", Mathf.Lerp(animator.GetFloat("Forward"), input.Dmag * targetRunMulti, 0.2f));
+            }
+            else
+            {
+                animator.SetFloat("Forward", Mathf.Lerp(animator.GetFloat("Forward"), input.Dup * targetRunMulti, 0.2f));
+                animator.SetFloat("right", Mathf.Lerp(animator.GetFloat("right"), input.Dright * targetRunMulti, 0.2f));
+            }
+            //Debug.Log(CheckRolling());
+            if (lockController.lockState == false)
+            {
+                if (input.inputEnable)
+                {
+
+
+                    if (input.Dmag > 0.1f)
+                    {
+                        model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.3f);
+                    }
+
+
+                }
+                if (!lockPlaner)
+                {
+                    planerVec = input.Dforward * input.Dmag * walkSpeed * (input.run ? runSpeed : 1.0f);
+                }
+
+            }
+            else if (lockController.lockState == true && CheckRolling())
+            {
+                if (input.inputEnable)
+                {
+                    if (input.Dmag > 0.1f)
+                    {
+                        // model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.03f);
+                        model.transform.forward = input.Dforward;
+                    }
+                }
+                if (!lockPlaner)
+                {
+                    planerVec = input.Dforward * input.Dmag * walkSpeed * (input.run ? runSpeed : 1.0f);
+                }
+            }
+            else
+            {
+                //model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.1f);
+                model.transform.forward = transform.forward;
+
+                if (!lockPlaner)
+                {
+                    planerVec = input.Dforward * input.Dmag * walkSpeed * (input.run ? runSpeed : 1.0f);
+                }
+
+            }
+            if (lockController.lockState == true)
+            {
+                this.transform.LookAt(lockController.lockTarget.obj.transform);
             }
         }
 

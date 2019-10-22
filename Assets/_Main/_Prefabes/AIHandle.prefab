@@ -1144,7 +1144,7 @@ GameObject:
   - component: {fileID: 4750487679837068}
   - component: {fileID: 114280856385004986}
   - component: {fileID: 136740983752403826}
-  - component: {fileID: 114470381172138382}
+  - component: {fileID: 2039401808}
   m_Layer: 13
   m_Name: sensors
   m_TagString: Untagged
@@ -1194,7 +1194,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114470381172138382
+--- !u!114 &2039401808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1203,10 +1203,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1262705452577554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9722098309f712b49a4de78a8b9ccca4, type: 3}
+  m_Script: {fileID: 11500000, guid: 73414d6826e176a4daf6b0fda554366c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  am: {fileID: 0}
+  ac: {fileID: 1858101288515431653}
 --- !u!1 &1270465413002910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,7 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca6d2fec0f4b2840b7226fa4b7d8281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ac: {fileID: 0}
+  ac: {fileID: 1858101288515431653}
   weaponColliderL: {fileID: 0}
   weaponColliderR: {fileID: 0}
   whL: {fileID: 0}
@@ -3026,9 +3026,10 @@ GameObject:
   - component: {fileID: 136212036113575972}
   - component: {fileID: 54629209426636232}
   - component: {fileID: 114097383256826492}
-  - component: {fileID: 733028363}
   - component: {fileID: 1858101288515431653}
   - component: {fileID: 6075332107273250192}
+  - component: {fileID: 997020757}
+  - component: {fileID: 997020750}
   m_Layer: 11
   m_Name: AIHandle
   m_TagString: Untagged
@@ -3113,26 +3114,6 @@ MonoBehaviour:
   lockUnlock: 0
   menu: 0
   inputEnable: 0
---- !u!114 &733028363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628087724085866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e71c2c78e786c5458c9c30ff73a439e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  run: 1
-  canAttackDistance: 1.4
-  canFollowingDistance: 10
-  canControtationDistance: 5
-  patrolPoints: []
-  waitTime: 1
-  playerTansform: {fileID: 0}
 --- !u!114 &1858101288515431653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3148,6 +3129,8 @@ MonoBehaviour:
   myID: 
   myName: 
   model: {fileID: 1470072671458516}
+  eventCaster: {fileID: 0}
+  interactionController: {fileID: 0}
   animator: {fileID: 95886128959007800}
   input: {fileID: 0}
   rigid: {fileID: 54629209426636232}
@@ -3167,6 +3150,8 @@ MonoBehaviour:
   fricationZero: {fileID: 13400000, guid: 22ace193e1c66454eb19d80a660dac43, type: 2}
   weaponController: {fileID: 7845146504904842085}
   stateController: {fileID: 6075332107273250192}
+  lockController: {fileID: 997020750}
+  dm: {fileID: 0}
   frontStabEcManager: {fileID: 0}
 --- !u!114 &6075332107273250192
 MonoBehaviour:
@@ -3200,6 +3185,43 @@ MonoBehaviour:
   immortal: 0
   counterBackSuccess: 0
   counterBackFailer: 0
+--- !u!114 &997020757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628087724085866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4ecb41c07b6f9428053a9cef2cb28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  run: 1
+  canAttackDistance: 1.4
+  canFollowingDistance: 10
+  canControtationDistance: 5
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  waitTime: 1
+  playerTansform: {fileID: 0}
+--- !u!114 &997020750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628087724085866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcd4e3120adb1c48866c94198138955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ac: {fileID: 1858101288515431653}
+  isAI: 0
+  lockState: 0
 --- !u!1 &1644432192244448
 GameObject:
   m_ObjectHideFlags: 0

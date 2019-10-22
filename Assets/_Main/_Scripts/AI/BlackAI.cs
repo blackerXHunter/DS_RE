@@ -173,12 +173,16 @@ namespace DS_RE
             config.ForState(BlackKnightState.Confrontation)
             .OnEntry(() =>
             {
-
+                ac.lockController.Lock(playerTansform.gameObject);
                 //ac.camCtrl.Lock(playerTansform.gameObject);
                 StartConfrontatoin();
             })
             .OnExit(() =>
             {
+                if (ac.lockController.lockState == true && playerTansform == null)
+                {
+                    ac.lockController.UnLock();
+                }
                 //if (ac.camCtrl.lockState == true && playerTansform == null)
                 //{
                 //    ac.camCtrl.UnLock();

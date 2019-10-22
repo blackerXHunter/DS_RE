@@ -458,6 +458,11 @@ PrefabInstance:
       propertyPath: ac
       value: 
       objectReference: {fileID: 997020751}
+    - target: {fileID: 1858101288515431653, guid: 2d4e271911b181544b7f5241c8e69045,
+        type: 3}
+      propertyPath: lockController
+      value: 
+      objectReference: {fileID: 997020750}
     m_RemovedComponents:
     - {fileID: 114470381172138382, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
     - {fileID: 733028363, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
@@ -468,6 +473,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 932712664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &997020750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997020749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcd4e3120adb1c48866c94198138955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ac: {fileID: 997020751}
+  isAI: 0
+  lockState: 0
 --- !u!114 &997020751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1858101288515431653, guid: 2d4e271911b181544b7f5241c8e69045,
