@@ -6,8 +6,6 @@ namespace DS_RE
 
     public class PlayerController : CharacterController
     {
-        [Header("===== camera =====")]
-        public CameraController camCtrl;
         protected override void Awake()
         {
             base.Awake();
