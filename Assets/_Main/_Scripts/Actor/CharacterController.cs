@@ -173,10 +173,6 @@ namespace DS_RE
                 animator.SetFloat("right", Mathf.Lerp(animator.GetFloat("right"), input.Dright * targetRunMulti, 0.2f));
             }
 
-            if (lockController.lockState == true)
-            {
-                this.transform.LookAt(lockController.lockTarget.obj.transform);
-            }
 
             //Debug.Log(CheckRolling());
             if (lockController.lockState == false)
@@ -215,9 +211,10 @@ namespace DS_RE
             }
             else
             {
-                //model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.1f);
-                model.transform.forward = transform.forward;
-
+                this.transform.LookAt(lockController.lockTarget.obj.transform);
+                model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.2f);
+                
+                //model.transform.forward = transform.forward;
                 if (!lockPlaner)
                 {
                     planerVec = input.Dforward * input.Dmag * walkSpeed * (input.run ? runSpeed : 1.0f);
@@ -465,7 +462,7 @@ namespace DS_RE
         private void OnRollEnter()
         {
             tempForward = model.transform.forward;
-            thrustVec = rollVelocity * model.transform.forward + new Vector3(0, 2, 0);
+            thrustVec = rollVelocity * model.transform.forward /*+ new Vector3(0, 2, 0)*/;
             input.inputEnable = false;
             lockPlaner = true;
         }
