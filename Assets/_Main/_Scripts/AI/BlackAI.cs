@@ -392,7 +392,7 @@ namespace DS_RE
                 }
                 Vector3 dir = transform.position - this.transform.position;
                 dir.Normalize();
-                this.transform.LookAt(dir);
+                //this.transform.LookAt(dir);
                 Move(dir, speed, run);
                 await Task.Delay((int)(Time.deltaTime * 1000));
                 if (this == null)
@@ -451,15 +451,15 @@ namespace DS_RE
 
             if (locked)
             {
-                ac.input.Dforward = direction;
+                ac.input.Dforward = Vector3.Slerp(ac.input.Dforward, direction, 0.1f);
                 ac.input.Dmag = speed;
                 ac.input.Dup = 0.5f;
                 ac.input.Dright = speed;
             }
             else
             {
+                ac.input.Dforward = Vector3.Slerp(ac.input.Dforward, direction, 0.1f);
                 ac.input.Dmag = speed;
-                ac.input.Dforward = direction;
             }
 
             ac.input.run = run;

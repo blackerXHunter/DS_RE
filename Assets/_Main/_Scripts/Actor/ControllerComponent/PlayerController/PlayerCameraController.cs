@@ -59,8 +59,6 @@ namespace DS_RE
 
             if (ac.lockController.lockTarget == null)
             {
-
-
                 Vector3 tempModelEuler = model.transform.rotation.eulerAngles;
 
                 if (playerHandle != null)
@@ -75,11 +73,8 @@ namespace DS_RE
                 }
                 model.transform.rotation = Quaternion.Euler(tempModelEuler);
             }
-
             else
-
             {
-
                 if (originLocalEulerAngles == Vector3.zero)
                 {
                     originLocalEulerAngles = cameraHandle.transform.localEulerAngles;
@@ -125,7 +120,7 @@ namespace DS_RE
             }
             if (ac.lockController.lockTarget != null)
             {
-
+                lockDot.enabled = true;
                 lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(ac.lockController.lockTarget.obj.transform.position + new Vector3(0, ac.lockController.lockTarget.halfHeight * 1.6f, 0));
 
                 playerHandle.transform.LookAt(ac.lockController.lockTarget.obj.transform);
@@ -137,6 +132,10 @@ namespace DS_RE
                 {
                     ac.lockController.UnLock();
                 }
+            }
+            else
+            {
+                lockDot.enabled = false;
             }
         }
     }

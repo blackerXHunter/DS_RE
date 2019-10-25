@@ -6,6 +6,7 @@ namespace DS_RE
 
     public class AnimatedObjectController : IActorController
     {
+        [Header("===== Animator =====")]
         public Animator animator;
     }
 }

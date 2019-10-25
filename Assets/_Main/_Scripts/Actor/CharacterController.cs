@@ -9,6 +9,7 @@ namespace DS_RE
     public class CharacterController : AnimatedObjectController
     {
         #region Feilds
+        [Header("====== Field ======")]
         [SerializeField]
         public UserInput input;
 
@@ -52,7 +53,6 @@ namespace DS_RE
         [Header("===== Manager =====")]
         public DirectorManager dm;
         public EventCasterManager frontStabEcManager;
-
         #endregion
 
         #region Mono
@@ -64,7 +64,6 @@ namespace DS_RE
             input = UserInput.GetEnabledUserInput(this.gameObject);
             rigid = GetComponent<Rigidbody>();
             coll = GetComponent<Collider>();
-            
         }
 
         protected override void Start()
@@ -166,6 +165,7 @@ namespace DS_RE
             if (lockController.lockState == false)
             {
                 animator.SetFloat("Forward", Mathf.Lerp(animator.GetFloat("Forward"), input.Dmag * targetRunMulti, 0.2f));
+                animator.SetFloat("right", 0);
             }
             else
             {
@@ -177,14 +177,10 @@ namespace DS_RE
             {
                 if (input.inputEnable)
                 {
-
-
                     if (input.Dmag > 0.1f)
                     {
                         model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.3f);
                     }
-
-
                 }
                 if (!lockPlaner)
                 {
