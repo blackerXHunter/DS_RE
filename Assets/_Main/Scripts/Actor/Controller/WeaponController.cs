@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour {
     public WeaponManager wm;
-    public WeaponData wdata;
+    public DS_RE.WeaponData wdata;
 
     // Use this for initialization
     private void Awake() {
-        wdata = GetComponentInChildren<WeaponData>();
+        wdata = GetComponentInChildren<DS_RE.WeaponData>();
     }
 	
 	// Update is called once per frame

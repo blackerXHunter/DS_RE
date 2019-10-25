@@ -7,6 +7,7 @@ namespace DS_RE
     {
         public CharacterController ac;
         public bool isAI = false;
+        public float unLockDistance = 10.0f;
         public class LockTarget
         {
             public float halfHeight
@@ -17,17 +18,34 @@ namespace DS_RE
                 }
             }
             public GameObject obj;
-            public ActorManager am;
+            public CharacterController ac;
 
             public LockTarget(GameObject obj)
             {
                 this.obj = obj;
-                am = obj.GetComponent<ActorManager>();
+                ac = obj.GetComponent<CharacterController>();
             }
         }
-
-        [SerializeField]
         public LockTarget lockTarget = null;
+
+        private void Update()
+        {
+            if (lockState == true)
+            {
+                if (Vector3.Distance(ac.model.transform.position, lockTarget.obj.transform.position) > unLockDistance)
+                {
+                    ac.lockController.UnLock();
+                }
+                if (ac.lockController.lockTarget != null && ac.lockController.lockTarget.ac != null && ac.lockController.lockTarget.ac.stateController != null && ac.lockController.lockTarget.ac.stateController.HPisZero)
+                {
+                    ac.lockController.UnLock();
+                }
+                if (ac.stateController.isDie)
+                {
+                    ac.lockController.UnLock();
+                }
+            }
+        }
 
         public bool lockState = false;
         public void LockUnLock()
@@ -52,7 +70,6 @@ namespace DS_RE
                 }
             }
         }
-
         public void UnLock()
         {
             lockTarget = null;

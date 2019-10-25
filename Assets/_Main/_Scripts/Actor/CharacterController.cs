@@ -29,7 +29,7 @@ namespace DS_RE
         protected float jumpVelocity = 3.0f;
 
         [SerializeField]
-        protected float rollVelocity = 3.0f;
+        protected float rollVelocity = 2.0f;
 
         [SerializeField]
         protected float jabVelocity = 2.0f;
@@ -172,6 +172,12 @@ namespace DS_RE
                 animator.SetFloat("Forward", Mathf.Lerp(animator.GetFloat("Forward"), input.Dup * targetRunMulti, 0.2f));
                 animator.SetFloat("right", Mathf.Lerp(animator.GetFloat("right"), input.Dright * targetRunMulti, 0.2f));
             }
+
+            if (lockController.lockState == true)
+            {
+                this.transform.LookAt(lockController.lockTarget.obj.transform);
+            }
+
             //Debug.Log(CheckRolling());
             if (lockController.lockState == false)
             {
@@ -179,7 +185,11 @@ namespace DS_RE
                 {
                     if (input.Dmag > 0.1f)
                     {
-                        model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.3f);
+                        //model.transform.Rotate()
+                        //model.transform.Rotate(model.transform.up, Vector3.Angle(model.transform.forward, input.Dforward));
+                        //model.transform.Rotate(model.transform.position, model.transform.up, Vector3.Angle(model.transform.forward, input.Dforward));
+                        //model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.3f);
+                        model.transform.forward = input.Dforward;
                     }
                 }
                 if (!lockPlaner)
@@ -214,10 +224,7 @@ namespace DS_RE
                 }
 
             }
-            if (lockController.lockState == true)
-            {
-                this.transform.LookAt(lockController.lockTarget.obj.transform);
-            }
+
         }
 
         protected override void FixedUpdate()
@@ -454,11 +461,18 @@ namespace DS_RE
             lockPlaner = true;
         }
 
+        private Vector3 tempForward;
         private void OnRollEnter()
         {
+            tempForward = model.transform.forward;
             thrustVec = rollVelocity * model.transform.forward + new Vector3(0, 2, 0);
             input.inputEnable = false;
             lockPlaner = true;
+        }
+
+        private void OnRollStay()
+        {
+            thrustVec = rollVelocity * tempForward;
         }
 
         private void OnJabEnter()

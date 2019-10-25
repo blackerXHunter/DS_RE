@@ -459,6 +459,7 @@ namespace DS_RE
             else
             {
                 ac.input.Dforward = Vector3.Slerp(ac.input.Dforward, direction, 0.1f);
+                //ac.input.Dforward = ac.transform.forward;
                 ac.input.Dmag = speed;
             }
 

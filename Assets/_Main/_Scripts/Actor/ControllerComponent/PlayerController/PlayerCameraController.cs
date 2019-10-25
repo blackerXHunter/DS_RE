@@ -124,14 +124,7 @@ namespace DS_RE
                 lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(ac.lockController.lockTarget.obj.transform.position + new Vector3(0, ac.lockController.lockTarget.halfHeight * 1.6f, 0));
 
                 playerHandle.transform.LookAt(ac.lockController.lockTarget.obj.transform);
-                if (Vector3.Distance(model.transform.position, ac.lockController.lockTarget.obj.transform.position) > 10.0f)
-                {
-                    ac.lockController.UnLock();
-                }
-                if (ac.lockController.lockTarget != null && ac.lockController.lockTarget.am != null && ac.lockController.lockTarget.am.sm != null && ac.lockController.lockTarget.am.sm.HPisZero)
-                {
-                    ac.lockController.UnLock();
-                }
+
             }
             else
             {

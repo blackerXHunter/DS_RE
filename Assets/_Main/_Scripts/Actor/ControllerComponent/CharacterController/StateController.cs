@@ -24,7 +24,7 @@ namespace DS_RE
         private void Update()
         {
 
-            isDie = ac.animator.CheckState("die");
+            isDie = ac.animator.CheckState("die") || ac.animator.CheckState("dieState");
             isGround = ac.animator.CheckState("ground");
             isRoll = ac.animator.CheckState("roll");
             isJab = ac.animator.CheckState("jab");
