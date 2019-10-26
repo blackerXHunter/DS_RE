@@ -380,10 +380,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     myFloat: 5
-    am: {fileID: 0}
-  am:
-    exposedName: 8efda6dc-b729-4b33-af79-1b46f780be1a
+    ac: {fileID: 0}
+    command: 
+  ac:
+    exposedName: 
     defaultValue: {fileID: 0}
+  command: 
 --- !u!114 &114245022283980338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -544,10 +546,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     myFloat: 5
-    am: {fileID: 0}
-  am:
-    exposedName: c278eb7a-e07c-4103-8015-04200f986dda
+    ac: {fileID: 0}
+    command: 
+  ac:
+    exposedName: 
     defaultValue: {fileID: 0}
+  command: 
 --- !u!114 &114605168344838798
 MonoBehaviour:
   m_ObjectHideFlags: 1

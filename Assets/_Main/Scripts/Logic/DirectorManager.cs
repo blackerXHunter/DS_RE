@@ -46,8 +46,8 @@ public class DirectorManager : Singleton<DirectorManager>
                 {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                    mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                    pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, attacker);
                 }
             }
             else if (track.name == "Victim Script")
@@ -58,8 +58,8 @@ public class DirectorManager : Singleton<DirectorManager>
                 {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                    mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                    pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, victim);
                 }
             }
             else if (track.name == "Attacker Animation")
@@ -78,7 +78,7 @@ public class DirectorManager : Singleton<DirectorManager>
                 {
                     MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                     //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                    mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
+                    mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
                     Debug.Log(mySuperPlayableClip.name);
                     
                     // if (mySuperPlayableClip.name == "Frontstab")
@@ -90,7 +90,7 @@ public class DirectorManager : Singleton<DirectorManager>
                     //      mySuperPlayableClip.command = "CheckDieState";
                     // }
                     
-                    pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                    pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, victim);
                     
                 }
             }
@@ -134,8 +134,8 @@ public class DirectorManager : Singleton<DirectorManager>
                     {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                        mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, attacker);
                     }
                 }
                 else if (track.name == "Box Script")
@@ -146,8 +146,8 @@ public class DirectorManager : Singleton<DirectorManager>
                     {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                        mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, victim);
                     }
                 }
                 else if (track.name == "Player Animation")
@@ -177,8 +177,8 @@ public class DirectorManager : Singleton<DirectorManager>
                     {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, attacker);
+                        mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, attacker);
                     }
                 }
                 else if (track.name == "Lever Script")
@@ -189,8 +189,8 @@ public class DirectorManager : Singleton<DirectorManager>
                     {
                         MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
                         //MySuperPlayableBehaviour mySuperPlayableBehaviour = mySuperPlayableClip.template;
-                        mySuperPlayableClip.am.exposedName = Guid.NewGuid().ToString();
-                        pd.SetReferenceValue(mySuperPlayableClip.am.exposedName, victim);
+                        mySuperPlayableClip.ac.exposedName = Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(mySuperPlayableClip.ac.exposedName, victim);
                     }
                 }
                 else if (track.name == "Player Animation")

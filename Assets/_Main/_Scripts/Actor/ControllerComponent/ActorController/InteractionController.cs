@@ -8,7 +8,7 @@ namespace DS_RE
     public class InteractionController : MonoBehaviour
     {
         public CapsuleCollider interaCol;
-        public List<EventCasterController> ecastmanaList = new List<EventCasterController>();
+        public List<EventCasterController> ecastControllerList = new List<EventCasterController>();
         // Use this for initialization
         void Start()
         {
@@ -22,9 +22,9 @@ namespace DS_RE
             EventCasterController[] ecms = other.GetComponents<EventCasterController>();
             foreach (var ecm in ecms)
             {
-                if (!ecastmanaList.Contains(ecm))
+                if (!ecastControllerList.Contains(ecm))
                 {
-                    ecastmanaList.Add(ecm);
+                    ecastControllerList.Add(ecm);
                     OnECMEnter?.Invoke();
                 }
             }
@@ -44,9 +44,9 @@ namespace DS_RE
             EventCasterController[] ecms = other.GetComponents<EventCasterController>();
             foreach (var ecm in ecms)
             {
-                if (ecastmanaList.Contains(ecm))
+                if (ecastControllerList.Contains(ecm))
                 {
-                    ecastmanaList.Remove(ecm);
+                    ecastControllerList.Remove(ecm);
                     OnECMExit?.Invoke();
                 }
             }

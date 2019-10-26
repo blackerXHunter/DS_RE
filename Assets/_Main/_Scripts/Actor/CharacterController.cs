@@ -68,24 +68,7 @@ namespace DS_RE
 
         protected override void Start()
         {
-            base.Start();
-            //var sensorTransform = transform.Find("sensors");
-            //if (sensorTransform != null)
-            //{
-            //    GameObject sensor = sensorTransform.gameObject;
-            //    bm = Bind<BattleManager>(sensor);
-            //    im = Bind<InteractionManager>(sensor);
-            //}
-            //else
-            //{
-            //    Debug.LogWarning("sensor is null");
-            //}
-
-            //GameObject model = model;
-            //weaponController = Bind<WeaponManager>(model);
-
-            //stateController = Bind<StateManager>(gameObject);
-
+            dm = DirectorManager.Instance;
         }
 
         bool rollingStart = false;
@@ -158,6 +141,7 @@ namespace DS_RE
             if (input.action)
             {
                 OnAction.Invoke();
+                DoAction();
             }
 
             if (input.lockUnlock)
@@ -246,6 +230,41 @@ namespace DS_RE
                 deltaPos = Vector3.zero;
                 rigid.velocity = new Vector3(planerVec.x, rigid.velocity.y, planerVec.z) + thrustVec;
                 thrustVec = Vector3.zero;
+            }
+        }
+
+        public override void SendCommand(string command, params object[] objs)
+        {
+            base.SendCommand(command, objs);
+            switch (command)
+            {
+                case "Lock":
+                    Lock((bool)objs[0]);
+                    break;
+                case "Damage":
+                    Damage();
+                    break;
+                case "Die":
+                    Die();
+                    break;
+                case "Blocked":
+                    Blocked();
+                    break;
+                case "Stunned":
+                    Stunned(objs[0] as WeaponController);
+                    break;
+                case "SetCounterBack":
+                    SetCounterBack((bool)objs[0]);
+                    break;
+                case "Frontstab":
+                    FrontStab();
+                    break;
+                case "CheckDieState":
+                    CheckDieState();
+                    break;
+                case "TryDoDamage":
+                    TryDoDamage(objs[0] as WeaponController, (bool)objs[1], (bool)objs[2]);
+                    break;
             }
         }
 
@@ -370,53 +389,53 @@ namespace DS_RE
         }
         protected override void DoAction()
         {
-            foreach (var ecastManager in interactionController.ecastmanaList)
+            foreach (var ecastController in interactionController.ecastControllerList)
             {
-                if (!ecastManager.active || dm.IsPlaying())
+                if (!ecastController.active || dm.IsPlaying())
                 {
                     continue;
                 }
-                if (ecastManager.eventName == "frontStab")
+                if (ecastController.eventName == "frontStab")
                 {
-                    //ecastManager.active = false;
-                    //transform.position = ecastManager.transform.position + ecastManager.transform.forward * ecastManager.offset.z;
-                    //model.transform.LookAt(ecastManager.transform, Vector3.up);
+                    ecastController.active = false;
+                    transform.position = ecastController.transform.position + ecastController.transform.forward * ecastController.offset.z;
+                    model.transform.LookAt(ecastController.transform, Vector3.up);
 
-                    //dm.Play("frontStab", this, ecastManager.ac);
+                    dm.Play("frontStab", this, ecastController.ac as AnimatedObjectController);
                 }
-                else if (ecastManager.eventName == "treasureBox")
+                else if (ecastController.eventName == "treasureBox")
                 {
 
-                    //bool canOpenBox = BattleManager.CheckAnglePlayer(this.model, ecastManager.gameObject, 45);
-                    //if (canOpenBox)
-                    //{
+                    bool canOpenBox = BattleManager.CheckAnglePlayer(this.model, ecastController.gameObject, 45);
+                    if (canOpenBox)
+                    {
 
-                    //    transform.position = ecastManager.transform.position + ecastManager.transform.forward * ecastManager.offset.z;
-                    //    model.transform.LookAt(ecastManager.transform, Vector3.up);
-                    //    dm.Play("treasureBox", am, ecastManager.am);
-                    //    ecastManager.active = false;
-                    //}
+                        transform.position = ecastController.transform.position + ecastController.transform.forward * ecastController.offset.z;
+                        model.transform.LookAt(ecastController.transform, Vector3.up);
+                        dm.Play("treasureBox", this, ecastController.ac as AnimatedObjectController);
+                        ecastController.active = false;
+                    }
                 }
-                else if (ecastManager.eventName == "leverUp")
+                else if (ecastController.eventName == "leverUp")
                 {
-                    //bool canLeverUp = BattleManager.CheckAnglePlayer(model, ecastManager.gameObject, 45);
-                    //if (canLeverUp)
-                    //{
-                    //    transform.position = ecastManager.transform.position + ecastManager.transform.forward * ecastManager.offset.z;
-                    //    model.transform.LookAt(ecastManager.transform, Vector3.up);
-                    //    dm.Play("leverUp", am, ecastManager.am);
-                    //    ecastManager.active = false;
-                    //}
+                    bool canLeverUp = BattleController.CheckAnglePlayer(model, ecastController.gameObject, 45);
+                    if (canLeverUp)
+                    {
+                        transform.position = ecastController.transform.position + ecastController.transform.forward * ecastController.offset.z;
+                        model.transform.LookAt(ecastController.transform, Vector3.up);
+                        dm.Play("leverUp", this, ecastController.ac as AnimatedObjectController);
+                        ecastController.active = false;
+                    }
                 }
-                else if (ecastManager.eventName == "item")
+                else if (ecastController.eventName == "item")
                 {
-                    //Destroy( ecastManager.gameObject);
-                    //var ac = ecastManager.ac as ItemAC;
+                    //Destroy(ecastController.gameObject);
+                    //var ac = ecastController.ac as ItemAC;
                     //Debug.Log(ac);
                     //InventoryManager.Instance.Add(item);
                     //model.GetComponent<Renderer>().enabled = false;
                     //FindObjectOfType<HUDManager>().takingPanel.gameObject.SetActive(true);
-                    //ecastManager.active = false;
+                    //ecastController.active = false;
                 }
             }
         }
@@ -451,7 +470,7 @@ namespace DS_RE
 
         private void OnGroundEnter()
         {
-            //   animator.SetLayerWeight(animator.GetLayerIndex("Weapon Up"), 1f);
+            animator.SetLayerWeight(animator.GetLayerIndex("Weapon Up"), 1f);
             input.inputEnable = true;
 
             lockPlaner = false;

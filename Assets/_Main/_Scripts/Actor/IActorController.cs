@@ -15,5 +15,9 @@ namespace DS_RE
         protected virtual void Awake() { }
         protected virtual void Start() { }
         protected virtual void DoAction() { }
+        public virtual void SendCommand(string command, params object[] objs)
+        {
+
+        }
     }
 }

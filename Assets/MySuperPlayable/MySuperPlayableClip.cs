@@ -8,7 +8,7 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
 {
     public MySuperPlayableBehaviour template = new MySuperPlayableBehaviour ();
 
-    public ExposedReference<ActorManager> am;
+    public ExposedReference<DS_RE.AnimatedObjectController> ac;
     public string command;
     public ClipCaps clipCaps
     {
@@ -20,7 +20,7 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
         var playable = ScriptPlayable<MySuperPlayableBehaviour>.Create (graph, template);
         MySuperPlayableBehaviour clone = playable.GetBehaviour ();
         
-        clone.am = am.Resolve(graph.GetResolver());
+        clone.ac = ac.Resolve(graph.GetResolver());
         clone.command = command;
         return playable;
     }
