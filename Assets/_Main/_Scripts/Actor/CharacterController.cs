@@ -89,7 +89,7 @@ namespace DS_RE
         }
 
         bool rollingStart = false;
-        protected bool CheckRolling()
+        public bool CheckRolling()
         {
             if (input.roll && input.Dmag > 0.1f)
             {
@@ -160,6 +160,11 @@ namespace DS_RE
                 OnAction.Invoke();
             }
 
+            if (input.lockUnlock)
+            {
+                lockController.LockUnLock();
+            }
+
             animator.SetBool("camera lock", lockController.lockState);
             float targetRunMulti = (input.run ? 2.0f : 1.0f);
             if (lockController.lockState == false)
@@ -173,8 +178,7 @@ namespace DS_RE
                 animator.SetFloat("right", Mathf.Lerp(animator.GetFloat("right"), input.Dright * targetRunMulti, 0.2f));
             }
 
-
-            //Debug.Log(CheckRolling());
+            var targetDir = lockController.lockTarget != null ? (lockController.lockTarget.obj.transform.position - this.transform.position).normalized : Vector3.zero;
             if (lockController.lockState == false)
             {
                 if (input.inputEnable)
@@ -196,12 +200,20 @@ namespace DS_RE
             }
             else if (lockController.lockState == true && CheckRolling())
             {
+
+                //if (Vector3.Angle(this.transform.forward, targetDir) > 90)
+                //{
+                //}
+
+                //this.transform.forward = Vector3.Slerp(this.transform.forward, targetDir, 1f);
+                //this.transform.LookAt(lockController.lockTarget.obj.transform);
+
                 if (input.inputEnable)
                 {
                     if (input.Dmag > 0.1f)
                     {
-                        // model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.03f);
                         model.transform.forward = input.Dforward;
+                        // model.transform.forward = Vector3.Slerp(model.transform.forward, input.Dforward, 0.03f);
                     }
                 }
                 if (!lockPlaner)
@@ -211,9 +223,10 @@ namespace DS_RE
             }
             else
             {
-                this.transform.LookAt(lockController.lockTarget.obj.transform);
+                this.transform.forward = Vector3.Slerp(this.transform.forward, targetDir, .4f);
+                //this.transform.LookAt(lockController.lockTarget.obj.transform);
                 model.transform.forward = Vector3.Slerp(model.transform.forward, transform.forward, 0.2f);
-                
+
                 //model.transform.forward = transform.forward;
                 if (!lockPlaner)
                 {

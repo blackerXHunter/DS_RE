@@ -79,6 +79,7 @@ namespace DS_RE
                 {
                     originLocalEulerAngles = cameraHandle.transform.localEulerAngles;
                 }
+
                 // 根据人物和敌人的距离来调整摄像头角度
                 float distance = Vector3.Distance(model.transform.position, ac.lockController.lockTarget.obj.transform.position);
                 if (distance < lockCamAdjustDistance)
@@ -114,17 +115,12 @@ namespace DS_RE
 
         private void LateUpdate()
         {
-            if (playerInput.lockUnlock)
-            {
-                ac.lockController.LockUnLock();
-            }
+            // Lock Dot
             if (ac.lockController.lockTarget != null)
             {
                 lockDot.enabled = true;
                 lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(ac.lockController.lockTarget.obj.transform.position + new Vector3(0, ac.lockController.lockTarget.halfHeight * 1.6f, 0));
-
-                playerHandle.transform.LookAt(ac.lockController.lockTarget.obj.transform);
-
+                //playerHandle.transform.LookAt(ac.lockController.lockTarget.obj.transform);
             }
             else
             {
