@@ -52,7 +52,7 @@ namespace DS_RE
         public LockController lockController;
         [Header("===== Manager =====")]
         public DirectorManager dm;
-        public EventCasterManager frontStabEcManager;
+        public EventCasterController frontStabEcController;
         #endregion
 
         #region Mono
@@ -382,9 +382,6 @@ namespace DS_RE
             if (stateController.HPisZero)
             {
 
-                dm.pd.time = dm.pd.playableAsset.duration;
-                //dm.pd.Evaluate ();
-                dm.pd.Stop();
             }
         }
         protected override void DoAction()
@@ -406,7 +403,7 @@ namespace DS_RE
                 else if (ecastController.eventName == "treasureBox")
                 {
 
-                    bool canOpenBox = BattleManager.CheckAnglePlayer(this.model, ecastController.gameObject, 45);
+                    bool canOpenBox = BattleController.CheckAnglePlayer(this.model, ecastController.gameObject, 45);
                     if (canOpenBox)
                     {
                         //this.transform.LookAt(ecastController.transform, Vector3.up);
@@ -574,12 +571,12 @@ namespace DS_RE
         {
             input.inputEnable = false;
             planerVec = Vector3.zero;
-            frontStabEcManager.active = true;
+            frontStabEcController.active = true;
         }
 
         private void OnStunnedExit()
         {
-            frontStabEcManager.active = false;
+            frontStabEcController.active = false;
         }
 
         private void OnDieStateEnter()

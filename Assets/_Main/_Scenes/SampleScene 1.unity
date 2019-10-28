@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -692,10 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d914341c552b4439c37a025cbaf616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pd: {fileID: 822298594}
-  frontStab: {fileID: 11400000, guid: 4c9c0c433040c2b4eabccce7308d3d73, type: 2}
-  openBox: {fileID: 11400000, guid: 0577fcc377f48064aaddbf23231d82ed, type: 2}
-  leverUp: {fileID: 11400000, guid: 2253e3faa73062e45905de58ffc74e49, type: 2}
 --- !u!1 &824864568
 GameObject:
   m_ObjectHideFlags: 1
@@ -984,11 +980,11 @@ PrefabInstance:
     - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
-      objectReference: {fileID: 1905514705}
+      objectReference: {fileID: 1905514704}
     - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
       propertyPath: patrolPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 578315196}
+      objectReference: {fileID: 578315195}
     - target: {fileID: 1858101288515431653, guid: 2d4e271911b181544b7f5241c8e69045,
         type: 3}
       propertyPath: eventCaster

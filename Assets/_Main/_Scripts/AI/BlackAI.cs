@@ -35,7 +35,7 @@ namespace DS_RE
             }
             Configure();
 
-            patrolPoints = FindObjectsOfType<PatrolPoint>().ToList();
+            //patrolPoints = FindObjectsOfType<Transform>().ToList();
             //var scene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(GameSceneManager.currentLevelSceneName);
             //var objs = scene.GetRootGameObjects();
             //foreach (var obj in objs)
@@ -195,7 +195,7 @@ namespace DS_RE
         #endregion
 
         #region Patrol
-        public List<PatrolPoint> patrolPoints;
+        public List<Transform> patrolPoints;
 
         public float waitTime;
         [ContextMenu("Start Patrol Task")]

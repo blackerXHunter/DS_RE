@@ -4,134 +4,138 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FLAG = System.Boolean;
-public class GameManager : MonoBehaviour
+namespace DS_RE
 {
-    public enum GameState
+
+    public class GameManager : MonoBehaviour
     {
-        ui,
-        playing,
-        die
-    }
-    public GameState gameState = GameState.ui;
-
-    public UIManager um;
-    public GameSceneManager gsm;
-    public GameObjectManager cm;
-    public HUDManager hudm;
-    public FLAG LoadingScene = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        InitStartUI();
-    }
-
-    private void InitStartUI()
-    {
-        um.OpenStartUI();
-    }
-    public void StartGame()
-    {
-        StartCoroutine(StartGame_Coro());
-    }
-
-    private IEnumerator StartGame_Coro()
-    {
-        um.CloseStartUI();
-        um.OpenLoadingUI();
-        yield return gsm.LoadScene();
-
-        var sceneConfig = gsm.currentConfig;
-
-        var scene = SceneManager.GetSceneByName(gsm.sceneNames[gsm.loadSceneIndex]);
-
-        var player = cm.LoadPlayer(sceneConfig.playerPos, scene);
-        var enemy = cm.LoadEnemy(sceneConfig.enemyPos, scene);
-        enemy.GetComponent<BlackKnightAI>().Init();
-        var playerAm = player.GetComponent<ActorManager>();
-        hudm.playerAm = playerAm;
-
-        var box = cm.LoadBox(Vector3.zero, scene);
-        //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        box.transform.position = sceneConfig.boxPos;
-
-        var lever = cm.LoadLever(Vector3.zero, scene);
-        //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
-        lever.transform.position = sceneConfig.leverPos;
-
-        hudm.gameObject.SetActive(true);
-        yield return new WaitUntil(() => playerAm.im != null);
-        playerAm.im.OnECMEnter += () =>
+        public enum GameState
         {
-            foreach (var ecm in playerAm.im.ecastmanaList)
-            {
-                if (ecm.active)
-                {
-                    switch (ecm.ect)
-                    {
-                        case EventCasterManager.EventCasterType.attack:
-                            hudm.tp.tipText.text = "处决！";
-                            break;
-                        case EventCasterManager.EventCasterType.item:
-                            hudm.tp.tipText.text = "按 E 键拾取";
-                            break;
-                        case EventCasterManager.EventCasterType.lever:
-                            hudm.tp.tipText.text = "按 E 键互动";
-                            break;
-                        case EventCasterManager.EventCasterType.box:
-                            hudm.tp.tipText.text = "按 E 键开启";
-                            break;
-                    }
-                    hudm.tp.gameObject.SetActive(true);
-                }
-            }
-        };
-        playerAm.im.OnECMStay += () =>
+            ui,
+            playing,
+            die
+        }
+        public GameState gameState = GameState.ui;
+
+        public UIManager um;
+        public GameSceneManager gsm;
+        public GameObjectManager cm;
+        public HUDManager hudm;
+        public FLAG LoadingScene = false;
+        // Start is called before the first frame update
+        void Start()
         {
-            EventCasterManager soto_ecm = null;
-            foreach (var ecm in playerAm.im.ecastmanaList)
+            InitStartUI();
+        }
+
+        private void InitStartUI()
+        {
+            um.OpenStartUI();
+        }
+        public void StartGame()
+        {
+            StartCoroutine(StartGame_Coro());
+        }
+
+        private IEnumerator StartGame_Coro()
+        {
+            um.CloseStartUI();
+            um.OpenLoadingUI();
+            yield return gsm.LoadScene();
+
+            var sceneConfig = gsm.currentConfig;
+
+            var scene = SceneManager.GetSceneByName(gsm.sceneNames[gsm.loadSceneIndex]);
+
+            var player = cm.LoadPlayer(sceneConfig.playerPos, scene);
+            var enemy = cm.LoadEnemy(sceneConfig.enemyPos, scene);
+            enemy.GetComponent<DS_RE.BlackAI>().Init();
+            var playerController = player.GetComponent<DS_RE.PlayerController>();
+            hudm.playerController = playerController;
+
+            var box = cm.LoadBox(Vector3.zero, scene);
+            //box.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
+            box.transform.position = sceneConfig.boxPos;
+
+            var lever = cm.LoadLever(Vector3.zero, scene);
+            //lever.GetComponent<ActorManager>().ac.camCtrl = playerAm.ac.camCtrl;
+            lever.transform.position = sceneConfig.leverPos;
+
+            hudm.gameObject.SetActive(true);
+            yield return new WaitUntil(() => playerController.interactionController != null);
+            playerController.interactionController.OnECMEnter += () =>
             {
-                if (ecm.active)
+                foreach (var ecm in playerController.interactionController.ecastControllerList)
                 {
-                    soto_ecm = ecm;
-                    switch (ecm.ect)
+                    if (ecm.active)
                     {
-                        case EventCasterManager.EventCasterType.attack:
-                            hudm.tp.tipText.text = "处决！";
-                            break;
-                        case EventCasterManager.EventCasterType.item:
-                            hudm.tp.tipText.text = "按 E 键拾取";
-                            break;
-                        case EventCasterManager.EventCasterType.lever:
-                            hudm.tp.tipText.text = "按 E 键互动";
-                            break;
-                        case EventCasterManager.EventCasterType.box:
-                            hudm.tp.tipText.text = "按 E 键开启";
-                            break;
+                        switch (ecm.ect)
+                        {
+                            case DS_RE.EventCasterController.EventCasterType.attack:
+                                hudm.tp.tipText.text = "处决！";
+                                break;
+                            case DS_RE.EventCasterController.EventCasterType.item:
+                                hudm.tp.tipText.text = "按 E 键拾取";
+                                break;
+                            case DS_RE.EventCasterController.EventCasterType.lever:
+                                hudm.tp.tipText.text = "按 E 键互动";
+                                break;
+                            case DS_RE.EventCasterController.EventCasterType.box:
+                                hudm.tp.tipText.text = "按 E 键开启";
+                                break;
+                        }
+                        hudm.tp.gameObject.SetActive(true);
                     }
-                    hudm.tp.gameObject.SetActive(true);
                 }
-            }
-            if (soto_ecm == null)
+            };
+            playerController.interactionController.OnECMStay += () =>
             {
-                hudm.tp.gameObject.SetActive(false);
-            }
+                EventCasterController soto_ecm = null;
+                foreach (var ecm in playerController.interactionController.ecastControllerList)
+                {
+                    if (ecm.active)
+                    {
+                        soto_ecm = ecm;
+                        switch (ecm.ect)
+                        {
+                            case EventCasterController.EventCasterType.attack:
+                                hudm.tp.tipText.text = "处决！";
+                                break;
+                            case EventCasterController.EventCasterType.item:
+                                hudm.tp.tipText.text = "按 E 键拾取";
+                                break;
+                            case EventCasterController.EventCasterType.lever:
+                                hudm.tp.tipText.text = "按 E 键互动";
+                                break;
+                            case EventCasterController.EventCasterType.box:
+                                hudm.tp.tipText.text = "按 E 键开启";
+                                break;
+                        }
+                        hudm.tp.gameObject.SetActive(true);
+                    }
+                }
+                if (soto_ecm == null)
+                {
+                    hudm.tp.gameObject.SetActive(false);
+                }
             // else
             // {
             //     hudm.tp.gameObject.SetActive(true);
             // }
         };
-        playerAm.im.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
+            playerController.interactionController.OnECMExit += () => hudm.tp.gameObject.SetActive(false);
 
-        gameState = GameState.playing;
-        um.CloseLoadingUI();
-    }
+            gameState = GameState.playing;
+            um.CloseLoadingUI();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (LoadingScene)
+        // Update is called once per frame
+        void Update()
         {
-            um.SetLoadingValue(gsm.loadingValue);
+            if (LoadingScene)
+            {
+                um.SetLoadingValue(gsm.loadingValue);
+            }
         }
     }
 }

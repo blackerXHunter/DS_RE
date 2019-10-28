@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HUDManager : MonoBehaviour
 {
-    public ActorManager playerAm;
+    public DS_RE.PlayerController playerController;
     public PlayerPanel pp;
     public EnemyPanel ep;
     public TipPanel tp;
@@ -12,17 +12,17 @@ public class HUDManager : MonoBehaviour
 
     private void Update()
     {
-        if (pp.isActiveAndEnabled && playerAm != null)
+        if (pp.isActiveAndEnabled && playerController != null)
         {
-            pp.personHealth.fillAmount = playerAm.sm.HP / playerAm.sm.HPMAX;
+            pp.personHealth.fillAmount = playerController.stateController.HP / playerController.stateController.HPMAX;
         }
 
-        if (playerAm != null)
+        if (playerController != null)
         {
-            var ac = playerAm.ac as PlayerAC;
-            if (ac.camCtrl.lockState == true)
+            var ac = playerController;
+            if (ac.lockController.lockState == true)
             {
-                var esm = ac.camCtrl.lockTarget.am.sm;
+                var esm = ac.lockController.lockTarget.ac.stateController;
                 ep.gameObject.SetActive(true);
                 ep.personHealth.fillAmount = esm.HP / esm.HPMAX;
             }
