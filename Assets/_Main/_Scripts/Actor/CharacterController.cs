@@ -409,7 +409,7 @@ namespace DS_RE
                     bool canOpenBox = BattleManager.CheckAnglePlayer(this.model, ecastController.gameObject, 45);
                     if (canOpenBox)
                     {
-
+                        //this.transform.LookAt(ecastController.transform, Vector3.up);
                         transform.position = ecastController.transform.position + ecastController.transform.forward * ecastController.offset.z;
                         model.transform.LookAt(ecastController.transform, Vector3.up);
                         dm.Play("treasureBox", this, ecastController.ac as AnimatedObjectController);
@@ -421,7 +421,9 @@ namespace DS_RE
                     bool canLeverUp = BattleController.CheckAnglePlayer(model, ecastController.gameObject, 45);
                     if (canLeverUp)
                     {
+                        //this.transform.LookAt(ecastController.transform, Vector3.up);
                         transform.position = ecastController.transform.position + ecastController.transform.forward * ecastController.offset.z;
+                        
                         model.transform.LookAt(ecastController.transform, Vector3.up);
                         dm.Play("leverUp", this, ecastController.ac as AnimatedObjectController);
                         ecastController.active = false;

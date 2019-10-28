@@ -7,7 +7,6 @@ using UnityEngine.Timeline;
 public class MySuperPlayableBehaviour : PlayableBehaviour {
     public float myFloat = 5;
     public DS_RE.AnimatedObjectController ac;
-    public String command;
     public override void OnPlayableCreate (Playable playable) {
 
     }
@@ -17,15 +16,19 @@ public class MySuperPlayableBehaviour : PlayableBehaviour {
     }
 
     public override void OnGraphStop (Playable playable) {
+        base.OnGraphStop(playable);
         ac.animator.SetBool("Lock", false);
-        //ac.SendCommand ("Lock", false);
+        Debug.Log("Lock!!!");
     }
+
+    public override void OnPlayableDestroy(Playable playable)
+    {
+        base.OnPlayableDestroy(playable);
+        Debug.Log("Destroy!!!");
+        ac.animator.SetBool("Lock", false);
+    }
+
     public override void OnBehaviourPlay (Playable playable, FrameData info) {
-        if (!String.IsNullOrEmpty (command)) {
-            Debug.Log("Send Command "+command);
-            ac.SendCommand (command);
-            return;
-        }
         base.OnBehaviourPlay (playable, info);
     }
 

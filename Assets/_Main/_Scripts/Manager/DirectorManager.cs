@@ -131,6 +131,7 @@ namespace DS_RE
                 {
                     if (track.name == "Player Script")
                     {
+
                         pd.SetGenericBinding(track, attacker);
                         foreach (var clip in track.GetClips())
                         {
@@ -142,8 +143,9 @@ namespace DS_RE
                     }
                     else if (track.name == "Box Script")
                     {
+                        Debug.Log(victim);
                         pd.SetGenericBinding(track, victim);
-                        pd.SetGenericBinding(track, attacker);
+                        //pd.SetGenericBinding(track, attacker);
                         foreach (var clip in track.GetClips())
                         {
                             MySuperPlayableClip mySuperPlayableClip = (MySuperPlayableClip)clip.asset;
