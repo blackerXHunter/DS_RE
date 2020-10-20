@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 10
+    serializedVersion: 12
     m_Resolution: 2
     m_BakeResolution: 10
     m_AtlasSize: 1024
@@ -62,6 +62,7 @@ LightmapSettings:
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
     m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
@@ -76,10 +77,16 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 256
     m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 2
+    m_PVRDenoiserTypeDirect: 0
+    m_PVRDenoiserTypeIndirect: 0
+    m_PVRDenoiserTypeAO: 0
     m_PVRFilterTypeDirect: 0
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
-    m_PVRFilteringMode: 1
+    m_PVREnvironmentMIS: 0
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
@@ -87,7 +94,9 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -215,12 +224,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
   m_Enabled: 1
-  serializedVersion: 8
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 0.68675965, g: 0.6886792, b: 0.6464489, a: 0.8862745}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -230,6 +241,24 @@ Light:
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -237,12 +266,15 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &170076735
@@ -332,7 +364,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 269988768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -351,7 +383,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 269988768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -423,9 +455,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -516,8 +549,6 @@ MonoBehaviour:
   OnUnActive:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!1001 &460475622
 PrefabInstance:
@@ -526,6 +557,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 683347225, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
+      propertyPath: rollVelocity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 683347225, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
+      propertyPath: interactionController
+      value: 
+      objectReference: {fileID: 126254524}
     - target: {fileID: 1660273589279338, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
       propertyPath: m_Name
       value: PlayerHandle
@@ -574,14 +613,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 683347225, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
-      propertyPath: rollVelocity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 683347225, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
-      propertyPath: interactionController
-      value: 
-      objectReference: {fileID: 126254524}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546a24c593c1f6144abc26acc605f3e1, type: 3}
 --- !u!1 &547470113 stripped
@@ -945,7 +976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &999818235
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -960,6 +991,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -971,6 +1003,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1030,8 +1063,6 @@ MonoBehaviour:
   OnUnActive:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!1 &1327499218 stripped
 GameObject:
@@ -1060,6 +1091,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
+      propertyPath: patrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1905514704}
+    - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
+      propertyPath: patrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 578315195}
     - target: {fileID: 1628087724085866, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
       propertyPath: m_Name
       value: AIHandle
@@ -1113,14 +1152,6 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.06
       objectReference: {fileID: 0}
-    - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
-      propertyPath: patrolPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1905514704}
-    - target: {fileID: 997020757, guid: 2d4e271911b181544b7f5241c8e69045, type: 3}
-      propertyPath: patrolPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 578315195}
     - target: {fileID: 1858101288515431653, guid: 2d4e271911b181544b7f5241c8e69045,
         type: 3}
       propertyPath: eventCaster
@@ -1151,7 +1182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1505351433
 Transform:
   m_ObjectHideFlags: 0
@@ -1180,6 +1211,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -1191,6 +1223,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1253,7 +1286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1848446568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1281,6 +1314,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -1292,6 +1326,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1355,9 +1390,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1863260228
 MeshRenderer:
@@ -1373,6 +1408,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -1384,6 +1420,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1554,8 +1591,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   offset: {x: 0, y: 0, z: 1}
 --- !u!1001 &235521619425860561
 PrefabInstance:
@@ -1564,10 +1599,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 235521619657468719, guid: f84a095e0fb0d774d891acd201dbc1c2,
+    - target: {fileID: 235521618612249363, guid: f84a095e0fb0d774d891acd201dbc1c2,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: LockDot
+      objectReference: {fileID: 0}
+    - target: {fileID: 235521618612249365, guid: f84a095e0fb0d774d891acd201dbc1c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 235521619657468627, guid: f84a095e0fb0d774d891acd201dbc1c2,
         type: 3}
@@ -1674,15 +1714,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 235521618612249363, guid: f84a095e0fb0d774d891acd201dbc1c2,
+    - target: {fileID: 235521619657468719, guid: f84a095e0fb0d774d891acd201dbc1c2,
         type: 3}
       propertyPath: m_Name
-      value: LockDot
-      objectReference: {fileID: 0}
-    - target: {fileID: 235521618612249365, guid: f84a095e0fb0d774d891acd201dbc1c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      value: Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84a095e0fb0d774d891acd201dbc1c2, type: 3}
@@ -1693,11 +1728,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4695349158633163647, guid: a23839ac26a934a4cb16020a90eaf781,
-        type: 3}
-      propertyPath: m_Name
-      value: LeverHandle
-      objectReference: {fileID: 0}
     - target: {fileID: 4695349158633163621, guid: a23839ac26a934a4cb16020a90eaf781,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1758,6 +1788,11 @@ PrefabInstance:
       propertyPath: camCtrl
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4695349158633163647, guid: a23839ac26a934a4cb16020a90eaf781,
+        type: 3}
+      propertyPath: m_Name
+      value: LeverHandle
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4695349158633163620, guid: a23839ac26a934a4cb16020a90eaf781, type: 3}
     - {fileID: 2181842955951752514, guid: a23839ac26a934a4cb16020a90eaf781, type: 3}
@@ -1775,6 +1810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreasureBoxHandle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500235767030437525, guid: 2257245e5e377484ab5ccfb288c52ac3,
+        type: 3}
+      propertyPath: camCtrl
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7500235767030437527, guid: 2257245e5e377484ab5ccfb288c52ac3,
         type: 3}
@@ -1830,11 +1870,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7500235767030437525, guid: 2257245e5e377484ab5ccfb288c52ac3,
-        type: 3}
-      propertyPath: camCtrl
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7500235767030437524, guid: 2257245e5e377484ab5ccfb288c52ac3, type: 3}
