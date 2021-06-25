@@ -27,7 +27,8 @@ public class CameraController : MonoBehaviour
 
     public float horizontal = 100f;
     public float vertical = 50f;
-
+    [Header("相机角度比例系数调整"), Range(0, 100)]
+    private float camera_ratio = 20f;
     [SerializeField]
     private GameObject playerHandle;
     [SerializeField]
@@ -112,7 +113,7 @@ public class CameraController : MonoBehaviour
             if (distance < lockCamAdjustDistance)
             {
                 float radio = (lockCamAdjustDistance - distance) / lockCamAdjustDistance;
-                float deltaEulerAngles = 40 * radio;
+                float deltaEulerAngles = camera_ratio * radio;
                 var localEulerAngles = new Vector3(originLocalEulerAngles.x + deltaEulerAngles, 0, 0);
                 cameraHandle.transform.localEulerAngles = localEulerAngles;
             }
